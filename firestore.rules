@@ -1,0 +1,153 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Reusable Security Helpers
+    function isSignedIn() { 
+      return request.auth != null; 
+    }
+
+    function isAdmin() { 
+      return isSignedIn() && (
+        (request.auth.token.email == 'dilseinvite@gmail.com') ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'super_admin'])
+      ); 
+    }
+
+    function isValidId(id) { 
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); 
+    }
+
+    function incoming() { 
+      return request.resource.data; 
+    }
+
+    function existing() { 
+      return resource.data; 
+    }
+
+    // 1. Users Collection (Profiles & Roles)
+    match /users/{userId} {
+      function isValidUser(data) {
+        return data.keys().hasAll(['email', 'role', 'createdAt', 'updatedAt'])
+          && data.email is string && data.email.size() <= 100
+          && data.role is string && data.role in ['super_admin', 'admin', 'professional', 'patient']
+          && data.createdAt is number
+          && data.updatedAt is number
+          && (('name' in data) == false || (data.name is string && data.name.size() <= 100));
+      }
+      
+      allow get: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isSignedIn() && (
+        isAdmin() || 
+        (request.auth.uid == userId && incoming().role in ['patient', 'professional', 'admin'])
+      );
+      allow update: if isSignedIn() && (
+        isAdmin() || 
+        (request.auth.uid == userId && (
+          // Standard user cannot escalate role
+          incoming().role == existing().role || isAdmin()
+        ))
+      );
+      allow delete: if isAdmin() && request.auth.uid != userId;
+    }
+
+    // 2. Services Collection
+    match /services/{serviceId} {
+      function isValidService(data) {
+        return data.keys().hasAll(['title', 'slug', 'isActive'])
+          && data.title is string && data.title.size() <= 100
+          && data.slug is string && data.slug.size() <= 100
+          && data.isActive is bool
+          && (('shortDescription' in data) == false || (data.shortDescription is string && data.shortDescription.size() <= 500))
+          && (('description' in data) == false || (data.description is string && data.description.size() <= 5000))
+          && (('category' in data) == false || (data.category is string && data.category.size() <= 100))
+          && (('icon' in data) == false || (data.icon is string && data.icon.size() <= 50))
+          && (('imageUrl' in data) == false || (data.imageUrl is string && data.imageUrl.size() <= 1000));
+      }
+      
+      allow get: if true;
+      allow list: if true;
+      allow create: if isAdmin() && isValidService(incoming());
+      allow update: if isAdmin() && isValidService(incoming());
+      allow delete: if isAdmin();
+    }
+
+    // 3. Professionals Collection
+    match /professionals/{professionalId} {
+      function isValidProfessional(data) {
+        return data.keys().hasAll(['name', 'designation', 'isActive'])
+          && data.name is string && data.name.size() <= 100
+          && data.designation is string && data.designation.size() <= 100
+          && data.isActive is bool
+          && (('qualification' in data) == false || (data.qualification is string && data.qualification.size() <= 100))
+          && (('experience' in data) == false || (data.experience is string && data.experience.size() <= 50))
+          && (('imageUrl' in data) == false || (data.imageUrl is string && data.imageUrl.size() <= 1000));
+      }
+      
+      allow get: if true;
+      allow list: if true;
+      allow create: if isAdmin() && isValidProfessional(incoming());
+      allow update: if isAdmin() && isValidProfessional(incoming());
+      allow delete: if isAdmin();
+    }
+
+    // 4. Site Settings / Dynamic CMS Content
+    match /siteSettings/{settingId} {
+      allow get: if true;
+      allow list: if true;
+      allow create, update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // 5. Service Requests Collection (Bookings)
+    match /serviceRequests/{requestId} {
+      function isValidRequest(data) {
+        return data.keys().hasAll(['patientName', 'phone', 'serviceName', 'status', 'createdAt'])
+          && data.patientName is string && data.patientName.size() <= 100
+          && data.phone is string && data.phone.size() <= 25
+          && data.serviceName is string && data.serviceName.size() <= 100
+          && data.status is string && data.status in ["New", "Contacted", "Confirmed", "Assigned", "In Progress", "Completed", "Cancelled"]
+          && (('email' in data) == false || (data.email is string && data.email.size() <= 100))
+          && (('serviceId' in data) == false || (data.serviceId is string && data.serviceId.size() <= 100))
+          && (('preferredDate' in data) == false || (data.preferredDate is string && data.preferredDate.size() <= 50))
+          && (('preferredTime' in data) == false || (data.preferredTime is string && data.preferredTime.size() <= 50))
+          && (('location' in data) == false || (data.location is string && data.location.size() <= 300))
+          && (('requirements' in data) == false || (data.requirements is string && data.requirements.size() <= 1000))
+          && (('userId' in data) == false || (data.userId is string && data.userId.size() <= 100))
+          && (('assignedProfessionalId' in data) == false || (data.assignedProfessionalId is string && data.assignedProfessionalId.size() <= 100));
+      }
+      
+      allow get: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow list: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow create: if isValidRequest(incoming()) 
+        && incoming().status == 'New'
+        && ((!('userId' in incoming())) || (isSignedIn() && incoming().userId == request.auth.uid));
+      allow update: if isAdmin() || (
+        isSignedIn() && existing().userId == request.auth.uid && incoming().status == 'Cancelled'
+      );
+      allow delete: if isAdmin();
+    }
+
+    // 6. Testimonials Collection
+    match /testimonials/{testimonialId} {
+      allow get: if isAdmin() || resource.data.isApproved == true;
+      allow list: if isAdmin() || resource.data.isApproved == true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // 7. FAQs Collection
+    match /faqs/{faqId} {
+      allow get: if true;
+      allow list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+  }
+}

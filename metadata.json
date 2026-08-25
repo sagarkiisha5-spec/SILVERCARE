@@ -1,0 +1,6 @@
+{
+  "name": "SILVERCARE",
+  "description": "Compassionate Care. Professional Service. At Home.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

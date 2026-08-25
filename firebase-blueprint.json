@@ -1,0 +1,153 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile containing roles and basic info.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 100 },
+        "role": { "type": "string", "enum": ["super_admin", "admin", "professional", "patient"] },
+        "name": { "type": "string", "maxLength": 100 },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["email", "role", "createdAt", "updatedAt"]
+    },
+    "Service": {
+      "title": "Service",
+      "description": "Healthcare service offered by SilverCare.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 100 },
+        "slug": { "type": "string", "maxLength": 100 },
+        "category": { "type": "string", "maxLength": 100 },
+        "shortDescription": { "type": "string", "maxLength": 500 },
+        "description": { "type": "string", "maxLength": 5000 },
+        "icon": { "type": "string", "maxLength": 50 },
+        "imageUrl": { "type": "string", "maxLength": 1000 },
+        "isActive": { "type": "boolean" },
+        "isFeatured": { "type": "boolean" },
+        "aliases": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["title", "slug", "isActive", "createdAt", "updatedAt"]
+    },
+    "SiteSetting": {
+      "title": "Site Setting",
+      "description": "Dynamic website content, hero images, contact info, and branding.",
+      "type": "object",
+      "properties": {
+        "heroTitle": { "type": "string", "maxLength": 200 },
+        "heroSubtitle": { "type": "string", "maxLength": 500 },
+        "heroBadge": { "type": "string", "maxLength": 100 },
+        "heroImageUrl": { "type": "string", "maxLength": 1000 },
+        "doctorName": { "type": "string", "maxLength": 100 },
+        "doctorTitle": { "type": "string", "maxLength": 100 },
+        "doctorImageUrl": { "type": "string", "maxLength": 1000 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "emergencyPhone": { "type": "string", "maxLength": 50 },
+        "email": { "type": "string", "maxLength": 100 },
+        "address": { "type": "string", "maxLength": 300 },
+        "workingHours": { "type": "string", "maxLength": 100 },
+        "updatedAt": { "type": "number" }
+      }
+    },
+    "Professional": {
+      "title": "Professional",
+      "description": "A healthcare professional (doctor, nurse, etc.).",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "designation": { "type": "string", "maxLength": 100 },
+        "qualification": { "type": "string", "maxLength": 100 },
+        "experience": { "type": "string", "maxLength": 50 },
+        "imageUrl": { "type": "string", "maxLength": 500 },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["name", "designation", "isActive", "createdAt", "updatedAt"]
+    },
+    "ServiceRequest": {
+      "title": "Service Request",
+      "description": "A patient requesting a healthcare service.",
+      "type": "object",
+      "properties": {
+        "patientName": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "email": { "type": "string", "maxLength": 100 },
+        "serviceId": { "type": "string", "maxLength": 100 },
+        "serviceName": { "type": "string", "maxLength": 100 },
+        "preferredDate": { "type": "string", "maxLength": 50 },
+        "preferredTime": { "type": "string", "maxLength": 50 },
+        "location": { "type": "string", "maxLength": 200 },
+        "requirements": { "type": "string", "maxLength": 1000 },
+        "status": { "type": "string", "enum": ["New", "Contacted", "Confirmed", "Assigned", "In Progress", "Completed", "Cancelled"] },
+        "userId": { "type": "string", "maxLength": 100 },
+        "assignedProfessionalId": { "type": "string", "maxLength": 100 },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["patientName", "phone", "serviceName", "status", "createdAt", "updatedAt"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "Patient reviews and testimonials.",
+      "type": "object",
+      "properties": {
+        "patientName": { "type": "string", "maxLength": 100 },
+        "content": { "type": "string", "maxLength": 1000 },
+        "rating": { "type": "number" },
+        "isApproved": { "type": "boolean" },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["patientName", "content", "rating", "isApproved", "createdAt", "updatedAt"]
+    },
+    "Faq": {
+      "title": "FAQ",
+      "description": "Frequently Asked Questions",
+      "type": "object",
+      "properties": {
+        "question": { "type": "string", "maxLength": 200 },
+        "answer": { "type": "string", "maxLength": 2000 },
+        "order": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["question", "answer", "order", "isActive", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "System users including admins."
+    },
+    "services/{serviceId}": {
+      "schema": { "$ref": "#/entities/Service" },
+      "description": "List of available services."
+    },
+    "professionals/{professionalId}": {
+      "schema": { "$ref": "#/entities/Professional" },
+      "description": "List of healthcare professionals."
+    },
+    "serviceRequests/{requestId}": {
+      "schema": { "$ref": "#/entities/ServiceRequest" },
+      "description": "Incoming patient requests and bookings."
+    },
+    "testimonials/{testimonialId}": {
+      "schema": { "$ref": "#/entities/Testimonial" },
+      "description": "Patient testimonials."
+    },
+    "faqs/{faqId}": {
+      "schema": { "$ref": "#/entities/Faq" },
+      "description": "Frequently asked questions."
+    },
+    "siteSettings/{settingId}": {
+      "schema": { "$ref": "#/entities/SiteSetting" },
+      "description": "Dynamic website hero, branding, and contact settings."
+    }
+  }
+}

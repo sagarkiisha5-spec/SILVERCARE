@@ -144,8 +144,9 @@ export default function Navbar() {
                         <div className="col-span-4 bg-[linear-gradient(135deg,#880E4F_0%,#AD1457_100%)] text-white rounded-2xl p-5 flex flex-col justify-between shadow-md">
                           <div>
                             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 text-pink-200 text-[10px] font-extrabold uppercase mb-3">
-                              <Sparkles size={12} className="text-[#FF80AB]" /> 24/7 Helpline
+                              <Sparkles size={12} className="text-[#FF80AB]" /> Dedicated Care Support
                             </div>
+
                             <h4 className="font-extrabold text-white text-sm leading-snug mb-2">
                               Need Immediate Eldercare Support?
                             </h4>

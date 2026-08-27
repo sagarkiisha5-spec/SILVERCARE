@@ -477,12 +477,8 @@ export default function Services() {
                   Book a Home Visit Now
                 </Button>
               </Link>
-              <a href="tel:+918001480075" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold h-14 px-8 text-base rounded-xl flex items-center justify-center gap-2">
-                  <PhoneCall size={20} /> Call +91 800-14-800-75
-                </Button>
-              </a>
             </div>
+
           </div>
         </section>
 

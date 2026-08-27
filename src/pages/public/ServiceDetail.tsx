@@ -102,12 +102,8 @@ export default function ServiceDetail() {
                     Book Home Visit Now
                   </Button>
                 </Link>
-                <a href="tel:+918001480075">
-                  <Button size="lg" variant="outline" className="bg-white/10 border-white/30 text-white hover:bg-white/20 font-bold h-14 px-6 text-base rounded-xl backdrop-blur-md flex items-center gap-2">
-                    <PhoneCall size={18} /> Call +91 800-14-800-75
-                  </Button>
-                </a>
               </div>
+
             </div>
           </div>
         </section>
@@ -201,17 +197,11 @@ export default function ServiceDetail() {
                     </div>
                   </div>
 
-                  <Link to={`/book?service=${service.slug}`} className="block mb-3">
+                  <Link to={`/book?service=${service.slug}`} className="block">
                     <Button className="w-full bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] hover:opacity-95 text-white font-extrabold h-14 text-base rounded-xl shadow-lg border-0">
                       Book Appointment Now
                     </Button>
                   </Link>
-
-                  <a href="tel:+918001480075" className="block">
-                    <Button variant="outline" className="w-full border-slate-200 text-slate-800 font-bold h-12 text-sm rounded-xl flex items-center justify-center gap-2 hover:bg-slate-50">
-                      <PhoneCall size={16} className="text-[#FF3E72]" /> Call Helpline: +91 800-14-800-75
-                    </Button>
-                  </a>
                 </div>
               </div>
 

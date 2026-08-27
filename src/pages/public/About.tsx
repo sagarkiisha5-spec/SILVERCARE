@@ -178,12 +178,8 @@ export default function About() {
                   Book a Home Visit
                 </Button>
               </Link>
-              <a href="tel:+918001480075" className="w-full sm:w-auto">
-                <Button size="lg" className="bg-white/10 hover:bg-white/20 text-white border-2 border-white/80 font-extrabold px-8 h-14 w-full sm:w-auto rounded-xl flex items-center justify-center gap-2 backdrop-blur-sm">
-                  <PhoneCall size={18} /> Call +91 800-14-800-75
-                </Button>
-              </a>
             </div>
+
           </div>
         </section>
 

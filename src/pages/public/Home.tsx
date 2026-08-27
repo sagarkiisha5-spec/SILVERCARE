@@ -824,11 +824,11 @@ export default function Home() {
                           </p>
                         </div>
                       </div>
-                      <a href="tel:+918001480075" className="w-full sm:w-auto shrink-0">
+                      <Link to="/book" className="w-full sm:w-auto shrink-0">
                         <Button size="sm" className="w-full sm:w-auto bg-amber-700 hover:bg-amber-800 text-white font-extrabold text-xs h-10 px-5 rounded-xl border-0 shadow-xs">
-                          Call 800-14-800-75
+                          Book Visit Now →
                         </Button>
-                      </a>
+                      </Link>
                     </div>
                   )}
                 </motion.div>
@@ -868,11 +868,9 @@ export default function Home() {
                 </Button>
               </Link>
             </div>
-            <p className="mt-8 text-white/80 font-medium">
-              Or call us directly at <a href="tel:+918001480075" className="text-white font-extrabold hover:text-[#FF9E4A] transition-colors">+91 800-14-800-75</a>
-            </p>
           </motion.div>
         </section>
+
 
       </div>
     </>

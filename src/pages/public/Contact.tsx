@@ -66,7 +66,8 @@ export default function Contact() {
                 <div className="h-12 w-12 rounded-2xl bg-purple-100 flex items-center justify-center text-[#7B2CBF] mb-4">
                   <Phone size={24} />
                 </div>
-                <h3 className="font-extrabold text-slate-900 text-lg mb-1">Phone & Helpline</h3>
+                <h3 className="font-extrabold text-slate-900 text-lg mb-1">Direct Phone Contact</h3>
+
                 <a href={`tel:${rawPhone}`} className="text-[#7B2CBF] font-extrabold text-lg hover:underline block mb-1">{phone}</a>
                 <span className="text-xs text-slate-500 font-medium block">Available 24 Hours / 7 Days a week</span>
               </div>

@@ -190,8 +190,8 @@ export default function Home() {
                     Dedicated Support For
                   </div>
                   
-                  {/* Reserved Fixed-Height Container to PREVENT ANY LAYOUT SHIFT */}
-                  <div className="h-10 sm:h-12 md:h-14 lg:h-16 relative overflow-hidden flex items-center">
+                  {/* Reserved Fixed-Height Container with ample padding to PREVENT ANY LAYOUT SHIFT OR LETTER CLIPPING */}
+                  <div className="h-14 sm:h-16 md:h-20 lg:h-22 relative overflow-hidden flex items-center py-2">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={HERO_ROTATING_SERVICES[rotatingIndex]}
@@ -199,12 +199,13 @@ export default function Home() {
                         animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
                         exit={{ y: -22, opacity: 0, filter: "blur(4px)" }}
                         transition={{ duration: 0.48, ease: premiumEase }}
-                        className="absolute left-0 text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] xl:text-[3rem] font-black bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF3E72,#FF7A45,#7B2CBF)] tracking-tight whitespace-nowrap leading-none drop-shadow-xs"
+                        className="absolute left-0 text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] xl:text-[3rem] font-black bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF3E72,#FF7A45,#7B2CBF)] tracking-tight whitespace-nowrap leading-snug py-2 drop-shadow-xs"
                       >
                         {HERO_ROTATING_SERVICES[rotatingIndex]}
                       </motion.div>
                     </AnimatePresence>
                   </div>
+
                 </motion.div>
                 
                 {/* 4. Subtitle Paragraph */}

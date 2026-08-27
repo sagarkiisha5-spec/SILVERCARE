@@ -4,6 +4,7 @@ import { PhoneCall, CalendarDays, MessageCircle } from "lucide-react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { useAppContent } from "@/src/hooks/useAppContent";
+import AutoBookingModal from "@/src/components/shared/AutoBookingModal";
 
 export default function PublicLayout() {
   const location = useLocation();
@@ -31,8 +32,11 @@ export default function PublicLayout() {
         </AnimatePresence>
       </main>
       <Footer />
+
+      {/* Auto Popup Booking Modal after 2 seconds */}
+      <AutoBookingModal />
       
-      {/* Floating WhatsApp Button - Hidden on very small mobile where sticky bar takes over */}
+      {/* Floating WhatsApp Button */}
       <a 
         href={waLink}
         target="_blank"
@@ -61,3 +65,4 @@ export default function PublicLayout() {
     </div>
   );
 }
+

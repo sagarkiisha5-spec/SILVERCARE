@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, ShieldCheck, UserCheck, Stethoscope, Activity, CheckCircle2, ChevronDown, MapPin, Heart, Clock, Search, Check, Users, FileText, Sparkles, PhoneCall, BookOpen, Calendar } from "lucide-react";
+import { ArrowRight, ShieldCheck, UserCheck, Stethoscope, Activity, CheckCircle2, ChevronDown, ChevronRight, MapPin, Heart, Clock, Search, Check, Users, FileText, Sparkles, PhoneCall, BookOpen, Calendar } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
 import { Card, CardContent } from "@/src/components/ui/card";
 import SEO from "@/src/components/seo/SEO";
@@ -143,7 +143,7 @@ export default function Home() {
       <div className="flex flex-col font-sans text-slate-800 bg-white">
         
         {/* 1. HERO SECTION WITH PROMINENT DEDICATED ROTATING SERVICE FEATURE */}
-        <section className="relative pt-10 md:pt-14 lg:pt-20 pb-16 lg:pb-28 bg-white overflow-hidden border-b border-slate-100">
+        <section className="relative pt-6 sm:pt-8 lg:pt-10 pb-12 lg:pb-16 bg-white overflow-hidden border-b border-slate-100">
           
           {/* Ambient Motion Decorative Grid Background */}
           <motion.div 
@@ -153,7 +153,7 @@ export default function Home() {
             style={{ backgroundImage: 'radial-gradient(#7B2CBF 1.5px, transparent 1.5px)', backgroundSize: '28px 28px' }}
           ></motion.div>
           
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1480px] relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               
               {/* Left Content Column */}
@@ -171,18 +171,18 @@ export default function Home() {
                   <Sparkles size={16} className="text-[#FF3E72] animate-pulse" /> Trusted Eldercare & Healthcare Services
                 </motion.div>
                 
-                {/* 2. Main Fixed Headline (Preserved) */}
+                {/* 2. Main Fixed Headline (Synchronized 2-Line Desktop Layout) */}
                 <motion.h1 
                   variants={fadeInUp} 
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-black tracking-tight text-[#17345E] leading-[1.08] mb-3"
+                  className="text-3xl sm:text-4xl md:text-[3.2rem] lg:text-[3.8rem] xl:text-[4.2rem] font-black tracking-tight text-[#17345E] leading-[1.08] mb-4"
                 >
-                  Professional care, <br />
-                  <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#17345E,#7B2CBF,#9D4EDD)]">
-                    with compassion.
+                  <span className="block whitespace-nowrap">Professional care,</span>
+                  <span className="block whitespace-nowrap">
+                    with <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#17345E,#7B2CBF,#9D4EDD)]">compassion.</span>
                   </span>
                 </motion.h1>
 
-                {/* 3. DEDICATED PROMINENT ROTATING SERVICE LINE (MAJOR HERO FEATURE) */}
+                {/* 3. DEDICATED PROMINENT ROTATING SERVICE LINE */}
                 <motion.div variants={fadeInUp} className="mt-4 mb-6">
                   <div className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#FF4F81] mb-1 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#FF4F81] animate-ping"></span>
@@ -190,7 +190,7 @@ export default function Home() {
                   </div>
                   
                   {/* Reserved Fixed-Height Container to PREVENT ANY LAYOUT SHIFT */}
-                  <div className="h-12 sm:h-14 md:h-16 lg:h-20 relative overflow-hidden flex items-center">
+                  <div className="h-10 sm:h-12 md:h-14 lg:h-16 relative overflow-hidden flex items-center">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={HERO_ROTATING_SERVICES[rotatingIndex]}
@@ -198,7 +198,7 @@ export default function Home() {
                         animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
                         exit={{ y: -22, opacity: 0, filter: "blur(4px)" }}
                         transition={{ duration: 0.48, ease: premiumEase }}
-                        className="absolute left-0 text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-black bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF3E72,#FF7A45,#7B2CBF)] tracking-tight whitespace-nowrap leading-none drop-shadow-xs"
+                        className="absolute left-0 text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] xl:text-[3rem] font-black bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF3E72,#FF7A45,#7B2CBF)] tracking-tight whitespace-nowrap leading-none drop-shadow-xs"
                       >
                         {HERO_ROTATING_SERVICES[rotatingIndex]}
                       </motion.div>
@@ -214,113 +214,63 @@ export default function Home() {
                 {/* 5. CTA Buttons */}
                 <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center gap-4 mb-8">
                   <Link to="/book" className="w-full sm:w-auto">
-                    <Button size="lg" className="w-full sm:w-auto bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] hover:opacity-95 border-0 text-white font-extrabold text-lg h-14 px-8 shadow-[0_8px_22px_rgba(123,44,191,0.25)] rounded-xl transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group">
+                    <Button size="lg" className="w-full sm:w-auto bg-[linear-gradient(90deg,#FF4F81,#E91E63)] hover:opacity-95 border-0 text-white font-extrabold text-lg h-14 px-8 shadow-[0_8px_22px_rgba(233,30,99,0.25)] rounded-xl transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group">
                       Book a Home Visit
                       <ArrowRight size={18} className="ml-2 group-hover:translate-x-1.5 transition-transform duration-300" />
                     </Button>
                   </Link>
                   <Link to="/services" className="w-full sm:w-auto">
-                    <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white border-2 border-slate-200 text-slate-800 hover:bg-slate-50 hover:border-[#7B2CBF] hover:text-[#7B2CBF] font-extrabold text-lg h-14 px-8 rounded-xl transition-all duration-300 group">
+                    <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white border-2 border-slate-200 text-slate-800 hover:bg-pink-50/50 hover:border-[#E91E63] hover:text-[#E91E63] font-extrabold text-lg h-14 px-8 rounded-xl transition-all duration-300 group">
                       Explore Services
                       <ArrowRight size={18} className="ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                     </Button>
                   </Link>
                 </motion.div>
 
-                {/* 6. Trust Checkmarks */}
-                <motion.div variants={heroStagger} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 text-sm font-semibold text-slate-600">
-                  <motion.div variants={fadeInUp} className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-[#9D4EDD]" /> Trained & verified professionals
+                {/* 6. Premium Icon-Led Trust Badge Row Below CTA Buttons */}
+                <motion.div 
+                  variants={heroStagger} 
+                  className="pt-2 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm font-bold text-slate-700"
+                >
+                  <motion.div variants={fadeInUp} className="flex items-center gap-2.5 bg-pink-50/50 border border-pink-100/60 rounded-xl px-3.5 py-2.5 shadow-2xs">
+                    <ShieldCheck size={18} className="text-[#E91E63] shrink-0" /> 
+                    <span>Verified professionals</span>
                   </motion.div>
-                  <motion.div variants={fadeInUp} className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-[#9D4EDD]" /> Doctor-guided care plans
+
+                  <motion.div variants={fadeInUp} className="flex items-center gap-2.5 bg-pink-50/50 border border-pink-100/60 rounded-xl px-3.5 py-2.5 shadow-2xs">
+                    <Stethoscope size={18} className="text-[#E91E63] shrink-0" /> 
+                    <span>Doctor-guided plans</span>
                   </motion.div>
-                  <motion.div variants={fadeInUp} className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-[#9D4EDD]" /> Transparent coordination
+
+                  <motion.div variants={fadeInUp} className="flex items-center gap-2.5 bg-pink-50/50 border border-pink-100/60 rounded-xl px-3.5 py-2.5 shadow-2xs">
+                    <Heart size={18} className="text-[#FF4F81] shrink-0" /> 
+                    <span>Transparent care</span>
                   </motion.div>
                 </motion.div>
               </motion.div>
               
-              {/* 7. Right Visual Container */}
-              <div className="relative mt-8 lg:mt-0 block">
-                {/* Ambient Neutral Glow Backdrop */}
-                <div className="absolute inset-0 bg-purple-100/60 rounded-[40px] blur-2xl scale-105 -z-10"></div>
+              {/* 7. Right Visual Column - Pristine & Prominent Role Model Portrait */}
+              <div className="relative mt-10 lg:mt-0 flex flex-col items-center justify-center">
+                {/* Ambient Subtle Pink Glow Backdrop */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(233,30,99,0.12),transparent_70%)] rounded-[50px] blur-3xl scale-110 -z-10"></div>
                 
-                {/* Hero Doctor Card Reveal */}
+                {/* Main Pristine Frame for Role Model */}
                 <motion.div 
-                  initial={{ opacity: 0, scale: 0.97, x: 24 }}
-                  animate={{ opacity: 1, scale: 1, x: 0 }}
-                  transition={{ duration: 0.75, delay: 0.35, ease: premiumEase }}
-                  className="relative rounded-[36px] p-2 sm:p-3 shadow-[0_20px_50px_rgba(23,52,94,0.08)] border border-slate-200/80 bg-white max-w-lg mx-auto lg:max-w-none"
+                  initial={{ opacity: 0, scale: 0.97, y: 16 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 0.75, delay: 0.2, ease: premiumEase }}
+                  className="relative w-full max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto rounded-[36px] p-3 sm:p-4 bg-white shadow-[0_20px_50px_rgba(23,52,94,0.08)] border border-slate-200/80"
                 >
-                  {/* Floating Top Left Micro Badge */}
-                  <motion.div 
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.65, duration: 0.5 }}
-                    className="absolute top-4 left-4 sm:left-6 z-20 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-bold text-slate-800 shadow-md border border-slate-200"
-                  >
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                    </span>
-                    24/7 Doctor & Nurse Support
-                  </motion.div>
-
-                  {/* Clean Pure White Image Container */}
-                  <div className="relative w-full rounded-[28px] overflow-hidden bg-white flex items-center justify-center pt-2">
+                  {/* Completely Clean & Unobstructed Portrait Box */}
+                  <div className="relative w-full rounded-[28px] overflow-hidden bg-gradient-to-b from-slate-50/90 via-white to-pink-50/40 flex items-center justify-center pt-3 pb-1 px-2 border border-slate-100/80">
                     <img 
                       src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorImg}
                       alt={siteSettings.doctorName || "Senior Healthcare Specialist in SilverCare uniform"} 
-                      className="w-full h-auto object-contain object-center max-h-[640px] drop-shadow-xs transition-transform duration-500 hover:scale-[1.01]"
+                      className="w-full h-auto object-contain object-top max-h-[580px] lg:max-h-[640px] drop-shadow-md transition-transform duration-500 hover:scale-[1.01]"
                       loading="eager"
                       referrerPolicy="no-referrer"
                     />
                   </div>
-                  
-                  {/* 8. Floating Trust Card 1 (Bottom Left) */}
-                  <motion.div 
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ opacity: { delay: 0.85, duration: 0.55 }, x: { delay: 0.85, duration: 0.55 } }}
-                    className="absolute -bottom-5 left-2 sm:-left-5 bg-white rounded-2xl p-3.5 sm:p-4 shadow-[0_12px_36px_rgba(23,52,94,0.12)] border border-slate-200 flex items-center gap-3.5 z-20"
-                  >
-                    <motion.div 
-                      animate={{ y: [0, -3, 0] }}
-                      transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-                      className="flex items-center gap-3.5"
-                    >
-                      <div className="h-11 w-11 rounded-full bg-purple-50 flex items-center justify-center text-[#7B2CBF] shrink-0 shadow-xs border border-purple-100">
-                        <Heart size={22} />
-                      </div>
-                      <div>
-                        <h4 className="font-extrabold text-sm sm:text-base text-[#17345E]">Patient-First Care</h4>
-                        <p className="text-xs text-slate-500">Personalised around your family</p>
-                      </div>
-                    </motion.div>
-                  </motion.div>
-
-                  {/* 8. Floating Trust Card 2 (Top Right) */}
-                  <motion.div 
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ opacity: { delay: 1.0, duration: 0.55 }, x: { delay: 1.0, duration: 0.55 } }}
-                    className="absolute -top-5 right-2 sm:-right-5 hidden sm:flex bg-white rounded-2xl p-3.5 sm:p-4 shadow-[0_12px_36px_rgba(23,52,94,0.12)] border border-slate-200 items-center gap-3.5 z-20"
-                  >
-                    <motion.div 
-                      animate={{ y: [0, -3, 0] }}
-                      transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-                      className="flex items-center gap-3.5"
-                    >
-                      <div className="h-11 w-11 rounded-full bg-purple-50 flex items-center justify-center text-[#7B2CBF] shrink-0 shadow-xs border border-purple-100">
-                        <ShieldCheck size={22} />
-                      </div>
-                      <div>
-                        <h4 className="font-extrabold text-sm sm:text-base text-[#17345E]">Trusted Professionals</h4>
-                        <p className="text-xs text-slate-500">Verified & trained caregivers</p>
-                      </div>
-                    </motion.div>
-                  </motion.div>
                 </motion.div>
               </div>
 
@@ -328,136 +278,157 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 2. QUICK SERVICE SELECTOR GRID */}
-        <section className="py-16 bg-white">
+        {/* 2. STATS BAR SECTION */}
+        <section className="py-10 bg-white border-b border-slate-100">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
-              initial="hidden" 
-              whileInView="visible" 
-              viewport={{ once: true, margin: "-80px" }} 
-              variants={fadeInUp}
-              className="text-center max-w-2xl mx-auto mb-12"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={staggerCards}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
             >
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-purple-100 text-[#7B2CBF] font-extrabold text-xs uppercase tracking-wider mb-2">
-                <Stethoscope size={14} /> Comprehensive Support
-              </span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-[#17345E] mb-3">How can we help your family today?</h2>
-              <p className="text-base sm:text-lg text-slate-600">Choose from specialized home care and clinical health services.</p>
+              {[
+                { value: "50,000+", label: "Eldercare Visits Completed", icon: CheckCircle2 },
+                { value: "98.5%", label: "Satisfaction Rate", icon: Heart },
+                { value: "100%", label: "Verified Caregivers", icon: ShieldCheck },
+                { value: "24/7", label: "Care Assistance", icon: Clock },
+              ].map((stat, i) => (
+                <motion.div variants={fadeInUp} key={i} className="p-4 rounded-2xl bg-pink-50/30 border border-pink-100/50 flex flex-col items-center">
+                  <stat.icon size={24} className="text-[#E91E63] mb-2" />
+                  <span className="text-2xl sm:text-3xl font-extrabold text-[#17345E]">{stat.value}</span>
+                  <span className="text-xs sm:text-sm text-slate-600 font-semibold mt-1">{stat.label}</span>
+                </motion.div>
+              ))}
             </motion.div>
-            
-            {loading ? (
-              <div className="p-12 text-center text-slate-500 font-medium">Loading services...</div>
-            ) : (
-              <motion.div 
-                initial="hidden" 
-                whileInView="visible" 
-                viewport={{ once: true, margin: "-40px" }} 
-                variants={staggerCards}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-              >
-                {displayServices.slice(0, 8).map((service: any, index: number) => {
-                  const IconComponent = getIcon(service.icon);
-                  const theme = iconThemes[index % iconThemes.length];
-                  return (
-                    <motion.div variants={fadeInUp} key={service.id} className="h-full">
-                      <Link 
-                        to={`/services/${service.slug}`} 
-                        className="group bg-white p-6 rounded-[24px] border border-slate-100 shadow-xs hover:shadow-[0_14px_40px_rgba(123,44,191,0.11)] hover:border-purple-200 transition-all duration-300 hover:-translate-y-1.5 flex flex-col h-full relative overflow-hidden"
-                      >
-                        <div className={`${theme.bg} ${theme.text} p-4 rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 w-max mb-5`}>
-                          <IconComponent size={28} />
-                        </div>
-                        <h4 className="font-extrabold text-xl text-[#17345E] mb-2 group-hover:text-[#7B2CBF] transition-colors">{service.title}</h4>
-                        <p className="text-slate-600 leading-relaxed mb-6 text-sm flex-grow">{service.shortDescription}</p>
-                        <div className={`mt-auto font-extrabold text-sm ${theme.text} flex items-center group-hover:translate-x-2 transition-transform duration-300`}>
-                          Learn More <ArrowRight size={16} className="ml-2" />
-                        </div>
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-            )}
-            
-            <div className="text-center mt-12">
-              <Link to="/services" className="inline-flex items-center text-[#7B2CBF] font-extrabold hover:text-[#6A24A6] transition-colors text-base group">
-                View All Eldercare Services <ArrowRight size={18} className="ml-2 group-hover:translate-x-1.5 transition-transform duration-300" />
+          </div>
+        </section>
+
+        {/* 3. SERVICES SECTION */}
+        <section className="py-20 lg:py-28 bg-slate-50 border-b border-slate-100">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
+              <div>
+                <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#FF4F81] mb-2 block">Our Core Capabilities</span>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-[#17345E]">Comprehensive Home Healthcare</h2>
+              </div>
+              <Link to="/services" className="mt-4 md:mt-0 text-[#E91E63] font-bold hover:underline flex items-center gap-1">
+                View All Services <ArrowRight size={16} />
               </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {displayServices.map((service, index) => {
+                const ServiceIcon = getIcon(service.icon);
+                return (
+                  <motion.div
+                    key={service.id}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                    className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
+                  >
+                    <div>
+                      <div className="h-14 w-14 rounded-2xl bg-pink-50 text-[#E91E63] flex items-center justify-center mb-6 group-hover:bg-[#E91E63] group-hover:text-white transition-colors duration-300">
+                        <ServiceIcon size={28} />
+                      </div>
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#FF4F81] bg-pink-50 px-3 py-1 rounded-full mb-3 inline-block">
+                        {service.category || 'Home Care'}
+                      </span>
+                      <h3 className="text-xl font-extrabold text-[#17345E] mb-3 group-hover:text-[#E91E63] transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                        {service.shortDescription}
+                      </p>
+                    </div>
+
+                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                      <Link to={`/services/${service.slug}`} className="text-sm font-extrabold text-[#E91E63] group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                        Learn More <ChevronRight size={16} />
+                      </Link>
+                      <Link to={`/book?service=${service.slug}`}>
+                        <Button size="sm" variant="ghost" className="text-slate-700 hover:text-[#E91E63] font-bold">
+                          Book Visit
+                        </Button>
+                      </Link>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {/* 3. INTERACTIVE CARE CALCULATOR SECTION */}
-        <section className="py-16 bg-[#FAF5FF] border-t border-[#F5E8FF]">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <CareCalculator />
-            </motion.div>
-          </div>
-        </section>
-
         {/* 4. COMPASSION SECTION */}
-        <section className="py-20 lg:py-28 bg-[#FFF8FB] border-y border-[#FDF2F7] overflow-hidden">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={slideInLeft}>
+        <section className="py-20 lg:py-24 bg-[#FFF0F5] border-y border-[#FCE4EC] overflow-hidden">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1340px]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
+              
+              {/* Left Content Column (7 Cols) */}
+              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={slideInLeft} className="lg:col-span-7">
                 <h2 className="text-3xl md:text-[2.5rem] font-extrabold text-[#17345E] leading-[1.2] mb-6">
                   Compassionate Care That <br />
-                  <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF5C7A,#FF9B43)]">Feels Like Family</span>
+                  <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF5C7A,#E91E63)]">Feels Like Family</span>
                 </h2>
-                <p className="text-lg text-slate-600 leading-relaxed mb-10">
+                <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
                   SilverCare believes every senior deserves to age with dignity, comfort and independence. Our healthcare professionals and caregivers provide medical support alongside genuine companionship, helping families feel confident that their loved ones are in safe hands.
                 </p>
-                <motion.div variants={staggerCards} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                
+                {/* Clean 2-Column Benefit Checklist */}
+                <motion.div variants={staggerCards} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 max-w-xl">
                   {[
                     "Healthcare at home",
-                    "Single-point coordination",
                     "Trained & verified caregivers",
-                    "Transparent pricing",
                     "Doctor-led care plans",
+                    "Single-point coordination",
+                    "Transparent pricing",
                     "Personalised support"
                   ].map((benefit, i) => (
-                    <motion.div variants={fadeInUp} key={i} className="flex items-start gap-3">
-                      <div className="mt-1 bg-[#F5E8FF] rounded-full p-1"><Check size={14} className="text-[#7B2CBF]" /></div>
-                      <span className="text-slate-700 font-semibold text-sm">{benefit}</span>
+                    <motion.div variants={fadeInUp} key={i} className="flex items-center gap-3">
+                      <div className="h-8 w-8 rounded-full bg-[#FCE4EC] text-[#E91E63] flex items-center justify-center shrink-0 border border-pink-200 shadow-2xs">
+                        <Check size={16} strokeWidth={2.5} />
+                      </div>
+                      <span className="text-slate-700 font-semibold text-sm sm:text-base">{benefit}</span>
                     </motion.div>
                   ))}
                 </motion.div>
 
                 {/* Subtle Horizontal Divider */}
-                <div className="w-full h-px bg-[#EFE5F7] my-8"></div>
+                <div className="w-full max-w-xl h-px bg-[#FCE4EC] mt-8 mb-6"></div>
 
-                {/* Founder Trust Strip */}
+                {/* Founder Trust Strip - Anchored Left Button with Founder Shifted Right */}
                 <motion.div 
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2, ease: premiumEase }}
-                  className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-1"
+                  className="flex flex-col sm:flex-row items-start sm:items-center justify-start gap-8 sm:gap-14 md:gap-[72px] lg:gap-[84px] xl:gap-[96px] pt-0 w-full max-w-xl"
                 >
-                  {/* Left: About Us Pill Button */}
+                  {/* Left: About Us Pill Button (Anchored Left) */}
                   <Link to="/about" className="shrink-0">
                     <Button 
                       size="lg" 
-                      className="bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] hover:opacity-95 text-white font-extrabold text-base h-12 px-7 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group flex items-center gap-2"
+                      className="bg-[linear-gradient(90deg,#FF4F81,#E91E63)] hover:opacity-95 text-white font-extrabold text-base h-[54px] px-8 min-w-[175px] sm:min-w-[182px] rounded-full shadow-md shadow-[#FF4F81]/25 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group flex items-center justify-center gap-2.5 border-0"
                     >
-                      About Us
+                      <span>About Us</span>
                       <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
                     </Button>
                   </Link>
 
-                  {/* Right: Founder Profile */}
-                  <div className="flex items-center gap-4 group">
+                  {/* Right: Founder Profile (Shifted Right to Align with Content Edge) */}
+                  <div className="flex items-center gap-4 group shrink-0">
                     <div className="relative shrink-0">
                       <img 
                         src={siteSettings.ceoPhotoUrl && siteSettings.ceoPhotoUrl.startsWith('http') ? siteSettings.ceoPhotoUrl : "https://silvercareindia.com/wp-content/uploads/2025/12/Navin.png"} 
                         alt="Navin Chauhan, Founder and CEO of SilverCare" 
-                        className="h-16 w-16 sm:h-20 sm:w-20 rounded-full border-2 border-purple-100 shadow-md object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                        className="h-[76px] w-[76px] rounded-full border-2 border-pink-200 shadow-md object-cover object-center transition-transform duration-300 group-hover:scale-105"
                         referrerPolicy="no-referrer"
                       />
                     </div>
                     <div>
-                      <h4 className="font-extrabold text-lg sm:text-xl text-[#17345E] leading-tight group-hover:text-[#7B2CBF] transition-colors">
+                      <h4 className="font-extrabold text-lg sm:text-xl text-[#17345E] leading-tight group-hover:text-[#E91E63] transition-colors">
                         Navin Chauhan
                       </h4>
                       <p className="text-xs font-extrabold uppercase tracking-widest text-[#FF4F81] mt-1">
@@ -467,29 +438,34 @@ export default function Home() {
                   </div>
                 </motion.div>
               </motion.div>
+
+              {/* Right Visual Column (5 Cols - Larger Prominent Healthcare Image) */}
               <motion.div 
                 initial="hidden" 
                 whileInView="visible" 
                 viewport={{ once: true, margin: "-100px" }} 
                 variants={slideInRight}
-                className="relative rounded-[32px] overflow-hidden shadow-2xl group"
+                className="lg:col-span-5 flex justify-center lg:justify-end mt-8 lg:mt-0"
               >
-                <img 
-                  src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&q=80&w=1200&fmt=webp" 
-                  alt="Professional interacting warmly with senior" 
-                  className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-[1.025]"
-                />
-                <div className="absolute inset-0 bg-[#FF4F81] mix-blend-color opacity-10"></div>
+                <div className="relative w-full max-w-[500px] lg:max-w-[560px] xl:max-w-[580px] rounded-[36px] overflow-hidden shadow-xl border border-pink-100/60 bg-white group">
+                  <img 
+                    src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&q=80&w=1200&fmt=webp" 
+                    alt="Professional interacting warmly with senior" 
+                    className="w-full h-[460px] sm:h-[500px] lg:h-[530px] xl:h-[550px] object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+                  />
+                  <div className="absolute inset-0 bg-[#FF4F81] mix-blend-color opacity-5"></div>
+                </div>
               </motion.div>
+
             </div>
           </div>
         </section>
 
         {/* 5. WHY SILVERCARE SECTION */}
-        <section className="py-20 lg:py-28 bg-[#FAF5FF]">
+        <section className="py-20 lg:py-28 bg-[#FFF5F8]">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp} className="text-center max-w-2xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-4xl font-extrabold text-[#17345E] mb-4">Why families choose <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF6B6B,#9D4EDD)]">SilverCare</span></h2>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[#17345E] mb-4">Why families choose <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF5C7A,#E91E63)]">SilverCare</span></h2>
             </motion.div>
             
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerCards} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -501,9 +477,9 @@ export default function Home() {
                 { title: "Transparent Care", icon: Activity, desc: "Clear communication and straightforward service information." },
                 { title: "Care With Dignity", icon: Heart, desc: "Support that respects the senior's comfort, privacy and independence." }
               ].map((feature, i) => (
-                <motion.div variants={fadeInUp} key={i} className="bg-white border border-[#EFE5F7] p-8 rounded-[24px] hover:shadow-[0_12px_36px_rgba(123,44,191,0.08)] hover:-translate-y-1.5 transition-all duration-300 group">
+                <motion.div variants={fadeInUp} key={i} className="bg-white border border-pink-100/80 p-8 rounded-[24px] hover:shadow-[0_12px_36px_rgba(233,30,99,0.08)] hover:-translate-y-1.5 transition-all duration-300 group">
                   <div className="transform transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 origin-left inline-block">
-                    <feature.icon size={32} className="text-[#9D4EDD] mb-6" strokeWidth={1.5} />
+                    <feature.icon size={32} className="text-[#E91E63] mb-6" strokeWidth={1.5} />
                   </div>
                   <h3 className="text-xl font-bold text-[#17345E] mb-3">{feature.title}</h3>
                   <p className="text-slate-600 leading-relaxed text-sm">{feature.desc}</p>
@@ -514,7 +490,7 @@ export default function Home() {
         </section>
 
         {/* 6. HOW IT WORKS SECTION (Sequential Step Progression) */}
-        <section className="py-20 lg:py-28 bg-[#FFF2F8] overflow-hidden">
+        <section className="py-20 lg:py-28 bg-[#FFF0F5] overflow-hidden border-t border-[#FCE4EC]">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-3xl md:text-4xl font-extrabold mb-16 text-[#17345E]">Quality care, without the complexity.</motion.h2>
             
@@ -525,14 +501,14 @@ export default function Home() {
                 viewport={{ once: true }} 
                 transition={{ duration: 1.2, ease: "easeInOut", delay: 0.2 }}
                 style={{ transformOrigin: "left" }} 
-                className="hidden md:block absolute top-10 left-[12%] right-[12%] h-[2.5px] bg-[#F4C7DB] z-0"
+                className="hidden md:block absolute top-10 left-[12%] right-[12%] h-[2.5px] bg-[#F8BBD0] z-0"
               ></motion.div>
               
               {[
-                { step: "01", title: "Tell us what you need", color: "bg-[#7B2CBF]" },
+                { step: "01", title: "Tell us what you need", color: "bg-[#E91E63]" },
                 { step: "02", title: "Speak with our care coordinator", color: "bg-[#FF4F81]" },
-                { step: "03", title: "We match the right professional", color: "bg-[#FF9F43]" },
-                { step: "04", title: "Care begins at your home", color: "bg-[#7B2CBF]" }
+                { step: "03", title: "We match the right professional", color: "bg-[#FF80AB]" },
+                { step: "04", title: "Care begins at your home", color: "bg-[#E91E63]" }
               ].map((item, i) => (
                 <motion.div variants={fadeInUp} key={i} className="relative z-10 flex flex-col items-center">
                   <motion.div 
@@ -548,7 +524,7 @@ export default function Home() {
             
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mt-16">
               <Link to="/book">
-                <Button size="lg" className="bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] hover:opacity-95 border-0 text-white font-extrabold text-lg h-14 px-10 rounded-xl shadow-[0_8px_20px_rgba(123,44,191,0.22)] transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group">
+                <Button size="lg" className="bg-[linear-gradient(90deg,#FF4F81,#E91E63)] hover:opacity-95 border-0 text-white font-extrabold text-lg h-14 px-10 rounded-xl shadow-[0_8px_20px_rgba(233,30,99,0.22)] transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group">
                   Book Your Care Consultation
                   <ArrowRight size={18} className="ml-2 group-hover:translate-x-1.5 transition-transform duration-300" />
                 </Button>
@@ -771,7 +747,7 @@ export default function Home() {
                   <input 
                     type="text" 
                     placeholder="Enter City or PIN (e.g. 160047, 122001, Gurgaon)" 
-                    className="w-full pl-11 pr-5 py-4 bg-[#FAF5FF] border border-[#EFE5F7] rounded-xl outline-none focus:border-[#7B2CBF] focus:ring-2 focus:ring-purple-100 transition-all text-slate-800 font-bold text-sm"
+                    className="w-full pl-11 pr-5 py-4 bg-[#FFF5F8] border border-pink-100 rounded-xl outline-none focus:border-[#E91E63] focus:ring-2 focus:ring-pink-100 transition-all text-slate-800 font-bold text-sm"
                     value={pinCode}
                     onChange={(e) => {
                       setPinCode(e.target.value);
@@ -852,7 +828,7 @@ export default function Home() {
         </section>
 
         {/* 10. BOOKING CTA WITH AMBIENT MOTION */}
-        <section className="py-24 bg-[linear-gradient(135deg,#4B2378_0%,#7B2CBF_50%,#D64B8F_100%)] text-white relative overflow-hidden">
+        <section className="py-24 bg-[linear-gradient(135deg,#AD1457_0%,#E91E63_50%,#FF4F81_100%)] text-white relative overflow-hidden">
           <motion.div 
             animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear", repeatType: "reverse" }}
@@ -866,7 +842,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <Link to="/book" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#7B2CBF] font-extrabold h-14 px-10 rounded-xl text-lg shadow-lg shadow-[#4B2378]/30 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 group">
+                <Button size="lg" className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#E91E63] font-extrabold h-14 px-10 rounded-xl text-lg shadow-lg shadow-[#880E4F]/30 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 group">
                   Book a Home Visit
                   <ArrowRight size={18} className="ml-2 group-hover:translate-x-1.5 transition-transform duration-300" />
                 </Button>

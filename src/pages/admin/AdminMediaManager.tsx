@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "@/src/lib/firebase";
 import { Image, Upload, CheckCircle2, Phone, Mail, MapPin, Sparkles, Globe, RefreshCw, Save } from "lucide-react";

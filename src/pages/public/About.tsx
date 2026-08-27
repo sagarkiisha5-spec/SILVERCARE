@@ -39,7 +39,7 @@ export default function About() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               
               <div className="lg:col-span-7 space-y-6">
-                <span className="text-[#7B2CBF] font-extrabold uppercase tracking-wider text-xs block">Our Philosophy</span>
+                <span className="text-[#E91E63] font-extrabold uppercase tracking-wider text-xs block">Our Philosophy</span>
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-[#17345E] leading-tight">
                   Compassionate Care That Feels Like Family
                 </h2>
@@ -53,8 +53,8 @@ export default function About() {
                 </p>
 
                 {/* CEO Quote Spotlight Card */}
-                <div className="bg-[linear-gradient(135deg,#7B2CBF_0%,#9D4EDD_100%)] text-white p-6 sm:p-8 rounded-3xl shadow-xl relative overflow-hidden mt-8">
-                  <Quote size={40} className="text-purple-200/40 absolute top-4 right-4" />
+                <div className="bg-[linear-gradient(135deg,#E91E63_0%,#FF4F81_100%)] text-white p-6 sm:p-8 rounded-3xl shadow-xl relative overflow-hidden mt-8">
+                  <Quote size={40} className="text-pink-200/40 absolute top-4 right-4" />
                   <p className="text-base sm:text-lg font-medium leading-relaxed italic mb-4 relative z-10">
                     "Eldercare is not only about medical support. It is about presence, patience, and respect. Every senior deserves to feel safe, heard, and valued in their own home."
                   </p>
@@ -64,7 +64,7 @@ export default function About() {
                     </div>
                     <div>
                       <h4 className="font-extrabold text-sm text-white">Navin Chauhan</h4>
-                      <p className="text-xs text-purple-200">Founder & CEO, SilverCare India</p>
+                      <p className="text-xs text-pink-200">Founder & CEO, SilverCare India</p>
                     </div>
                   </div>
                 </div>
@@ -96,13 +96,13 @@ export default function About() {
         <section className="py-16 bg-slate-50 border-y border-slate-200" id="our-purpose">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-[#7B2CBF] font-bold uppercase tracking-wider text-xs block mb-2">Guided By Principles</span>
+              <span className="text-[#E91E63] font-bold uppercase tracking-wider text-xs block mb-2">Guided By Principles</span>
               <h2 className="text-3xl font-extrabold text-[#17345E]">Our Mission & Core Purpose</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="h-14 w-14 bg-purple-100 text-[#7B2CBF] rounded-2xl flex items-center justify-center mb-6">
+                <div className="h-14 w-14 bg-pink-100 text-[#E91E63] rounded-2xl flex items-center justify-center mb-6">
                   <HeartPulse size={30} />
                 </div>
                 <h3 className="text-2xl font-extrabold text-slate-900 mb-4">Our Mission</h3>
@@ -128,34 +128,34 @@ export default function About() {
         <section className="py-16 md:py-24 bg-white" id="how-we-work">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-[#7B2CBF] font-bold uppercase tracking-wider text-xs block mb-2">Structured Eldercare System</span>
+              <span className="text-[#E91E63] font-bold uppercase tracking-wider text-xs block mb-2">Structured Eldercare System</span>
               <h2 className="text-3xl font-extrabold text-[#17345E]">How We Work</h2>
               <p className="mt-3 text-slate-600 text-base">A systematic, step-by-step approach to home healthcare.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200 hover:border-[#7B2CBF] transition-all hover:-translate-y-1">
-                <div className="h-12 w-12 bg-[#7B2CBF] text-white rounded-2xl flex items-center justify-center mb-6 font-extrabold text-lg shadow-md">01</div>
+              <div className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200 hover:border-[#E91E63] transition-all hover:-translate-y-1">
+                <div className="h-12 w-12 bg-[#E91E63] text-white rounded-2xl flex items-center justify-center mb-6 font-extrabold text-lg shadow-md">01</div>
                 <h3 className="text-xl font-extrabold text-slate-900 mb-3">Assessment</h3>
                 <p className="text-slate-600 text-sm leading-relaxed">Detailed review of medical history, current health status, and daily living support needs.</p>
               </div>
               
-              <div className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200 hover:border-[#7B2CBF] transition-all hover:-translate-y-1">
-                <div className="h-12 w-12 bg-[#7B2CBF] text-white rounded-2xl flex items-center justify-center mb-6 font-extrabold text-lg shadow-md">02</div>
+              <div className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200 hover:border-[#E91E63] transition-all hover:-translate-y-1">
+                <div className="h-12 w-12 bg-[#E91E63] text-white rounded-2xl flex items-center justify-center mb-6 font-extrabold text-lg shadow-md">02</div>
                 <h3 className="text-xl font-extrabold text-slate-900 mb-3">Care Planning</h3>
                 <p className="text-slate-600 text-sm leading-relaxed">Customized care plan developed by senior physicians and care coordinators.</p>
               </div>
 
-              <div className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200 hover:border-[#7B2CBF] transition-all hover:-translate-y-1">
-                <div className="h-12 w-12 bg-[#7B2CBF] text-white rounded-2xl flex items-center justify-center mb-6 font-extrabold text-lg shadow-md">03</div>
+              <div className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200 hover:border-[#E91E63] transition-all hover:-translate-y-1">
+                <div className="h-12 w-12 bg-[#E91E63] text-white rounded-2xl flex items-center justify-center mb-6 font-extrabold text-lg shadow-md">03</div>
                 <h3 className="text-xl font-extrabold text-slate-900 mb-3">Deployment</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">Trained, background-verified nurses and caregivers deployed directly to your home.</p>
+                <p className="text-slate-600 text-sm leading-relaxed">Matching qualified, verified healthcare professionals to patient requirements.</p>
               </div>
 
-              <div className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200 hover:border-[#7B2CBF] transition-all hover:-translate-y-1">
-                <div className="h-12 w-12 bg-[#7B2CBF] text-white rounded-2xl flex items-center justify-center mb-6 font-extrabold text-lg shadow-md">04</div>
+              <div className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200 hover:border-[#E91E63] transition-all hover:-translate-y-1">
+                <div className="h-12 w-12 bg-[#E91E63] text-white rounded-2xl flex items-center justify-center mb-6 font-extrabold text-lg shadow-md">04</div>
                 <h3 className="text-xl font-extrabold text-slate-900 mb-3">Monitoring</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">Ongoing clinical oversight, regular health updates, and continuous family communication.</p>
+                <p className="text-slate-600 text-sm leading-relaxed">Continuous clinical oversight, regular feedback, and flexible plan adjustments.</p>
               </div>
             </div>
           </div>

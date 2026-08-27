@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Instagram, Facebook, RefreshCw, CheckCircle2, Sparkles, Send, Share2, Eye, MessageSquare, ThumbsUp, Heart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/src/components/ui/card";
 import { Button } from "@/src/components/ui/button";

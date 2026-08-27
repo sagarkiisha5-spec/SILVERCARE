@@ -169,27 +169,27 @@ export default function Services() {
         <section className="relative bg-[linear-gradient(135deg,#0F172A_0%,#1E1B4B_50%,#3B0764_100%)] text-white pt-12 pb-20 md:pt-16 md:pb-28 overflow-hidden">
           {/* Background Decorative Pattern */}
           <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#ffffff 1.5px, transparent 1.5px)', backgroundSize: '28px 28px' }}></div>
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#7B2CBF]/30 rounded-full blur-3xl pointer-events-none"></div>
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#D946EF]/20 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#E91E63]/30 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#FF4F81]/20 rounded-full blur-3xl pointer-events-none"></div>
 
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             {/* Breadcrumbs */}
             <nav className="flex items-center text-sm font-medium text-slate-300 mb-8" aria-label="Breadcrumb">
-              <Link to="/" className="hover:text-[#D946EF] transition-colors flex items-center gap-1">
+              <Link to="/" className="hover:text-[#FF4F81] transition-colors flex items-center gap-1">
                 Home
               </Link>
               <span className="mx-2 text-slate-500">/</span>
-              <span className="text-[#D946EF] font-bold">Services</span>
+              <span className="text-[#FF4F81] font-bold">Services</span>
             </nav>
 
             <div className="max-w-3xl">
-              <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs sm:text-sm font-semibold text-purple-200 mb-6 shadow-inner">
-                <Sparkles size={16} className="text-[#D946EF]" />
+              <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs sm:text-sm font-semibold text-pink-200 mb-6 shadow-inner">
+                <Sparkles size={16} className="text-[#FF4F81]" />
                 Dedicated Home Healthcare Across India
               </motion.div>
               
               <motion.h1 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-                Our <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF6B9B,#D946EF,#9D4EDD)]">Eldercare</span> Services
+                Our <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF6B9B,#FF4F81,#E91E63)]">Eldercare</span> Services
               </motion.h1>
 
               <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="text-lg md:text-xl text-slate-300 leading-relaxed mb-10">
@@ -205,7 +205,7 @@ export default function Services() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search services (e.g., Nursing, Doctor Visit, Lab Test)..."
-                    className="w-full h-12 pl-12 pr-4 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#9D4EDD]"
+                    className="w-full h-12 pl-12 pr-4 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#E91E63]"
                   />
                   {searchQuery && (
                     <button onClick={() => setSearchQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 hover:text-slate-600 bg-slate-100 rounded-md px-2 py-1">
@@ -231,7 +231,7 @@ export default function Services() {
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 shrink-0 ${
                     selectedCategory === cat 
-                      ? 'bg-[#7B2CBF] text-white shadow-md shadow-[#7B2CBF]/20 scale-105' 
+                      ? 'bg-[#E91E63] text-white shadow-md shadow-[#E91E63]/20 scale-105' 
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
                   }`}
                 >
@@ -253,7 +253,7 @@ export default function Services() {
                 <Search size={48} className="mx-auto text-slate-300 mb-4" />
                 <h3 className="text-xl font-bold text-slate-900 mb-2">No matching services found</h3>
                 <p className="text-slate-500 mb-6">Try adjusting your search query or category filter to view our full service catalog.</p>
-                <Button onClick={() => { setSelectedCategory("All"); setSearchQuery(""); }} className="bg-[#7B2CBF] text-white font-bold">
+                <Button onClick={() => { setSelectedCategory("All"); setSearchQuery(""); }} className="bg-[#E91E63] text-white font-bold">
                   Reset Filters
                 </Button>
               </div>
@@ -273,14 +273,14 @@ export default function Services() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.05 }}
                     >
-                      <Card className="overflow-hidden border-slate-200/90 shadow-md hover:shadow-2xl transition-all duration-300 bg-white rounded-3xl group border hover:border-[#9D4EDD]">
+                      <Card className="overflow-hidden border-slate-200/90 shadow-md hover:shadow-2xl transition-all duration-300 bg-white rounded-3xl group border hover:border-[#E91E63]">
                         <div className="flex flex-col lg:flex-row">
                           
                           {/* Vibrant Accent Side Panel */}
                           <div className={`p-8 lg:p-10 lg:w-5/12 flex flex-col justify-between relative overflow-hidden text-white ${
                             isEven 
-                              ? 'bg-[linear-gradient(135deg,#7B2CBF_0%,#9D4EDD_100%)]' 
-                              : 'bg-[linear-gradient(135deg,#1E1B4B_0%,#4C1D95_100%)]'
+                              ? 'bg-[linear-gradient(135deg,#E91E63_0%,#FF4F81_100%)]' 
+                              : 'bg-[linear-gradient(135deg,#880E4F_0%,#AD1457_100%)]'
                           }`}>
                             {/* Ambient Glow circles */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
@@ -327,7 +327,7 @@ export default function Services() {
 
                               {/* Key Highlights checklist */}
                               <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 mb-8">
-                                <h5 className="text-xs font-extrabold text-[#7B2CBF] uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                                 <h5 className="text-xs font-extrabold text-[#E91E63] uppercase tracking-wider mb-4 flex items-center gap-1.5">
                                   <CheckCircle2 size={16} /> Key Features & Coverage
                                 </h5>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -344,20 +344,20 @@ export default function Services() {
                             {/* Action CTAs */}
                             <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-slate-100">
                               <Link to={`/book?service=${service.slug}`} className="flex-1 sm:flex-none">
-                                <Button size="lg" className="w-full bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] hover:opacity-95 text-white font-bold h-12 px-8 rounded-xl shadow-md shadow-[#7B2CBF]/20 border-0 text-sm transition-all hover:scale-105">
+                                <Button size="lg" className="w-full bg-[linear-gradient(90deg,#FF4F81,#E91E63)] hover:opacity-95 text-white font-bold h-12 px-8 rounded-xl shadow-md shadow-[#E91E63]/20 border-0 text-sm transition-all hover:scale-105">
                                   Book This Service
                                 </Button>
                               </Link>
                               
                               <Link to={`/services/${service.slug}`} className="flex-1 sm:flex-none">
-                                <Button size="lg" variant="outline" className="w-full bg-white border-2 border-slate-200 text-slate-800 hover:border-[#7B2CBF] hover:text-[#7B2CBF] font-bold h-12 px-6 rounded-xl text-sm transition-all flex items-center justify-center gap-2 group/btn">
+                                <Button size="lg" variant="outline" className="w-full bg-white border-2 border-slate-200 text-slate-800 hover:border-[#E91E63] hover:text-[#E91E63] font-bold h-12 px-6 rounded-xl text-sm transition-all flex items-center justify-center gap-2 group/btn">
                                   <span>Learn More</span>
                                   <ArrowRight size={18} className="group-hover/btn:translate-x-1 transition-transform" />
                                 </Button>
                               </Link>
 
-                              <a href="tel:+918001480075" className="hidden sm:flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-[#7B2CBF] ml-auto transition-colors">
-                                <PhoneCall size={16} className="text-[#FF3E72]" /> Call Coordinator
+                              <a href="tel:+918001480075" className="hidden sm:flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-[#E91E63] ml-auto transition-colors">
+                                <PhoneCall size={16} className="text-[#FF4F81]" /> Call Coordinator
                               </a>
                             </div>
 
@@ -376,7 +376,7 @@ export default function Services() {
         <section className="py-16 bg-white border-y border-slate-200">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-[#7B2CBF] font-bold uppercase tracking-wider text-xs block mb-2">Quality & Safety First</span>
+              <span className="text-[#E91E63] font-bold uppercase tracking-wider text-xs block mb-2">Quality & Safety First</span>
               <h2 className="text-3xl font-extrabold text-[#17345E]">Why Families Trust SilverCare</h2>
               <p className="mt-3 text-slate-600 text-base">
                 We combine clinical expertise with heartfelt compassion to deliver uncompromised eldercare at home.
@@ -384,15 +384,15 @@ export default function Services() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 shadow-sm text-center hover:border-[#7B2CBF] transition-colors group">
-                <div className="h-14 w-14 bg-[#F5E8FF] text-[#7B2CBF] rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+              <div className="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 shadow-sm text-center hover:border-[#E91E63] transition-colors group">
+                <div className="h-14 w-14 bg-[#FCE4EC] text-[#E91E63] rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                   <ShieldCheck size={30} />
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-2">100% Verified Staff</h3>
                 <p className="text-slate-600 text-sm leading-relaxed">Police background-verified, certified, and trained nursing caregivers.</p>
               </div>
 
-              <div className="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 shadow-sm text-center hover:border-[#7B2CBF] transition-colors group">
+              <div className="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 shadow-sm text-center hover:border-[#E91E63] transition-colors group">
                 <div className="h-14 w-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                   <Stethoscope size={30} />
                 </div>
@@ -400,16 +400,16 @@ export default function Services() {
                 <p className="text-slate-600 text-sm leading-relaxed">Senior physicians design and monitor customized home treatment plans.</p>
               </div>
 
-              <div className="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 shadow-sm text-center hover:border-[#7B2CBF] transition-colors group">
-                <div className="h-14 w-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+              <div className="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 shadow-sm text-center hover:border-[#E91E63] transition-colors group">
+                <div className="h-14 w-14 bg-pink-50 text-[#E91E63] rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                   <Clock size={30} />
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-2">24/7 Helpline</h3>
                 <p className="text-slate-600 text-sm leading-relaxed">Dedicated single-point care coordinators available round-the-clock.</p>
               </div>
 
-              <div className="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 shadow-sm text-center hover:border-[#7B2CBF] transition-colors group">
-                <div className="h-14 w-14 bg-pink-50 text-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+              <div className="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 shadow-sm text-center hover:border-[#E91E63] transition-colors group">
+                <div className="h-14 w-14 bg-pink-50 text-[#E91E63] rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                   <Award size={30} />
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-2">Transparent Pricing</h3>
@@ -423,7 +423,7 @@ export default function Services() {
         <section className="py-16 md:py-24 bg-slate-50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
             <div className="text-center mb-16">
-              <span className="text-[#7B2CBF] font-bold uppercase tracking-wider text-xs block mb-2">Got Questions?</span>
+              <span className="text-[#E91E63] font-bold uppercase tracking-wider text-xs block mb-2">Got Questions?</span>
               <h2 className="text-3xl font-extrabold text-[#17345E]">Frequently Asked Questions</h2>
               <p className="mt-3 text-slate-600 text-base">Everything you need to know about our home eldercare services.</p>
             </div>
@@ -436,10 +436,10 @@ export default function Services() {
                 >
                   <button
                     onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                    className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-bold text-slate-900 text-base sm:text-lg hover:text-[#7B2CBF] transition-colors"
+                    className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-bold text-slate-900 text-base sm:text-lg hover:text-[#E91E63] transition-colors"
                   >
                     <span>{faq.q}</span>
-                    <ChevronDown size={20} className={`text-slate-400 shrink-0 transition-transform duration-300 ${openFaq === idx ? 'rotate-180 text-[#7B2CBF]' : ''}`} />
+                    <ChevronDown size={20} className={`text-slate-400 shrink-0 transition-transform duration-300 ${openFaq === idx ? 'rotate-180 text-[#E91E63]' : ''}`} />
                   </button>
 
                   <AnimatePresence>
@@ -462,15 +462,15 @@ export default function Services() {
         </section>
 
         {/* FINAL CTA BANNER */}
-        <section className="py-16 bg-[linear-gradient(90deg,#7B2CBF_0%,#9D4EDD_100%)] text-white text-center relative overflow-hidden">
+        <section className="py-16 bg-[linear-gradient(90deg,#E91E63_0%,#FF4F81_100%)] text-white text-center relative overflow-hidden">
           <div className="container mx-auto px-4 max-w-4xl relative z-10">
             <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 tracking-tight">Need Urgent Home Healthcare Support?</h2>
-            <p className="text-purple-100 mb-8 text-base sm:text-lg max-w-2xl mx-auto">
+            <p className="text-pink-100 mb-8 text-base sm:text-lg max-w-2xl mx-auto">
               Our clinical coordinators are standing by 24/7 to guide you and match the right healthcare professional for your family.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/book" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto bg-white text-[#7B2CBF] hover:bg-slate-100 font-extrabold h-14 px-8 text-base rounded-xl shadow-xl">
+                <Button size="lg" className="w-full sm:w-auto bg-white text-[#E91E63] hover:bg-slate-100 font-extrabold h-14 px-8 text-base rounded-xl shadow-xl">
                   Book a Home Visit Now
                 </Button>
               </Link>

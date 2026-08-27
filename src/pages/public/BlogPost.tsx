@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowLeft, Clock, Calendar, MapPin, Share2, CheckCircle2, Bookmark, Heart, ShieldCheck, ArrowRight, MessageSquare, Copy, Check } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, MapPin, Share2, CheckCircle2, Bookmark, Heart, ShieldCheck, ArrowRight, MessageSquare, Copy, Check, ChevronRight } from 'lucide-react';
 import { Button } from '@/src/components/ui/button';
 import SEO from '@/src/components/seo/SEO';
 import { initialBlogPosts, BlogPost as BlogPostType } from '@/src/data/blogData';

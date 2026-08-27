@@ -98,11 +98,11 @@ export default function ServiceSearch({
   };
 
   return (
-    <div ref={wrapperRef} className={`relative w-full max-w-2xl ${className}`}>
+    <div ref={wrapperRef} className={`relative w-full ${className}`}>
       <form onSubmit={handleSearch} className="relative">
-        <div className={`relative flex items-center w-full bg-white rounded-full border border-slate-300 shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-[#7B2CBF] focus-within:border-[#7B2CBF] transition-all ${size === 'large' ? 'h-14 sm:h-16' : 'h-12'}`}>
+        <div className={`relative flex items-center w-full bg-white rounded-full border border-slate-300 shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-[#E91E63] focus-within:border-[#E91E63] transition-all ${size === 'large' ? 'h-14 sm:h-16' : 'h-12'}`}>
           <div className="pl-4 sm:pl-6 text-slate-400 flex items-center justify-center">
-            <Search className={size === 'large' ? 'w-6 h-6 text-[#7B2CBF]' : 'w-5 h-5 text-[#7B2CBF]'} />
+            <Search className={size === 'large' ? 'w-6 h-6 text-[#E91E63]' : 'w-5 h-5 text-[#E91E63]'} />
           </div>
 
           <input
@@ -122,7 +122,7 @@ export default function ServiceSearch({
 
           <button 
             type="submit"
-            className={`h-full bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] hover:opacity-95 text-white font-extrabold transition-all px-6 sm:px-8 flex items-center justify-center shrink-0 ${size === 'large' ? 'text-base sm:text-lg' : 'text-sm'}`}
+            className={`h-full bg-[linear-gradient(90deg,#FF4F81,#E91E63)] hover:opacity-95 text-white font-extrabold transition-all px-6 sm:px-8 flex items-center justify-center shrink-0 ${size === 'large' ? 'text-base sm:text-lg' : 'text-sm'}`}
           >
             <span>Search</span>
           </button>
@@ -143,7 +143,7 @@ export default function ServiceSearch({
             {query.trim().length === 0 ? (
               <div className="p-5">
                 <div className="flex items-center gap-2 text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-3">
-                  <TrendingUp size={14} className="text-[#7B2CBF]" /> Popular Eldercare Searches
+                  <TrendingUp size={14} className="text-[#E91E63]" /> Popular Eldercare Searches
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
@@ -152,13 +152,13 @@ export default function ServiceSearch({
                       key={idx}
                       type="button"
                       onClick={() => handleSelect(item.slug)}
-                      className="p-2.5 rounded-xl border border-slate-100 hover:border-purple-200 hover:bg-purple-50/70 text-left transition-all group flex items-center justify-between"
+                      className="p-2.5 rounded-xl border border-slate-100 hover:border-pink-200 hover:bg-pink-50/70 text-left transition-all group flex items-center justify-between"
                     >
                       <div>
-                        <span className="font-bold text-xs sm:text-sm text-slate-800 group-hover:text-[#7B2CBF] block line-clamp-1">{item.term}</span>
+                        <span className="font-bold text-xs sm:text-sm text-slate-800 group-hover:text-[#E91E63] block line-clamp-1">{item.term}</span>
                         <span className="text-[10px] text-slate-400 font-semibold uppercase">{item.category}</span>
                       </div>
-                      <ArrowRight size={14} className="text-slate-300 group-hover:text-[#7B2CBF] transition-transform group-hover:translate-x-1 shrink-0" />
+                      <ArrowRight size={14} className="text-slate-300 group-hover:text-[#E91E63] transition-transform group-hover:translate-x-1 shrink-0" />
                     </button>
                   ))}
                 </div>
@@ -168,7 +168,7 @@ export default function ServiceSearch({
                   <button 
                     type="button" 
                     onClick={() => { setIsOpen(false); navigate('/book'); }}
-                    className="text-[#7B2CBF] font-bold hover:underline flex items-center gap-1"
+                    className="text-[#E91E63] font-bold hover:underline flex items-center gap-1"
                   >
                     <Sparkles size={12} /> Book Appointment
                   </button>
@@ -189,20 +189,20 @@ export default function ServiceSearch({
                         <button
                           type="button"
                           className={`w-full text-left px-5 py-3.5 transition-colors group flex items-center justify-between ${
-                            index === selectedIndex ? 'bg-purple-50' : 'hover:bg-slate-50'
+                            index === selectedIndex ? 'bg-pink-50' : 'hover:bg-slate-50'
                           }`}
                           onClick={() => handleSelect(srv.slug)}
                         >
                           <div>
                             <div className="flex items-center gap-2 mb-0.5">
-                              <span className="font-extrabold text-slate-900 group-hover:text-[#7B2CBF] text-sm sm:text-base">{srv.title}</span>
+                              <span className="font-extrabold text-slate-900 group-hover:text-[#E91E63] text-sm sm:text-base">{srv.title}</span>
                               {srv.category && (
-                                <span className="text-[10px] font-bold uppercase tracking-wider bg-purple-100 text-[#7B2CBF] px-2 py-0.5 rounded-full">{srv.category}</span>
+                                <span className="text-[10px] font-bold uppercase tracking-wider bg-pink-100 text-[#E91E63] px-2 py-0.5 rounded-full">{srv.category}</span>
                               )}
                             </div>
                             <p className="text-xs text-slate-500 line-clamp-1">{srv.shortDescription}</p>
                           </div>
-                          <ArrowRight className="text-slate-300 group-hover:text-[#7B2CBF] transition-transform group-hover:translate-x-1 shrink-0 ml-3" size={16} />
+                          <ArrowRight className="text-slate-300 group-hover:text-[#E91E63] transition-transform group-hover:translate-x-1 shrink-0 ml-3" size={16} />
                         </button>
                       </li>
                     ))}
@@ -212,7 +212,7 @@ export default function ServiceSearch({
                     <button 
                       type="submit" 
                       onClick={handleSearch}
-                      className="text-xs font-bold text-[#7B2CBF] hover:underline"
+                      className="text-xs font-bold text-[#E91E63] hover:underline"
                     >
                       See all search results for "{query}" →
                     </button>
@@ -221,7 +221,7 @@ export default function ServiceSearch({
               ) : (
                 /* NO MATCH FOUND FALLBACK */
                 <div className="p-6 text-center">
-                  <div className="h-10 w-10 bg-purple-100 text-[#7B2CBF] rounded-full flex items-center justify-center mx-auto mb-2 font-bold">?</div>
+                  <div className="h-10 w-10 bg-pink-100 text-[#E91E63] rounded-full flex items-center justify-center mx-auto mb-2 font-bold">?</div>
                   <p className="text-slate-900 font-bold text-sm mb-1">No direct matching service found for "{query}"</p>
                   <p className="text-slate-500 text-xs mb-4">Our care team handles customized eldercare requests 24/7.</p>
                   
@@ -229,7 +229,7 @@ export default function ServiceSearch({
                     <button 
                       type="button" 
                       onClick={() => { setIsOpen(false); navigate('/services'); }}
-                      className="text-[#7B2CBF] hover:underline"
+                      className="text-[#E91E63] hover:underline"
                     >
                       Browse All Services
                     </button>
@@ -237,7 +237,7 @@ export default function ServiceSearch({
                     <button 
                       type="button" 
                       onClick={() => { setIsOpen(false); navigate('/contact'); }}
-                      className="text-[#7B2CBF] hover:underline"
+                      className="text-[#E91E63] hover:underline"
                     >
                       Talk to Care Manager
                     </button>

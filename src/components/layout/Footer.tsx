@@ -11,7 +11,7 @@ export default function Footer() {
   const address = siteSettings.address || "Flat No-60, SF Sector-33,\nGurgaon, Haryana 122001";
 
   return (
-    <footer className="bg-[#241442] text-[#DCC7EF]">
+    <footer className="bg-[#2B0E1E] text-pink-100/80">
       <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           
@@ -19,8 +19,8 @@ export default function Footer() {
             <Link to="/" className="inline-block">
               <img
                 src="/silvercare-footer-logo.png"
-                alt="SilverCare India Logo"
-                className="h-12 w-auto object-contain bg-white/10 p-1.5 rounded-xl border border-white/10"
+                alt="SilverCare India - Rakhe Aapke Apne Ka Khayal"
+                className="h-16 sm:h-20 w-auto max-w-[280px] object-contain bg-white p-2.5 rounded-xl shadow-md border border-white/30"
                 onError={(e) => {
                   (e.target as any).src = "https://silvercareindia.com/wp-content/uploads/2025/12/footer-logo.png";
                 }}
@@ -38,10 +38,10 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-bold text-white tracking-wider uppercase mb-5">Useful Links</h3>
             <ul className="space-y-3 text-sm">
-              <li><Link to="/" className="text-slate-400 hover:text-[#FF9F43] transition-colors">Home</Link></li>
-              <li><Link to="/about" className="text-slate-400 hover:text-[#FF9F43] transition-colors">About Us</Link></li>
-              <li><Link to="/professionals" className="text-slate-400 hover:text-[#FF9F43] transition-colors">Our Team</Link></li>
-              <li><Link to="/contact" className="text-slate-400 hover:text-[#FF9F43] transition-colors">Contact Us</Link></li>
+              <li><Link to="/" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Home</Link></li>
+              <li><Link to="/about" className="text-slate-400 hover:text-[#FF4F81] transition-colors">About Us</Link></li>
+              <li><Link to="/professionals" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Our Team</Link></li>
+              <li><Link to="/contact" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Contact Us</Link></li>
               <li><Link to="/admin/login" className="text-[#FF4F81] font-bold hover:text-white transition-colors">🔑 Admin Panel Login</Link></li>
             </ul>
           </div>
@@ -49,13 +49,13 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-bold text-white tracking-wider uppercase mb-5">Our Services</h3>
             <ul className="space-y-3 text-sm">
-              <li><Link to="/services/nursing-attendant-care" className="text-slate-400 hover:text-[#FF9F43] transition-colors">Nursing & Attendant Care</Link></li>
-              <li><Link to="/services/doctor-visit-at-home" className="text-slate-400 hover:text-[#FF9F43] transition-colors">Doctor Visit at Home</Link></li>
-              <li><Link to="/services/physiotherapy-at-home" className="text-slate-400 hover:text-[#FF9F43] transition-colors">Physiotherapy at Home</Link></li>
-              <li><Link to="/services/pathology-diagnostics" className="text-slate-400 hover:text-[#FF9F43] transition-colors">Pathology & Diagnostics</Link></li>
-              <li><Link to="/services/telemedicine" className="text-slate-400 hover:text-[#FF9F43] transition-colors">Telemedicine</Link></li>
-              <li><Link to="/services/medical-equipment" className="text-slate-400 hover:text-[#FF9F43] transition-colors">Medical Equipment</Link></li>
-              <li><Link to="/services/daycare-companionship" className="text-slate-400 hover:text-[#FF9F43] transition-colors">Daycare & Companionship</Link></li>
+              <li><Link to="/services/nursing-attendant-care" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Nursing & Attendant Care</Link></li>
+              <li><Link to="/services/doctor-visit-at-home" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Doctor Visit at Home</Link></li>
+              <li><Link to="/services/physiotherapy-at-home" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Physiotherapy at Home</Link></li>
+              <li><Link to="/services/pathology-diagnostics" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Pathology & Diagnostics</Link></li>
+              <li><Link to="/services/telemedicine" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Telemedicine</Link></li>
+              <li><Link to="/services/medical-equipment" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Medical Equipment</Link></li>
+              <li><Link to="/services/daycare-companionship" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Daycare & Companionship</Link></li>
             </ul>
           </div>
           
@@ -64,11 +64,11 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-3">
                 <Phone size={16} className="text-[#FF4F81] shrink-0" />
-                <a href={`tel:${rawPhone}`} className="text-slate-400 hover:text-[#FF9F43] transition-colors">{phone}</a>
+                <a href={`tel:${rawPhone}`} className="text-slate-400 hover:text-[#FF4F81] transition-colors">{phone}</a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={16} className="text-[#FF4F81] shrink-0" />
-                <a href={`mailto:${email}`} className="text-slate-400 hover:text-[#FF9F43] transition-colors">{email}</a>
+                <a href={`mailto:${email}`} className="text-slate-400 hover:text-[#FF4F81] transition-colors">{email}</a>
               </li>
               <li className="flex items-center gap-3">
                 <Globe size={16} className="text-[#FF4F81] shrink-0" />
@@ -76,7 +76,7 @@ export default function Footer() {
               </li>
             </ul>
             <div className="mt-6">
-              <Link to="/book" className="inline-block bg-[#7B2CBF] hover:bg-[#6A24A6] text-white text-xs font-bold px-4 py-2.5 rounded-lg transition-colors">
+              <Link to="/book" className="inline-block bg-[linear-gradient(90deg,#FF4F81,#E91E63)] hover:opacity-95 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition-all shadow-md">
                 Book Appointment →
               </Link>
             </div>

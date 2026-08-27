@@ -247,30 +247,22 @@ export default function Home() {
                 </motion.div>
               </motion.div>
               
-              {/* 7. Right Visual Column - Pristine & Prominent Role Model Portrait */}
-              <div className="relative mt-10 lg:mt-0 flex flex-col items-center justify-center">
-                {/* Ambient Subtle Pink Glow Backdrop */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(233,30,99,0.12),transparent_70%)] rounded-[50px] blur-3xl scale-110 -z-10"></div>
-                
-                {/* Main Pristine Frame for Role Model */}
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.97, y: 16 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.75, delay: 0.2, ease: premiumEase }}
-                  className="relative w-full max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto rounded-[36px] p-3 sm:p-4 bg-white shadow-[0_20px_50px_rgba(23,52,94,0.08)] border border-slate-200/80"
-                >
-                  {/* Completely Clean & Unobstructed Portrait Box */}
-                  <div className="relative w-full rounded-[28px] overflow-hidden bg-gradient-to-b from-slate-50/90 via-white to-pink-50/40 flex items-center justify-center pt-3 pb-1 px-2 border border-slate-100/80">
-                    <img 
-                      src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorImg}
-                      alt={siteSettings.doctorName || "Senior Healthcare Specialist in SilverCare uniform"} 
-                      className="w-full h-auto object-contain object-top max-h-[580px] lg:max-h-[640px] drop-shadow-md transition-transform duration-500 hover:scale-[1.01]"
-                      loading="eager"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                </motion.div>
-              </div>
+              {/* 7. Right Visual Column - Direct Role Model Portrait Seamlessly Integrated */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.97, y: 16 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.75, delay: 0.2, ease: premiumEase }}
+                className="relative mt-10 lg:mt-0 flex flex-col items-center justify-center"
+              >
+                <img 
+                  src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorImg}
+                  alt={siteSettings.doctorName || "Senior Healthcare Specialist in SilverCare uniform"} 
+                  className="w-full h-auto object-contain object-bottom max-h-[580px] lg:max-h-[640px] drop-shadow-xl transition-transform duration-500 hover:scale-[1.01]"
+                  loading="eager"
+                  referrerPolicy="no-referrer"
+                />
+              </motion.div>
+
 
             </div>
           </div>

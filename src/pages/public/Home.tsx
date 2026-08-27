@@ -254,39 +254,51 @@ export default function Home() {
                 transition={{ duration: 0.75, delay: 0.2, ease: premiumEase }}
                 className="relative mt-10 lg:mt-0 flex flex-col items-center justify-center"
               >
-                <img 
-                  src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorImg}
-                  alt={siteSettings.doctorName || "Senior Healthcare Specialist in SilverCare uniform"} 
-                  className="w-full h-auto object-contain object-bottom max-h-[580px] lg:max-h-[640px] mix-blend-multiply transition-transform duration-500 hover:scale-[1.01]"
-                  style={{
-                    WebkitMaskImage: 'radial-gradient(ellipse at 65% 55%, black 65%, transparent 95%)',
-                    maskImage: 'radial-gradient(ellipse at 65% 55%, black 65%, transparent 95%)'
-                  }}
-                  loading="eager"
-                  referrerPolicy="no-referrer"
-                />
+                {/* Soft Ambient Background Glow */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,235,245,0.8)_0%,rgba(243,229,245,0.4)_50%,transparent_100%)] rounded-[40px] blur-2xl -z-10 pointer-events-none" />
 
-                {/* Light & Elegant "TRUSTED BY RAKESH BEDI" Badge */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.6, ease: premiumEase }}
-                  className="absolute bottom-2 right-2 sm:bottom-4 sm:right-6 bg-white/90 backdrop-blur-md px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl border border-pink-200/60 shadow-lg shadow-pink-500/10 flex items-center gap-2.5 group hover:scale-[1.02] transition-all duration-300 z-20"
-                >
-                  <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-gradient-to-br from-pink-100 to-purple-100 text-[#FF4F81] flex items-center justify-center shrink-0 border border-pink-200/50">
-                    <Sparkles size={16} className="text-[#FF4F81]" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#FF4F81]">
-                      <span>Trusted Ambassador</span>
-                      <CheckCircle2 size={11} className="text-emerald-500" />
+                {/* Luxury Glassmorphic Portrait Container Card */}
+                <div className="relative w-full rounded-[36px] bg-white/70 backdrop-blur-md p-3 sm:p-5 border border-white/90 shadow-[0_20px_50px_-12px_rgba(123,44,191,0.12)] group hover:shadow-[0_25px_60px_-10px_rgba(123,44,191,0.18)] transition-all duration-500 overflow-visible">
+                  <img 
+                    src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorImg}
+                    alt={siteSettings.doctorName || "Senior Healthcare Specialist in SilverCare uniform"} 
+                    className="w-full h-auto object-contain object-bottom max-h-[560px] lg:max-h-[620px] rounded-[28px] transition-transform duration-500 group-hover:scale-[1.01]"
+                    loading="eager"
+                    referrerPolicy="no-referrer"
+                  />
+
+                  {/* World-Class "TRUSTED BY RAKESH BEDI" Endorsement Card Overlay */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.6, delay: 0.5, ease: premiumEase }}
+                    className="absolute -bottom-5 right-2 sm:-bottom-6 sm:right-6 bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-100 shadow-[0_15px_35px_-5px_rgba(23,52,94,0.16)] flex items-center gap-3.5 z-30 group/badge hover:-translate-y-1 transition-all duration-300"
+                  >
+                    <div className="relative">
+                      <div className="h-11 w-11 sm:h-12 sm:w-12 rounded-xl bg-[linear-gradient(135deg,#7B2CBF,#9D4EDD)] text-white flex items-center justify-center shadow-md shadow-[#7B2CBF]/20 shrink-0">
+                        <ShieldCheck size={24} className="text-amber-300" />
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 h-5 w-5 rounded-full bg-emerald-500 text-white flex items-center justify-center ring-2 ring-white">
+                        <Check size={12} strokeWidth={3} />
+                      </div>
                     </div>
-                    <div className="text-xs sm:text-sm font-black text-[#17345E] tracking-tight">
-                      TRUSTED BY RAKESH BEDI
+
+                    <div>
+                      <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-pink-50 text-[#FF4F81] text-[10px] font-black tracking-wider uppercase mb-1 border border-pink-100">
+                        <Sparkles size={10} className="text-[#FF4F81]" />
+                        <span>Brand Ambassador</span>
+                      </div>
+                      <h4 className="text-xs sm:text-sm font-black text-[#17345E] tracking-tight leading-none">
+                        TRUSTED BY RAKESH BEDI
+                      </h4>
+                      <p className="text-[10px] sm:text-xs font-semibold text-slate-500 mt-1">
+                        Veteran Actor & Senior Care Advocate
+                      </p>
                     </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                </div>
               </motion.div>
+
 
 
 

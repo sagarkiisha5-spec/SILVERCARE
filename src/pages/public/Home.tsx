@@ -261,7 +261,29 @@ export default function Home() {
                   loading="eager"
                   referrerPolicy="no-referrer"
                 />
+
+                {/* Floating "TRUSTED BY RAKESH BEDI" Badge */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.6, ease: premiumEase }}
+                  className="absolute bottom-4 right-2 sm:bottom-6 sm:right-6 bg-white/95 backdrop-blur-md px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl border border-purple-100 shadow-xl shadow-purple-900/10 flex items-center gap-3 group hover:scale-[1.03] transition-all duration-300 z-20"
+                >
+                  <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-[linear-gradient(135deg,#7B2CBF,#9D4EDD)] text-white flex items-center justify-center shadow-sm shrink-0">
+                    <ShieldCheck size={20} className="text-amber-300" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1 text-[10px] sm:text-xs font-black uppercase tracking-wider text-[#FF4F81]">
+                      <span>Official Endorsement</span>
+                      <CheckCircle2 size={12} className="text-emerald-500 fill-emerald-500/20" />
+                    </div>
+                    <div className="text-xs sm:text-sm font-black text-[#17345E] tracking-tight">
+                      TRUSTED BY RAKESH BEDI
+                    </div>
+                  </div>
+                </motion.div>
               </motion.div>
+
 
 
 

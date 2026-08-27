@@ -9,9 +9,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 import heroDoctorImg from "@/src/assets/hero-doctor.png";
-import heroDoctorTransparentImg from "@/src/assets/hero-doctor-transparent.png";
 import ServiceSearch from "@/src/components/shared/ServiceSearch";
-
 import CareCalculator from "@/src/components/tools/CareCalculator";
 import SilverCareBackground, { HalftoneWaveSVG, OrganicPastelBlobs } from "@/src/components/shared/SilverCareBackground";
 
@@ -254,70 +252,16 @@ export default function Home() {
                 initial={{ opacity: 0, scale: 0.97, y: 16 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: 0.75, delay: 0.2, ease: premiumEase }}
-                className="relative mt-10 lg:mt-0 flex flex-col items-center justify-center w-full"
+                className="relative mt-10 lg:mt-0 flex flex-col items-center justify-center"
               >
-                {/* Authentic Background Container Matching User Reference Screenshot */}
-                <div className="relative w-full rounded-[36px] bg-[linear-gradient(135deg,#FFF2F8_0%,#FDE8F3_50%,#FAF0FE_100%)] border border-pink-200/50 shadow-[0_20px_60px_-15px_rgba(233,30,99,0.12)] overflow-hidden">
-                  
-                  {/* Organic Top-Right Pastel Blob Accent */}
-                  <div className="absolute top-0 right-0 w-[78%] h-[82%] bg-[radial-gradient(ellipse_at_top_right,rgba(238,190,225,0.7)_0%,rgba(240,205,232,0.35)_60%,transparent_90%)] rounded-bl-[140px] pointer-events-none" />
-
-                  {/* Top-Right Floating Translucent Bubble Rings */}
-                  <div className="absolute top-6 right-16 w-14 h-14 rounded-full border-[2.5px] border-white/70 shadow-xs pointer-events-none" />
-                  <div className="absolute top-20 right-8 w-9 h-9 rounded-full border-[2px] border-white/60 pointer-events-none" />
-                  <div className="absolute top-4 right-6 w-5 h-5 rounded-full border-[1.5px] border-white/50 pointer-events-none" />
-
-                  {/* Left Halftone Dot Wave Pattern */}
-                  <div className="absolute inset-y-0 left-0 w-3/5 opacity-30 pointer-events-none overflow-hidden">
-                    <HalftoneWaveSVG density="high" />
-                  </div>
-
-                  {/* Transparent Cutout Doctor Image */}
-                  <img 
-                    src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorTransparentImg}
-                    alt={siteSettings.doctorName || "Senior Healthcare Specialist in SilverCare uniform"} 
-                    className="relative z-10 w-full h-auto object-contain object-bottom max-h-[580px] lg:max-h-[640px] pt-4 transition-transform duration-500 hover:scale-[1.01]"
-                    loading="eager"
-                    referrerPolicy="no-referrer"
-                  />
-
-                  {/* Bottom Soft Curve Base */}
-                  <div className="absolute bottom-0 inset-x-0 h-4 bg-gradient-to-t from-white/40 to-transparent pointer-events-none z-10" />
-
-                  {/* World-Class "TRUSTED BY RAKESH BEDI" Endorsement Card Overlay */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.5, ease: premiumEase }}
-                    className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-3 sm:p-3.5 border border-slate-100 shadow-[0_15px_35px_-5px_rgba(23,52,94,0.18)] flex items-center gap-3 z-30 group/badge hover:-translate-y-0.5 transition-all duration-300"
-                  >
-                    <div className="relative shrink-0">
-                      <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-[linear-gradient(135deg,#7B2CBF,#9D4EDD)] text-white flex items-center justify-center shadow-md shadow-[#7B2CBF]/20">
-                        <ShieldCheck size={22} className="text-amber-300" />
-                      </div>
-                      <div className="absolute -bottom-1 -right-1 h-4.5 w-4.5 rounded-full bg-emerald-500 text-white flex items-center justify-center ring-2 ring-white">
-                        <Check size={10} strokeWidth={3} />
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-pink-50 text-[#FF4F81] text-[9px] font-black tracking-wider uppercase mb-0.5 border border-pink-100">
-                        <Sparkles size={10} className="text-[#FF4F81]" />
-                        <span>Brand Ambassador</span>
-                      </div>
-                      <h4 className="text-xs sm:text-sm font-black text-[#17345E] tracking-tight leading-none">
-                        TRUSTED BY RAKESH BEDI
-                      </h4>
-                      <p className="text-[10px] font-semibold text-slate-500 mt-0.5">
-                        Veteran Actor & Senior Care Advocate
-                      </p>
-                    </div>
-                  </motion.div>
-                </div>
+                <img 
+                  src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorImg}
+                  alt={siteSettings.doctorName || "Senior Healthcare Specialist in SilverCare uniform"} 
+                  className="w-full h-auto object-contain object-bottom max-h-[580px] lg:max-h-[640px] mix-blend-multiply transition-transform duration-500 hover:scale-[1.01]"
+                  loading="eager"
+                  referrerPolicy="no-referrer"
+                />
               </motion.div>
-
-
-
 
 
 

@@ -258,25 +258,28 @@ export default function Home() {
                   src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorImg}
                   alt={siteSettings.doctorName || "Senior Healthcare Specialist in SilverCare uniform"} 
                   className="w-full h-auto object-contain object-bottom max-h-[580px] lg:max-h-[640px] mix-blend-multiply transition-transform duration-500 hover:scale-[1.01]"
+                  style={{
+                    WebkitMaskImage: 'radial-gradient(ellipse at 65% 55%, black 65%, transparent 95%)',
+                    maskImage: 'radial-gradient(ellipse at 65% 55%, black 65%, transparent 95%)'
+                  }}
                   loading="eager"
                   referrerPolicy="no-referrer"
                 />
 
-                {/* Floating "TRUSTED BY RAKESH BEDI" Badge */}
+                {/* Light & Elegant "TRUSTED BY RAKESH BEDI" Badge */}
                 <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.5, delay: 0.6, ease: premiumEase }}
-                  className="absolute -bottom-4 right-2 sm:-bottom-5 sm:right-6 bg-white/95 backdrop-blur-md px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl border border-purple-100 shadow-2xl shadow-purple-900/15 flex items-center gap-3 group hover:scale-[1.03] transition-all duration-300 z-20"
+                  className="absolute bottom-2 right-2 sm:bottom-4 sm:right-6 bg-white/90 backdrop-blur-md px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl border border-pink-200/60 shadow-lg shadow-pink-500/10 flex items-center gap-2.5 group hover:scale-[1.02] transition-all duration-300 z-20"
                 >
-
-                  <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-[linear-gradient(135deg,#7B2CBF,#9D4EDD)] text-white flex items-center justify-center shadow-sm shrink-0">
-                    <ShieldCheck size={20} className="text-amber-300" />
+                  <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-gradient-to-br from-pink-100 to-purple-100 text-[#FF4F81] flex items-center justify-center shrink-0 border border-pink-200/50">
+                    <Sparkles size={16} className="text-[#FF4F81]" />
                   </div>
                   <div>
-                    <div className="flex items-center gap-1 text-[10px] sm:text-xs font-black uppercase tracking-wider text-[#FF4F81]">
-                      <span>Official Endorsement</span>
-                      <CheckCircle2 size={12} className="text-emerald-500 fill-emerald-500/20" />
+                    <div className="flex items-center gap-1 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#FF4F81]">
+                      <span>Trusted Ambassador</span>
+                      <CheckCircle2 size={11} className="text-emerald-500" />
                     </div>
                     <div className="text-xs sm:text-sm font-black text-[#17345E] tracking-tight">
                       TRUSTED BY RAKESH BEDI
@@ -284,6 +287,7 @@ export default function Home() {
                   </div>
                 </motion.div>
               </motion.div>
+
 
 
 

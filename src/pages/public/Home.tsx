@@ -148,8 +148,9 @@ export default function Home() {
           className="relative pt-6 sm:pt-8 lg:pt-10 pb-16 lg:pb-24 overflow-hidden border-b border-slate-100 bg-cover bg-top bg-no-repeat"
           style={{ backgroundImage: 'url(/home-bg-1.png)' }}
         >
-          {/* Top-Right Soft Lightening Overlay */}
-          <div className="absolute top-0 right-0 w-[60%] h-[85%] bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.5)_0%,rgba(255,248,252,0.35)_50%,transparent_100%)] pointer-events-none z-0" />
+          {/* Right Side Soft Lightening Overlay (Top-Right & Bottom-Right Purple Lightening) */}
+          <div className="absolute inset-y-0 right-0 w-[65%] bg-[radial-gradient(ellipse_at_center_right,rgba(255,255,255,0.55)_0%,rgba(255,248,252,0.4)_60%,transparent_100%)] pointer-events-none z-0" />
+
 
 
 

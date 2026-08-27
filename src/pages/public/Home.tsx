@@ -257,11 +257,12 @@ export default function Home() {
                 <img 
                   src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorImg}
                   alt={siteSettings.doctorName || "Senior Healthcare Specialist in SilverCare uniform"} 
-                  className="w-full h-auto object-contain object-bottom max-h-[580px] lg:max-h-[640px] drop-shadow-xl transition-transform duration-500 hover:scale-[1.01]"
+                  className="w-full h-auto object-contain object-bottom max-h-[580px] lg:max-h-[640px] mix-blend-multiply transition-transform duration-500 hover:scale-[1.01]"
                   loading="eager"
                   referrerPolicy="no-referrer"
                 />
               </motion.div>
+
 
 
             </div>

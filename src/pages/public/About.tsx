@@ -3,6 +3,7 @@ import { Button } from "@/src/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import SEO from "@/src/components/seo/SEO";
+import { HalftoneWaveSVG, OrganicPastelBlobs } from "@/src/components/shared/SilverCareBackground";
 
 export default function About() {
   return (
@@ -15,7 +16,10 @@ export default function About() {
         
         {/* HERO SECTION */}
         <section className="relative bg-[linear-gradient(135deg,#0F172A_0%,#1E1B4B_50%,#3B0764_100%)] text-white py-16 md:py-24 overflow-hidden">
-          <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#ffffff 1.5px, transparent 1.5px)', backgroundSize: '28px 28px' }}></div>
+          <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
+            <HalftoneWaveSVG density="high" />
+          </div>
+
           
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl relative z-10">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs sm:text-sm font-semibold text-purple-200 mb-6">

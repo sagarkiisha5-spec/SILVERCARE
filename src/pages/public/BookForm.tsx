@@ -10,6 +10,7 @@ import { Input } from "@/src/components/ui/input";
 import { CheckCircle2, AlertCircle, PhoneCall, ShieldCheck, ChevronDown, Check } from "lucide-react";
 import SEO from "@/src/components/seo/SEO";
 import { useAppContent, fallbackServices } from "@/src/hooks/useAppContent";
+import { HalftoneWaveSVG, OrganicPastelBlobs } from "@/src/components/shared/SilverCareBackground";
 
 const simpleBookingSchema = z.object({
   firstName: z.string().min(2, "First name is required").max(100),
@@ -151,8 +152,12 @@ export default function BookForm() {
         description="Request a callback from a Senior Care Expert for home nursing, doctor visits, physiotherapy, and eldercare in Delhi NCR."
       />
 
-      <div className="bg-slate-50 min-h-screen py-10 sm:py-16 font-sans">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-xl">
+      <div className="relative bg-[linear-gradient(180deg,#FAF6FF_0%,#FFF5F9_50%,#FFFFFF_100%)] min-h-screen py-10 sm:py-16 font-sans overflow-hidden">
+        <OrganicPastelBlobs variant="hero" />
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-60 overflow-hidden">
+          <HalftoneWaveSVG density="medium" />
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-xl relative z-10">
           
           {/* Main Sample Form Box Container */}
           <div className="bg-white rounded-3xl border border-slate-200/90 shadow-2xl overflow-hidden p-6 sm:p-10">

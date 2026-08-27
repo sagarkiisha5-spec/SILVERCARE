@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "motion/react";
 import heroDoctorImg from "@/src/assets/hero-doctor.png";
 import ServiceSearch from "@/src/components/shared/ServiceSearch";
 import CareCalculator from "@/src/components/tools/CareCalculator";
+import SilverCareBackground, { HalftoneWaveSVG, OrganicPastelBlobs } from "@/src/components/shared/SilverCareBackground";
 
 // Motion Tokens
 const premiumEase = [0.22, 1, 0.36, 1];
@@ -143,15 +144,14 @@ export default function Home() {
       <div className="flex flex-col font-sans text-slate-800 bg-white">
         
         {/* 1. HERO SECTION WITH PROMINENT DEDICATED ROTATING SERVICE FEATURE */}
-        <section className="relative pt-6 sm:pt-8 lg:pt-10 pb-12 lg:pb-16 bg-white overflow-hidden border-b border-slate-100">
+        <section className="relative pt-6 sm:pt-8 lg:pt-10 pb-12 lg:pb-16 bg-[linear-gradient(180deg,#FBF8FF_0%,#FFF5FA_45%,#FFFFFF_100%)] overflow-hidden border-b border-slate-100">
           
-          {/* Ambient Motion Decorative Grid Background */}
-          <motion.div 
-            animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
-            transition={{ duration: 30, repeat: Infinity, ease: "linear", repeatType: "reverse" }}
-            className="absolute inset-0 opacity-[0.035] pointer-events-none" 
-            style={{ backgroundImage: 'radial-gradient(#7B2CBF 1.5px, transparent 1.5px)', backgroundSize: '28px 28px' }}
-          ></motion.div>
+          {/* Organic Pastel Blobs & Halftone Wave SVG Background */}
+          <OrganicPastelBlobs variant="hero" />
+          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-90">
+            <HalftoneWaveSVG density="high" />
+          </div>
+
           
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1480px] relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -305,8 +305,12 @@ export default function Home() {
         </section>
 
         {/* 3. SERVICES SECTION */}
-        <section className="py-20 lg:py-28 bg-slate-50 border-b border-slate-100">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative py-20 lg:py-28 bg-[linear-gradient(180deg,#FFFFFF_0%,#FAF6FF_50%,#FFFFFF_100%)] overflow-hidden border-b border-slate-100">
+          <OrganicPastelBlobs variant="services" />
+          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-50">
+            <HalftoneWaveSVG density="subtle" />
+          </div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
               <div>
                 <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#FF4F81] mb-2 block">Our Core Capabilities</span>
@@ -362,8 +366,12 @@ export default function Home() {
         </section>
 
         {/* 4. COMPASSION SECTION */}
-        <section className="py-20 lg:py-24 bg-[#FFF0F5] border-y border-[#FCE4EC] overflow-hidden">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1340px]">
+        <section className="relative py-20 lg:py-24 bg-[#FFF0F5] border-y border-[#FCE4EC] overflow-hidden">
+          <OrganicPastelBlobs variant="about" />
+          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-60">
+            <HalftoneWaveSVG density="medium" />
+          </div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1340px] relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
               
               {/* Left Content Column (7 Cols) */}
@@ -462,8 +470,11 @@ export default function Home() {
         </section>
 
         {/* 5. WHY SILVERCARE SECTION */}
-        <section className="py-20 lg:py-28 bg-[#FFF5F8]">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative py-20 lg:py-28 bg-[linear-gradient(180deg,#FAF5FF_0%,#FFF5F9_100%)] overflow-hidden">
+          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-45">
+            <HalftoneWaveSVG density="subtle" />
+          </div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp} className="text-center max-w-2xl mx-auto mb-16">
               <h2 className="text-3xl md:text-4xl font-extrabold text-[#17345E] mb-4">Why families choose <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF5C7A,#E91E63)]">SilverCare</span></h2>
             </motion.div>
@@ -490,8 +501,12 @@ export default function Home() {
         </section>
 
         {/* 6. HOW IT WORKS SECTION (Sequential Step Progression) */}
-        <section className="py-20 lg:py-28 bg-[#FFF0F5] overflow-hidden border-t border-[#FCE4EC]">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <section className="relative py-20 lg:py-28 bg-[#FFF0F5] overflow-hidden border-t border-[#FCE4EC]">
+          <OrganicPastelBlobs variant="subpage" />
+          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-50">
+            <HalftoneWaveSVG density="subtle" />
+          </div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-3xl md:text-4xl font-extrabold mb-16 text-[#17345E]">Quality care, without the complexity.</motion.h2>
             
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerCards} className="grid grid-cols-1 md:grid-cols-4 gap-8 relative max-w-5xl mx-auto">
@@ -572,8 +587,12 @@ export default function Home() {
         </section>
 
         {/* 8. TESTIMONIALS */}
-        <section className="py-24 bg-[#FFF8FB]">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative py-24 bg-[#FFF8FB] overflow-hidden">
+          <OrganicPastelBlobs variant="subpage" />
+          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-55">
+            <HalftoneWaveSVG density="medium" />
+          </div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center max-w-2xl mx-auto mb-16">
               <h2 className="text-3xl md:text-4xl font-extrabold text-[#17345E]">What families say about SilverCare</h2>
               <p className="text-slate-600 mt-2 text-base">Real experiences from families across North India</p>
@@ -829,12 +848,16 @@ export default function Home() {
 
         {/* 10. BOOKING CTA WITH AMBIENT MOTION */}
         <section className="py-24 bg-[linear-gradient(135deg,#AD1457_0%,#E91E63_50%,#FF4F81_100%)] text-white relative overflow-hidden">
+          <div className="absolute inset-0 z-0 pointer-events-none opacity-25">
+            <HalftoneWaveSVG density="medium" />
+          </div>
           <motion.div 
             animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear", repeatType: "reverse" }}
-            className="absolute inset-0 opacity-[0.06]" 
+            className="absolute inset-0 opacity-[0.06] pointer-events-none" 
             style={{ backgroundImage: 'radial-gradient(#FFF 2px, transparent 2px)', backgroundSize: '40px 40px' }}
           ></motion.div>
+
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl relative z-10">
             <h2 className="text-3xl md:text-4xl font-extrabold mb-6">Not sure what kind of care your loved one needs?</h2>
             <p className="text-lg text-white/90 mb-10 leading-relaxed">

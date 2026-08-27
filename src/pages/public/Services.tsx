@@ -24,6 +24,7 @@ import { Input } from "@/src/components/ui/input";
 import { motion, AnimatePresence } from "motion/react";
 import SEO from "@/src/components/seo/SEO";
 import { useAppContent, fallbackServices, Service } from "@/src/hooks/useAppContent";
+import { HalftoneWaveSVG, OrganicPastelBlobs } from "@/src/components/shared/SilverCareBackground";
 
 export default function Services() {
   const { services, loading } = useAppContent();
@@ -168,7 +169,9 @@ export default function Services() {
         {/* HERO SECTION */}
         <section className="relative bg-[linear-gradient(135deg,#0F172A_0%,#1E1B4B_50%,#3B0764_100%)] text-white pt-12 pb-20 md:pt-16 md:pb-28 overflow-hidden">
           {/* Background Decorative Pattern */}
-          <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#ffffff 1.5px, transparent 1.5px)', backgroundSize: '28px 28px' }}></div>
+          <div className="absolute inset-0 z-0 pointer-events-none opacity-35 overflow-hidden">
+            <HalftoneWaveSVG density="high" />
+          </div>
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#E91E63]/30 rounded-full blur-3xl pointer-events-none"></div>
           <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#FF4F81]/20 rounded-full blur-3xl pointer-events-none"></div>
 

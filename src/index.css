@@ -1,1 +1,32 @@
 @import "tailwindcss";
+
+/* ==========================================================================
+   SilverCare India Visual Theme Utilities (Halftone Wave & Pastel Blobs)
+   ========================================================================== */
+
+@layer utilities {
+  /* Soft Halftone Grid Pattern */
+  .halftone-pattern {
+    background-image: radial-gradient(#D9B8FF 1.8px, transparent 1.8px);
+    background-size: 20px 20px;
+  }
+
+  .halftone-pattern-dense {
+    background-image: radial-gradient(#C77DFF 1.6px, transparent 1.6px);
+    background-size: 16px 16px;
+  }
+
+  .halftone-pattern-pink {
+    background-image: radial-gradient(#FFD6E8 1.8px, transparent 1.8px);
+    background-size: 22px 22px;
+  }
+
+  /* Organic Soft Pastel Gradient Backdrops */
+  .bg-silvercare-hero {
+    background: linear-gradient(180deg, #FBF8FF 0%, #FFF5FA 45%, #FFFFFF 100%);
+  }
+
+  .bg-silvercare-pastel {
+    background: linear-gradient(135deg, #FAF5FF 0%, #FFF5F9 50%, #FAF0FF 100%);
+  }
+}

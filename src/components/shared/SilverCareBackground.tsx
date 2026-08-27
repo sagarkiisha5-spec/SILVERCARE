@@ -7,133 +7,155 @@ interface SilverCareBackgroundProps {
 }
 
 /**
- * PinkAmbientGlows: Soft, oversized blurred radial glows behaving like ambient healthcare lighting.
- * Extremely soft and subtle - NO hard edges, NO heavy dot patterns, NO visual noise.
+ * Authentic SilverCare India Background (Ground Truth from silvercareindia.com - home-bg-1.png & soft wave gradient)
+ * Features:
+ * 1. Soft Flowing Gradient (#FFF7FA -> #FFF0F5 -> #FFFFFF)
+ * 2. Original SilverCare Soft Halftone Wave Pattern
+ * 3. Soft Ambient Pastel Blobs for Depth
  */
-export const PinkAmbientGlows: React.FC<{ variant?: string }> = ({ variant = "hero" }) => {
+export const SilverCareOfficialBackground: React.FC<{ variant?: string }> = ({ variant = "hero" }) => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
-      {/* Top-Left Soft Blush Radial Lighting (Behind Text / Header) */}
+      {/* 1. Base Gradient matching silvercareindia.com */}
       <div
-        className="absolute -top-32 -left-20 w-[550px] sm:w-[650px] lg:w-[750px] h-[550px] sm:h-[650px] lg:h-[750px] rounded-full opacity-65 sm:opacity-75 blur-[90px] sm:blur-[120px]"
+        className="absolute inset-0"
         style={{
-          background: "radial-gradient(circle, rgba(255, 228, 238, 0.65) 0%, rgba(255, 234, 242, 0.35) 50%, rgba(255, 247, 250, 0) 75%)",
+          background:
+            variant === "hero"
+              ? "linear-gradient(180deg, #FAF4FF 0%, #FFF0F6 45%, #FFFFFF 100%)"
+              : variant === "services"
+              ? "linear-gradient(180deg, #FFFFFF 0%, #FAF2FF 50%, #FFFFFF 100%)"
+              : variant === "about"
+              ? "linear-gradient(180deg, #FFF0F6 0%, #FAF0FF 60%, #FFFFFF 100%)"
+              : variant === "why"
+              ? "linear-gradient(180deg, #FAF4FF 0%, #FFF0F6 100%)"
+              : variant === "cta"
+              ? "linear-gradient(135deg, #F3E5F5 0%, #FFF0F5 50%, #FAF0FF 100%)"
+              : "linear-gradient(180deg, #FAF4FF 0%, #FFFFFF 100%)",
         }}
       />
 
-      {/* Top-Right Soft Pink Ambient Glow (Behind Hero Image / Visual Column) */}
+      {/* 2. Soft Organic Glow Blobs */}
       <div
-        className="absolute -top-20 -right-20 w-[500px] sm:w-[600px] lg:w-[700px] h-[500px] sm:h-[600px] lg:h-[700px] rounded-full opacity-60 sm:opacity-70 blur-[85px] sm:blur-[110px]"
+        className="absolute -top-28 -left-20 w-[600px] h-[600px] rounded-full opacity-60 blur-[100px]"
         style={{
-          background: "radial-gradient(circle, rgba(255, 234, 242, 0.6) 0%, rgba(255, 240, 245, 0.3) 55%, rgba(255, 255, 255, 0) 80%)",
+          background: "radial-gradient(circle, rgba(230, 200, 255, 0.4) 0%, rgba(255, 214, 232, 0.25) 50%, transparent 75%)",
+        }}
+      />
+      <div
+        className="absolute -top-20 -right-20 w-[550px] h-[550px] rounded-full opacity-50 blur-[90px]"
+        style={{
+          background: "radial-gradient(circle, rgba(255, 214, 232, 0.45) 0%, rgba(230, 200, 255, 0.2) 60%, transparent 80%)",
         }}
       />
 
-      {/* Center Soft Warm White / Diffused Glow */}
-      <div
-        className="absolute top-1/3 left-1/3 w-[450px] sm:w-[550px] lg:w-[650px] h-[450px] sm:h-[550px] lg:h-[650px] rounded-full opacity-40 blur-[80px] sm:blur-[100px]"
-        style={{
-          background: "radial-gradient(circle, rgba(255, 245, 249, 0.7) 0%, rgba(255, 255, 255, 0) 75%)",
-        }}
-      />
+      {/* 3. Official Halftone Dot Wave Mesh SVG matching home-bg-1 */}
+      <svg
+        viewBox="0 0 1440 700"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="absolute inset-0 w-full h-full opacity-70"
+        preserveAspectRatio="xMidYMid slice"
+      >
+        <defs>
+          <linearGradient id="scWaveGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#C77DFF" stopOpacity="0.5" />
+            <stop offset="50%" stopColor="#E6C8FF" stopOpacity="0.65" />
+            <stop offset="100%" stopColor="#FFB8E0" stopOpacity="0.3" />
+          </linearGradient>
 
-      {/* Bottom Right Soft Pink Accent Lighting */}
-      <div
-        className="absolute -bottom-24 right-10 w-[400px] sm:w-[500px] lg:w-[600px] h-[400px] sm:h-[500px] lg:h-[600px] rounded-full opacity-45 sm:opacity-55 blur-[75px] sm:blur-[95px]"
-        style={{
-          background: "radial-gradient(circle, rgba(255, 228, 238, 0.45) 0%, rgba(255, 241, 246, 0.2) 60%, rgba(255, 255, 255, 0) 80%)",
-        }}
-      />
+          <linearGradient id="scWaveGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#FFB8E0" stopOpacity="0.6" />
+            <stop offset="70%" stopColor="#D9B8FF" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#C77DFF" stopOpacity="0.2" />
+          </linearGradient>
+
+          <pattern id="scDotPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+            <circle cx="10" cy="10" r="1.8" fill="#D9B8FF" opacity="0.35" />
+          </pattern>
+
+          <radialGradient id="scFadeMask" cx="50%" cy="40%" r="55%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+            <stop offset="70%" stopColor="#ffffff" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+          </radialGradient>
+
+          <mask id="scOrganicMask">
+            <rect width="1440" height="700" fill="url(#scFadeMask)" />
+          </mask>
+        </defs>
+
+        {/* Soft Dot Grid overlay with fade mask */}
+        <rect width="1440" height="700" fill="url(#scDotPattern)" mask="url(#scOrganicMask)" />
+
+        {/* Halftone Curved Dot Wave Lines */}
+        <g opacity="0.85">
+          <path
+            d="M -50 140 C 280 30, 550 260, 900 110 C 1180 -10, 1380 160, 1520 90"
+            stroke="url(#scWaveGrad1)"
+            strokeWidth="3.5"
+            strokeDasharray="0 16"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d="M -50 160 C 280 50, 550 280, 900 130 C 1180 10, 1380 180, 1520 110"
+            stroke="url(#scWaveGrad1)"
+            strokeWidth="3"
+            strokeDasharray="0 15"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d="M -50 180 C 280 70, 550 300, 900 150 C 1180 30, 1380 200, 1520 130"
+            stroke="url(#scWaveGrad2)"
+            strokeWidth="2.8"
+            strokeDasharray="0 15"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d="M -50 200 C 280 90, 550 320, 900 170 C 1180 50, 1380 220, 1520 150"
+            stroke="url(#scWaveGrad2)"
+            strokeWidth="2.5"
+            strokeDasharray="0 14"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d="M -30 380 C 320 200, 680 460, 1040 280 C 1300 150, 1460 340, 1550 280"
+            stroke="url(#scWaveGrad1)"
+            strokeWidth="3"
+            strokeDasharray="0 16"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d="M -30 400 C 320 220, 680 480, 1040 300 C 1300 170, 1460 360, 1550 300"
+            stroke="url(#scWaveGrad2)"
+            strokeWidth="2.5"
+            strokeDasharray="0 15"
+            strokeLinecap="round"
+            fill="none"
+          />
+        </g>
+      </svg>
     </div>
   );
 };
 
-/**
- * Backward Compatibility SVG Component - Lightweight Ambient Curved Light Lines
- * (Clean & minimal - No wallpaper grids or heavy dots)
- */
-export const HalftoneWaveSVG: React.FC<{
-  density?: "high" | "medium" | "subtle";
-  className?: string;
-}> = ({ className = "" }) => {
-  return (
-    <svg
-      viewBox="0 0 1440 600"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={`w-full h-full pointer-events-none select-none ${className}`}
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <defs>
-        <linearGradient id="softPinkWaveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FFE4EE" stopOpacity="0.4" />
-          <stop offset="50%" stopColor="#FFEAF2" stopOpacity="0.25" />
-          <stop offset="100%" stopColor="#FFF1F6" stopOpacity="0.05" />
-        </linearGradient>
-      </defs>
+export const HalftoneWaveSVG = SilverCareOfficialBackground;
+export const PinkAmbientGlows = SilverCareOfficialBackground;
+export const OrganicPastelBlobs = SilverCareOfficialBackground;
 
-      {/* Very faint, silky ambient contour lines */}
-      <path
-        d="M -100 200 C 350 80, 650 320, 1050 140 C 1280 60, 1450 220, 1600 150"
-        stroke="url(#softPinkWaveGrad)"
-        strokeWidth="2"
-        fill="none"
-        opacity="0.5"
-      />
-      <path
-        d="M -100 230 C 350 110, 650 350, 1050 170 C 1280 90, 1450 250, 1600 180"
-        stroke="url(#softPinkWaveGrad)"
-        strokeWidth="1.5"
-        fill="none"
-        opacity="0.3"
-      />
-    </svg>
-  );
-};
-
-export const OrganicPastelBlobs = PinkAmbientGlows;
-
-/**
- * Main SilverCareBackground wrapper component for Premium Light Pink Healthcare Theme
- */
 export default function SilverCareBackground({
   variant = "hero",
   children,
   className = "",
 }: SilverCareBackgroundProps) {
-  const getGradientStyle = () => {
-    switch (variant) {
-      case "hero":
-        return "linear-gradient(180deg, #FFF7FA 0%, #FFF4F8 40%, #FFF9FC 75%, #FFFFFF 100%)";
-      case "about":
-        return "linear-gradient(180deg, #FFFFFF 0%, #FFF7FA 50%, #FFFFFF 100%)";
-      case "services":
-        return "linear-gradient(180deg, #FFF5F8 0%, #FFF0F5 50%, #FFF7FA 100%)";
-      case "why":
-        return "linear-gradient(180deg, #FFF7FA 0%, #FFF1F6 100%)";
-      case "testimonials":
-        return "linear-gradient(180deg, #FFFFFF 0%, #FFF9FC 60%, #FFFFFF 100%)";
-      case "cta":
-        return "linear-gradient(135deg, #FFF0F5 0%, #FFE4EE 50%, #FFF5F8 100%)";
-      case "subpage":
-        return "linear-gradient(180deg, #FFF7FA 0%, #FFF4F8 50%, #FFFFFF 100%)";
-      default:
-        return "linear-gradient(180deg, #FFF7FA 0%, #FFFFFF 100%)";
-    }
-  };
-
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      {/* Layer 1: Main Base Gradient */}
-      <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{ background: getGradientStyle() }}
-      />
-
-      {/* Layer 2: Organic Pink Lighting / Ambient Glows */}
-      <PinkAmbientGlows variant={variant} />
-
-      {/* Layer 3: Website Content Container */}
+      <SilverCareOfficialBackground variant={variant} />
       <div className="relative z-10">{children}</div>
     </div>
   );

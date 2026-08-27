@@ -1,32 +1,42 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   SilverCare India Visual Theme Utilities (Halftone Wave & Pastel Blobs)
+   SilverCare India — Premium Light Pink Healthcare Theme Tokens & Utilities
+   Palette:
+   - Base BG: #FFF7FA / #FFF4F8
+   - Secondary BG: #FFF1F6
+   - Soft Blush: #FFE4EE
+   - Very Light Pink: #FFEAF2
+   - White Content Surface: #FFFFFF
    ========================================================================== */
 
 @layer utilities {
-  /* Soft Halftone Grid Pattern */
-  .halftone-pattern {
-    background-image: radial-gradient(#D9B8FF 1.8px, transparent 1.8px);
-    background-size: 20px 20px;
+  /* Soft Ambient Pink Backdrops */
+  .bg-pink-theme-hero {
+    background: linear-gradient(180deg, #FFF7FA 0%, #FFF4F8 40%, #FFF9FC 75%, #FFFFFF 100%);
   }
 
-  .halftone-pattern-dense {
-    background-image: radial-gradient(#C77DFF 1.6px, transparent 1.6px);
-    background-size: 16px 16px;
+  .bg-pink-theme-base {
+    background: #FFF7FA;
   }
 
-  .halftone-pattern-pink {
-    background-image: radial-gradient(#FFD6E8 1.8px, transparent 1.8px);
-    background-size: 22px 22px;
+  .bg-pink-theme-soft {
+    background: linear-gradient(180deg, #FFF5F8 0%, #FFF0F5 50%, #FFF7FA 100%);
   }
 
-  /* Organic Soft Pastel Gradient Backdrops */
-  .bg-silvercare-hero {
-    background: linear-gradient(180deg, #FBF8FF 0%, #FFF5FA 45%, #FFFFFF 100%);
+  .bg-pink-theme-card {
+    background-color: #FFFFFF;
+    border-color: rgba(255, 228, 238, 0.7);
   }
 
-  .bg-silvercare-pastel {
-    background: linear-gradient(135deg, #FAF5FF 0%, #FFF5F9 50%, #FAF0FF 100%);
+  /* Soft Blurred Lighting */
+  .pink-glow-hero {
+    background: radial-gradient(circle, rgba(255, 228, 238, 0.65) 0%, rgba(255, 247, 250, 0) 75%);
+    filter: blur(100px);
+  }
+
+  .pink-glow-image {
+    background: radial-gradient(circle, rgba(255, 234, 242, 0.65) 0%, rgba(255, 255, 255, 0) 70%);
+    filter: blur(80px);
   }
 }

@@ -144,13 +144,11 @@ export default function Home() {
       <div className="flex flex-col font-sans text-slate-800 bg-white">
         
         {/* 1. HERO SECTION WITH PROMINENT DEDICATED ROTATING SERVICE FEATURE */}
-        <section className="relative pt-6 sm:pt-8 lg:pt-10 pb-12 lg:pb-16 bg-[linear-gradient(180deg,#FBF8FF_0%,#FFF5FA_45%,#FFFFFF_100%)] overflow-hidden border-b border-slate-100">
-          
-          {/* Organic Pastel Blobs & Halftone Wave SVG Background */}
-          <OrganicPastelBlobs variant="hero" />
-          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-90">
-            <HalftoneWaveSVG density="high" />
-          </div>
+        <section 
+          className="relative pt-6 sm:pt-8 lg:pt-10 pb-16 lg:pb-24 overflow-hidden border-b border-slate-100 bg-cover bg-top bg-no-repeat"
+          style={{ backgroundImage: 'url(/home-bg-1.png)' }}
+        >
+
 
           
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1480px] relative z-10">

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "@/src/lib/firebase";
+import { submitServiceRequest } from "@/src/lib/requestManager";
 import { motion, AnimatePresence } from "motion/react";
 import { X, CheckCircle2, AlertCircle, ShieldCheck, ChevronDown, PhoneCall } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
@@ -78,21 +77,25 @@ export default function AutoBookingModal({ forceOpen = false, initialService, on
     }
   }, [initialService, setValue]);
 
-  // Automatically trigger modal popup 1.5s after visitor arrives or refreshes page if not forced open
+  // Automatically trigger modal popup after a 7-second delay if not already dismissed or forced open
   useEffect(() => {
     if (forceOpen) {
       setIsOpen(true);
       return;
     }
+    const isDismissed = sessionStorage.getItem("silvercare_modal_dismissed");
+    if (isDismissed) return;
+
     const timer = setTimeout(() => {
       setIsOpen(true);
-    }, 1500);
+    }, 7000);
 
     return () => clearTimeout(timer);
   }, [forceOpen]);
 
   const handleClose = () => {
     setIsOpen(false);
+    sessionStorage.setItem("silvercare_modal_dismissed", "true");
     onClose?.();
   };
 
@@ -100,17 +103,12 @@ export default function AutoBookingModal({ forceOpen = false, initialService, on
     setIsSubmitting(true);
     setError("");
     try {
-      await addDoc(collection(db, "serviceRequests"), {
+      await submitServiceRequest({
         patientName: data.firstName,
-        firstName: data.firstName,
-        phone: data.phone.startsWith("+91") ? data.phone : `+91 ${data.phone}`,
+        phone: data.phone,
         city: data.city,
-        serviceName: data.careType,
         careType: data.careType,
         consent: data.consent,
-        status: "New",
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
       });
       setSubmittedPhone(data.phone);
       setIsSuccess(true);

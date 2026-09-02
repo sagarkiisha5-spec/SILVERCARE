@@ -17,110 +17,110 @@ interface RecentRequest {
   date: string;
 }
 
-const mockRecentRequests: RecentRequest[] = [
-  {
-    id: "REQ-1092",
-    patientName: "Mrs. Savitri Sharma",
-    phone: "+91 98110-XXXXX",
-    service: "Nursing & Attendant Care (24/7 Shift)",
-    city: "Gurgaon, Sec-33",
-    doctor: "Ms. Jasbir Kour",
-    status: "New",
-    date: "Today, 10:30 AM"
-  },
-  {
-    id: "REQ-1091",
-    patientName: "Mr. Harish Chandra Wadhwa",
-    phone: "+91 98712-XXXXX",
-    service: "Doctor Home Visit & Vital Checks",
-    city: "Delhi NCR (South Del)",
-    doctor: "Dr. Kirandeep Kaur",
-    status: "In Progress",
-    date: "Today, 09:15 AM"
-  },
-  {
-    id: "REQ-1090",
-    patientName: "Col. R.K. Kapoor (Retd.)",
-    phone: "+91 98140-XXXXX",
-    service: "Post-Stroke Physiotherapy Session",
-    city: "Chandigarh, Sec-18",
-    doctor: "Dr. Pashdeep Sharma",
-    status: "Completed",
-    date: "Yesterday, 04:00 PM"
-  },
-  {
-    id: "REQ-1089",
-    patientName: "Mrs. Nirmala Gupta",
-    phone: "+91 94170-XXXXX",
-    service: "Pathology Blood Sample Collection",
-    city: "Mohali, Phase 7",
-    doctor: "Dr. Ramandeep Reetwal",
-    status: "Completed",
-    date: "24 Aug 2026"
-  }
-];
-
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
-    totalRequests: 148,
-    newRequests: 14,
-    completedRequests: 134,
-    activeProfessionals: 8
+    totalRequests: 0,
+    newRequests: 0,
+    completedRequests: 0,
+    activeProfessionals: 0
   });
   
-  const [loading, setLoading] = useState(false);
-  const [recentRequests, setRecentRequests] = useState<RecentRequest[]>(mockRecentRequests);
+  const [loading, setLoading] = useState(true);
+  const [recentRequests, setRecentRequests] = useState<RecentRequest[]>([]);
+
+  const formatDate = (rawDate: any): string => {
+    if (!rawDate) return "Just now";
+    try {
+      let dateObj: Date;
+      if (typeof rawDate?.toDate === "function") {
+        dateObj = rawDate.toDate();
+      } else if (typeof rawDate === "number") {
+        dateObj = new Date(rawDate);
+      } else if (typeof rawDate === "string") {
+        dateObj = new Date(rawDate);
+      } else if (rawDate?.seconds) {
+        dateObj = new Date(rawDate.seconds * 1000);
+      } else {
+        return "Just now";
+      }
+      if (isNaN(dateObj.getTime())) return "Just now";
+      return dateObj.toLocaleDateString();
+    } catch {
+      return "Just now";
+    }
+  };
 
   useEffect(() => {
+    let unsubscribeReqs: (() => void) | undefined;
+    let unsubscribePros: (() => void) | undefined;
+
+    // 1. Fetch live active professionals count
+    try {
+      unsubscribePros = onSnapshot(collection(db, "professionals"), (proSnap) => {
+        const activeCount = proSnap.docs.filter(d => d.data().isActive !== false).length;
+        setStats(prev => ({ ...prev, activeProfessionals: activeCount || proSnap.size || 0 }));
+      });
+    } catch (e) {
+      console.warn("Could not fetch professionals count:", e);
+    }
+
+    // 2. Fetch live service requests
+    const processSnapshot = (snapshot: any) => {
+      let total = 0;
+      let newReqs = 0;
+      let completed = 0;
+      const liveReqs: RecentRequest[] = [];
+      
+      snapshot.forEach((docSnap: any) => {
+        total++;
+        const data = docSnap.data();
+        if (data.status === 'New') newReqs++;
+        if (data.status === 'Completed') completed++;
+
+        if (liveReqs.length < 5) {
+          liveReqs.push({
+            id: docSnap.id,
+            patientName: data.patientName || data.firstName || data.name || "Patient",
+            phone: data.phone || "+91 800-14-800-75",
+            service: data.serviceName || data.careType || data.serviceType || data.service || "Home Eldercare",
+            city: data.city || data.location || "Delhi NCR",
+            doctor: data.doctorName || "Assigned Specialist",
+            status: data.status || "New",
+            date: formatDate(data.createdAt)
+          });
+        }
+      });
+
+      setStats(prev => ({
+        ...prev,
+        totalRequests: total,
+        newRequests: newReqs,
+        completedRequests: completed
+      }));
+      setRecentRequests(liveReqs);
+      setLoading(false);
+    };
+
     try {
       const requestsRef = collection(db, "serviceRequests");
       const q = query(requestsRef, orderBy("createdAt", "desc"));
       
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        if (!snapshot.empty) {
-          let total = 0;
-          let newReqs = 0;
-          let completed = 0;
-          const liveReqs: RecentRequest[] = [];
-          
-          snapshot.forEach(docSnap => {
-            total++;
-            const data = docSnap.data();
-            if (data.status === 'New') newReqs++;
-            if (data.status === 'Completed') completed++;
-
-            if (liveReqs.length < 5) {
-              liveReqs.push({
-                id: docSnap.id,
-                patientName: data.patientName || data.name || "Patient",
-                phone: data.phone || "+91 800-14-800-75",
-                service: data.serviceType || data.service || "Home Eldercare",
-                city: data.city || "Gurgaon",
-                doctor: data.doctorName || "Assigned Specialist",
-                status: data.status || "New",
-                date: data.createdAt ? new Date(data.createdAt).toLocaleDateString() : "Just now"
-              });
-            }
-          });
-
-          setStats({
-            totalRequests: total || 148,
-            newRequests: newReqs || 14,
-            completedRequests: completed || 134,
-            activeProfessionals: 8
-          });
-          if (liveReqs.length > 0) {
-            setRecentRequests(liveReqs);
-          }
-        }
-      }, (error) => {
-        console.warn("Firestore snapshot fallback to mock stats:", error);
+      unsubscribeReqs = onSnapshot(q, processSnapshot, (error) => {
+        console.warn("Firestore ordered query failed, trying un-ordered fallback:", error);
+        unsubscribeReqs = onSnapshot(collection(db, "serviceRequests"), processSnapshot, (err) => {
+          console.warn("Firestore snapshot fallback:", err);
+          setLoading(false);
+        });
       });
-
-      return () => unsubscribe();
     } catch (e) {
-      console.warn("Using offline stats fallback");
+      console.warn("Error subscribing to serviceRequests:", e);
+      setLoading(false);
     }
+
+    return () => {
+      if (unsubscribeReqs) unsubscribeReqs();
+      if (unsubscribePros) unsubscribePros();
+    };
   }, []);
 
   const statCards = [
@@ -201,38 +201,52 @@ export default function AdminDashboard() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 text-slate-700">
-                    {recentRequests.map((req) => (
-                      <tr key={req.id} className="hover:bg-slate-50/80 transition-colors">
-                        <td className="py-3.5 px-4">
-                          <p className="font-bold text-slate-900">{req.patientName}</p>
-                          <div className="flex items-center gap-1.5 text-slate-500 text-[11px] mt-0.5">
-                            <Phone size={10} /> {req.phone} • {req.city}
-                          </div>
-                        </td>
-                        <td className="py-3.5 px-4 font-medium text-slate-800">
-                          {req.service}
-                        </td>
-                        <td className="py-3.5 px-4 font-semibold text-slate-700">
-                          <div className="flex items-center gap-1.5">
-                            <Stethoscope size={13} className="text-[#7B2CBF]" />
-                            {req.doctor}
-                          </div>
-                        </td>
-                        <td className="py-3.5 px-4">
-                          <span
-                            className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold ${
-                              req.status === "New"
-                                ? "bg-amber-100 text-amber-800 border border-amber-200"
-                                : req.status === "In Progress"
-                                ? "bg-blue-100 text-blue-800 border border-blue-200"
-                                : "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                            }`}
-                          >
-                            {req.status}
-                          </span>
+                    {loading ? (
+                      <tr>
+                        <td colSpan={4} className="py-8 px-4 text-center text-slate-500 font-medium">
+                          Loading real-time patient requests...
                         </td>
                       </tr>
-                    ))}
+                    ) : recentRequests.length === 0 ? (
+                      <tr>
+                        <td colSpan={4} className="py-8 px-4 text-center text-slate-500 font-medium">
+                          No patient requests received yet. Submissions from website forms will appear here live.
+                        </td>
+                      </tr>
+                    ) : (
+                      recentRequests.map((req) => (
+                        <tr key={req.id} className="hover:bg-slate-50/80 transition-colors">
+                          <td className="py-3.5 px-4">
+                            <p className="font-bold text-slate-900">{req.patientName}</p>
+                            <div className="flex items-center gap-1.5 text-slate-500 text-[11px] mt-0.5">
+                              <Phone size={10} /> {req.phone} • {req.city}
+                            </div>
+                          </td>
+                          <td className="py-3.5 px-4 font-medium text-slate-800">
+                            {req.service}
+                          </td>
+                          <td className="py-3.5 px-4 font-semibold text-slate-700">
+                            <div className="flex items-center gap-1.5">
+                              <Stethoscope size={13} className="text-[#7B2CBF]" />
+                              {req.doctor}
+                            </div>
+                          </td>
+                          <td className="py-3.5 px-4">
+                            <span
+                              className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold ${
+                                req.status === "New"
+                                  ? "bg-amber-100 text-amber-800 border border-amber-200"
+                                  : req.status === "In Progress"
+                                  ? "bg-blue-100 text-blue-800 border border-blue-200"
+                                  : "bg-emerald-100 text-emerald-800 border border-emerald-200"
+                              }`}
+                            >
+                              {req.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>

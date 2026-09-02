@@ -3,8 +3,7 @@ import { useForm } from "react-hook-form";
 import { useSearchParams, Link } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "@/src/lib/firebase";
+import { submitServiceRequest } from "@/src/lib/requestManager";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { CheckCircle2, AlertCircle, PhoneCall, ShieldCheck, ChevronDown, Check } from "lucide-react";
@@ -86,17 +85,12 @@ export default function BookForm() {
     setIsSubmitting(true);
     setError("");
     try {
-      await addDoc(collection(db, "serviceRequests"), {
+      await submitServiceRequest({
         patientName: data.firstName,
-        firstName: data.firstName,
-        phone: data.phone.startsWith("+91") ? data.phone : `+91 ${data.phone}`,
+        phone: data.phone,
         city: data.city,
-        serviceName: data.careType,
         careType: data.careType,
         consent: data.consent,
-        status: "New",
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
       });
       setSubmittedPhone(data.phone);
       setIsSuccess(true);

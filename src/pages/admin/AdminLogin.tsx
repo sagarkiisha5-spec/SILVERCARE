@@ -176,8 +176,18 @@ export default function AdminLogin() {
           ) : (
             <form onSubmit={handleLogin} className="space-y-4">
               
-              <div className="p-3 bg-purple-50 rounded-xl border border-purple-100 text-xs text-[#7B2CBF] font-bold text-center">
-                🔑 Admin Credentials: <strong>ID: admin</strong> | <strong>Password: admin123</strong>
+              <div className="space-y-3">
+                <Button
+                  type="button"
+                  onClick={() => loginAsLocalAdmin('admin', 'admin123')}
+                  className="w-full bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] hover:opacity-95 text-white font-black h-12 rounded-xl shadow-md flex items-center justify-center gap-2 text-sm border-0"
+                >
+                  ⚡ Quick 1-Click Admin Access
+                </Button>
+
+                <div className="p-3 bg-purple-50 rounded-xl border border-purple-100 text-xs text-[#7B2CBF] font-bold text-center">
+                  🔑 Admin Credentials: <strong>ID: admin</strong> | <strong>Password: admin123</strong>
+                </div>
               </div>
 
               <div className="space-y-1.5">

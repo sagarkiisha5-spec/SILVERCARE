@@ -5,9 +5,13 @@ import { Input } from "@/src/components/ui/input";
 import SEO from "@/src/components/seo/SEO";
 import { useAppContent } from "@/src/hooks/useAppContent";
 
+import { submitServiceRequest } from "@/src/lib/requestManager";
+
 export default function Contact() {
   const { siteSettings } = useAppContent();
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -16,9 +20,26 @@ export default function Contact() {
     message: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setError("");
+    try {
+      await submitServiceRequest({
+        patientName: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        city: "Delhi NCR",
+        careType: formData.service,
+        message: formData.message,
+      });
+      setSubmitted(true);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to submit request. Please try again or call hotline.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const phone = siteSettings.phone || "+91 800-14-800-75";
@@ -189,8 +210,12 @@ export default function Contact() {
                       />
                     </div>
 
-                    <Button type="submit" size="lg" className="w-full bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] hover:opacity-95 text-white font-extrabold h-14 text-base rounded-xl shadow-xl border-0 flex items-center justify-center gap-2">
-                      <Send size={18} /> Request Call Back Now
+                    {error && (
+                      <p className="text-xs font-semibold text-red-500">{error}</p>
+                    )}
+
+                    <Button type="submit" disabled={isSubmitting} size="lg" className="w-full bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] hover:opacity-95 text-white font-extrabold h-14 text-base rounded-xl shadow-xl border-0 flex items-center justify-center gap-2">
+                      <Send size={18} /> {isSubmitting ? "Submitting..." : "Request Call Back Now"}
                     </Button>
                   </form>
                 )}

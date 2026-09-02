@@ -34,6 +34,12 @@ const CITIES = [
 ];
 
 const CARE_TYPES = [
+  "Healthy Age Package (Plan #1)",
+  "Chronic Care Package (Plan #2)",
+  "Heart Care Package (Plan #3)",
+  "Dementia & Memory Care (Plan #4)",
+  "Respiratory Care Package (Plan #5)",
+  "Mobility & Bone Health Package (Plan #6)",
   "Nursing & Attendant Care",
   "Doctor Visit at Home",
   "Physiotherapy at Home",

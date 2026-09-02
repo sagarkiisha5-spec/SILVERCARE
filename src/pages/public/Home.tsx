@@ -258,13 +258,30 @@ export default function Home() {
                 transition={{ duration: 0.75, delay: 0.2, ease: premiumEase }}
                 className="relative mt-10 lg:mt-0 flex flex-col items-center justify-center"
               >
-                <img 
-                  src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorImg}
-                  alt={siteSettings.doctorName || "Senior Healthcare Specialist in SilverCare uniform"} 
-                  className="w-full h-auto object-contain object-bottom max-h-[580px] lg:max-h-[640px] mix-blend-multiply transition-transform duration-500 hover:scale-[1.01]"
-                  loading="eager"
-                  referrerPolicy="no-referrer"
-                />
+                <div className="relative w-full max-w-[580px] lg:max-w-[640px]">
+                  <img 
+                    src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorImg}
+                    alt={siteSettings.doctorName || "Rakesh Bedi - SilverCare Brand Ambassador"} 
+                    className="w-full h-auto object-contain object-bottom max-h-[580px] lg:max-h-[640px] transition-transform duration-500 hover:scale-[1.01]"
+                    loading="eager"
+                    referrerPolicy="no-referrer"
+                  />
+
+                  {/* Brand Ambassador Badge ("TRUSTED BY RAKESH BEDI") */}
+                  <div className="absolute bottom-0 right-4 sm:bottom-1 sm:right-8 bg-white/95 backdrop-blur-md border border-pink-100/90 shadow-[0_10px_30px_rgba(233,30,99,0.18)] rounded-2xl px-4 py-2.5 flex items-center gap-3 z-20 transition-all duration-300 hover:scale-105">
+                    <div className="w-10 h-10 rounded-xl bg-[linear-gradient(135deg,#FF4F81,#E91E63)] text-white flex items-center justify-center shrink-0 shadow-md">
+                      <ShieldCheck size={22} />
+                    </div>
+                    <div>
+                      <span className="block text-[10px] font-extrabold uppercase tracking-wider text-[#FF4F81] leading-none mb-1">
+                        Brand Ambassador
+                      </span>
+                      <span className="block text-xs sm:text-sm font-black text-[#17345E] tracking-tight">
+                        TRUSTED BY RAKESH BEDI
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
 
 

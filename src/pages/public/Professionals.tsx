@@ -1,7 +1,14 @@
 import { useState } from "react";
-import { Award, GraduationCap, Quote, ShieldCheck, Stethoscope, UserCheck, Sparkles, PhoneCall } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { 
+  Award, 
+  GraduationCap, 
+  Quote, 
+  Stethoscope, 
+  UserCheck, 
+  Sparkles 
+} from "lucide-react";
 import { Button } from "@/src/components/ui/button";
-import { Card, CardContent } from "@/src/components/ui/card";
 import SEO from "@/src/components/seo/SEO";
 import { useAppContent } from "@/src/hooks/useAppContent";
 import { Link } from "react-router-dom";
@@ -12,6 +19,7 @@ export default function Professionals() {
 
   const leadershipTeam = [
     {
+      id: "navin-chauhan",
       name: "Navin Chauhan",
       designation: "Founder & CEO",
       image: "https://silvercareindia.com/wp-content/uploads/2025/12/Navin.png",
@@ -23,15 +31,7 @@ export default function Professionals() {
       ]
     },
     {
-      name: "Dr. Vikas Sharma",
-      designation: "Co-founder & Chief Operating Officer",
-      image: "https://silvercareindia.com/wp-content/uploads/2026/04/Vikas_sharma.png",
-      bio: [
-        "Dr. Vikas Sharma is a seasoned healthcare leader with 25+ years of experience across Diagnostics and Pharmaceuticals. He has held key leadership roles with Dr. Reddy’s, Lupin, Dr Lal PathLabs, and Lifecell Diagnostics.",
-        "At SilverCare, Dr. Sharma drives operational excellence, clinical quality protocols, and market expansion to ensure reliable home delivery of care."
-      ]
-    },
-    {
+      id: "komal-gupta",
       name: "Komal Gupta",
       designation: "Co-founder & Chief Product Officer",
       image: "https://silvercareindia.com/wp-content/uploads/2026/04/IMG_1291-e1775877168885.jpg",
@@ -41,14 +41,29 @@ export default function Professionals() {
     }
   ];
 
-  const clinicalStaff = professionals.filter(p => !['Founder & CEO', 'Co-founder & Chief Operating Officer', 'Co-founder & Chief Product Officer'].includes(p.designation));
+  const clinicalStaff = professionals.filter(
+    p => !['Founder & CEO', 'Co-founder & Chief Operating Officer', 'Co-founder & Chief Product Officer'].includes(p.designation)
+  );
 
   const filteredStaff = clinicalStaff.filter(pro => {
     if (activeFilter === "All") return true;
-    if (activeFilter === "Doctors") return pro.designation.includes("Physician") || pro.designation.includes("Doctor");
-    if (activeFilter === "Nursing & Trainers") return pro.designation.includes("Nursing") || pro.designation.includes("Trainer") || pro.designation.includes("Supervisor");
+    if (activeFilter === "Doctors") return pro.designation.toLowerCase().includes("physician") || pro.designation.toLowerCase().includes("doctor");
+    if (activeFilter === "Nursing & Care") return pro.designation.toLowerCase().includes("nursing") || pro.designation.toLowerCase().includes("trainer") || pro.designation.toLowerCase().includes("supervisor") || pro.designation.toLowerCase().includes("care");
+    if (activeFilter === "Leadership") return false;
     return true;
   });
+
+  const categories = ["All", "Doctors", "Nursing & Care", "Leadership"];
+
+  const handleFilterClick = (filter: string) => {
+    setActiveFilter(filter);
+    if (filter === "Leadership") {
+      const el = document.getElementById("leadership-section");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
   return (
     <>
@@ -57,106 +72,171 @@ export default function Professionals() {
         description="Meet the leadership and clinical team behind SilverCare India. Experienced doctors, healthcare administrators, nursing supervisors, and caregivers dedicated to senior home care."
       />
       
-      <div className="bg-slate-50 min-h-screen font-sans">
+      <div className="bg-slate-50/60 min-h-screen font-sans text-slate-800">
         
-        {/* HERO HEADER */}
-        <section className="relative bg-[linear-gradient(135deg,#0F172A_0%,#1E1B4B_50%,#3B0764_100%)] text-white py-16 md:py-24 overflow-hidden">
-          <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#ffffff 1.5px, transparent 1.5px)', backgroundSize: '28px 28px' }}></div>
-          
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl relative z-10">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs sm:text-sm font-semibold text-purple-200 mb-6">
-              <Sparkles size={14} className="text-[#D946EF]" />
-              Dedicated Healthcare Professionals
-            </div>
+        {/* HERO SECTION */}
+        <section className="relative bg-[linear-gradient(135deg,#0F172A_0%,#1E1B4B_50%,#3B0764_100%)] text-white py-16 lg:py-20 overflow-hidden">
+          {/* Subtle Ambient Glow */}
+          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-purple-600/20 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#ffffff 1.5px, transparent 1.5px)', backgroundSize: '32px 32px' }} />
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
-              Our <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF6B9B,#D946EF,#9D4EDD)]">Leadership</span> & Clinical Team
-            </h1>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1200px] text-center relative z-10">
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs sm:text-sm font-bold text-purple-200 mb-5 shadow-sm"
+            >
+              <Sparkles size={14} className="text-[#FF4F81] animate-pulse" />
+              People Behind SilverCare
+            </motion.div>
 
-            <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto">
-              Our leadership team brings decades of combined experience in healthcare, technology, and patient care to deliver trusted eldercare at home.
-            </p>
+            <motion.h1 
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.15] tracking-tight mb-5 max-w-[760px] mx-auto"
+            >
+              Meet the People Behind <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF6B9B,#D946EF,#9D4EDD)]">Compassionate Care</span>
+            </motion.h1>
+
+            <motion.p 
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto font-medium"
+            >
+              Our leadership, clinical experts and care professionals work together to deliver trusted, compassionate and dependable eldercare.
+            </motion.p>
           </div>
         </section>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* MAIN CONTENT WRAPPER */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20 max-w-[1200px]">
           
-          {/* CEO SPOTLIGHT */}
-          <div className="bg-white rounded-3xl p-8 lg:p-12 border border-slate-200/90 shadow-md max-w-6xl mx-auto mb-20">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          {/* LEADERSHIP SECTION HEADER */}
+          <div id="leadership-section" className="text-center max-w-3xl mx-auto mb-10">
+            <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#7B2CBF] mb-2 block">
+              Leadership
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#17345E] tracking-tight">
+              Visionary Leadership, Human-Centered Care
+            </h2>
+          </div>
+
+          {/* CEO SPOTLIGHT CARD */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+            className="bg-white rounded-[24px] border border-slate-200/80 shadow-md hover:shadow-xl transition-all duration-300 p-6 sm:p-8 lg:p-10 mb-12"
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
               
-              <div className="lg:col-span-5">
-                <div className="rounded-3xl overflow-hidden bg-slate-100 border border-slate-200 shadow-sm relative group">
+              {/* Left Column: Founder Photo */}
+              <div className="lg:col-span-5 w-full">
+                <div className="relative rounded-[20px] overflow-hidden bg-slate-100 border border-slate-200/80 shadow-sm aspect-[4/5] group">
                   <img 
                     src={leadershipTeam[0].image} 
-                    alt="Navin Chauhan - Founder & CEO SilverCare India" 
-                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                    alt={`${leadershipTeam[0].name} - ${leadershipTeam[0].designation}`}
+                    className="w-full h-full object-cover object-top group-hover:scale-102 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="p-6 bg-slate-900 text-white text-center">
-                    <h3 className="text-2xl font-extrabold">{leadershipTeam[0].name}</h3>
-                    <p className="text-[#D946EF] font-bold text-sm">{leadershipTeam[0].designation}, SilverCare India</p>
+                  <div className="absolute inset-x-0 bottom-0 p-5 bg-[linear-gradient(180deg,transparent_0%,rgba(15,23,42,0.92)_100%)] text-white text-center">
+                    <h3 className="text-xl sm:text-2xl font-black">{leadershipTeam[0].name}</h3>
+                    <p className="text-[#FF4F81] font-bold text-xs sm:text-sm tracking-wide mt-0.5">{leadershipTeam[0].designation}, SilverCare India</p>
                   </div>
                 </div>
               </div>
 
-              <div className="lg:col-span-7 space-y-6">
-                <div className="bg-[linear-gradient(135deg,#7B2CBF_0%,#9D4EDD_100%)] text-white p-6 sm:p-8 rounded-3xl relative shadow-lg">
-                  <Quote size={36} className="text-purple-200/40 mb-3" />
-                  <p className="text-base sm:text-lg font-medium leading-relaxed italic">
+              {/* Right Column: Quote & Biography */}
+              <div className="lg:col-span-7 flex flex-col justify-center space-y-6">
+                
+                {/* Quote Box */}
+                <div className="bg-[linear-gradient(135deg,#F5E8FF_0%,#FFF0F5_100%)] border border-purple-100 text-slate-800 p-6 lg:p-7 rounded-[18px] relative shadow-xs">
+                  <div className="w-10 h-10 rounded-xl bg-[linear-gradient(135deg,#7B2CBF,#9D4EDD)] text-white flex items-center justify-center mb-3 shadow-sm">
+                    <Quote size={20} />
+                  </div>
+                  <p className="text-base sm:text-lg font-medium leading-relaxed italic text-slate-800">
                     "{leadershipTeam[0].quote}"
                   </p>
                 </div>
 
-                <div className="space-y-4 text-slate-700 text-base leading-relaxed">
+                {/* Paragraphs */}
+                <div className="space-y-3.5 text-slate-600 text-sm sm:text-base leading-relaxed">
                   {leadershipTeam[0].bio.map((para, i) => (
-                    <p key={i}>{para}</p>
+                    <p key={i} className="font-normal">{para}</p>
                   ))}
                 </div>
+
               </div>
 
             </div>
-          </div>
+          </motion.div>
 
-          {/* CO-FOUNDERS SPOTLIGHT */}
-          <div className="max-w-6xl mx-auto mb-20">
-            <h2 className="text-2xl font-extrabold text-[#17345E] mb-8 text-center">Co-Founding Leadership</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {leadershipTeam.slice(1).map((leader, i) => (
-                <div key={i} className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center gap-6">
-                  <div className="h-32 w-32 shrink-0 rounded-2xl overflow-hidden bg-purple-50 border-2 border-purple-100 shadow-inner">
-                    <img src={leader.image} alt={leader.name} className="w-full h-full object-cover" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-extrabold text-slate-900 mb-1">{leader.name}</h3>
-                    <p className="text-[#7B2CBF] font-bold text-xs uppercase tracking-wider mb-3">{leader.designation}</p>
-                    <p className="text-slate-600 text-sm leading-relaxed">{leader.bio[0]}</p>
-                  </div>
+          {/* CO-FOUNDING LEADERSHIP CARD */}
+          <div className="mb-16 lg:mb-20">
+            <h3 className="text-xl sm:text-2xl font-bold text-[#17345E] mb-6 text-center">
+              Co-Founding Leadership
+            </h3>
+            <div className="max-w-[800px] mx-auto">
+              <motion.div 
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="bg-white rounded-[20px] p-6 sm:p-7 border border-slate-200/80 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row items-center gap-6"
+              >
+                <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-2xl overflow-hidden bg-purple-50 border border-purple-100 shadow-xs">
+                  <img 
+                    src={leadershipTeam[1].image} 
+                    alt={leadershipTeam[1].name} 
+                    className="w-full h-full object-cover object-top" 
+                    loading="lazy"
+                  />
                 </div>
-              ))}
+                <div className="text-center sm:text-left space-y-1.5">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                    <h4 className="text-lg sm:text-xl font-extrabold text-slate-900">{leadershipTeam[1].name}</h4>
+                    <span className="inline-block px-3 py-0.5 rounded-full bg-purple-100 text-[#7B2CBF] font-extrabold text-xs tracking-wide w-fit mx-auto sm:mx-0">
+                      {leadershipTeam[1].designation}
+                    </span>
+                  </div>
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed pt-1">
+                    {leadershipTeam[1].bio[0]}
+                  </p>
+                </div>
+              </motion.div>
             </div>
           </div>
 
-          {/* CLINICAL & CARE EXPERTS */}
-          <div className="max-w-6xl mx-auto pt-8 border-t border-slate-200">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-[#7B2CBF] font-bold uppercase tracking-wider text-xs block mb-2">On-Ground Healthcare Team</span>
-              <h2 className="text-3xl font-extrabold text-[#17345E] mb-3">Clinical & Care Experts</h2>
-              <p className="text-slate-600 text-base">
-                Meet our compassionate physicians, nursing trainers, and healthcare supervisors dedicated to delivering home care excellence.
+          {/* CLINICAL & CARE EXPERTS SECTION */}
+          <div id="clinical-experts" className="pt-8 border-t border-slate-200/80">
+            
+            {/* Section Heading */}
+            <div className="text-center max-w-3xl mx-auto mb-10">
+              <span className="text-[#7B2CBF] font-extrabold uppercase tracking-widest text-xs sm:text-sm block mb-2">
+                On-Ground Healthcare Team
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#17345E] mb-3">
+                Clinical & Care Experts
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Meet our experienced physicians, nursing leaders and multidisciplinary care professionals.
               </p>
             </div>
 
-            {/* Filter Tabs */}
-            <div className="flex justify-center gap-2 mb-12 overflow-x-auto no-scrollbar py-1">
-              {["All", "Doctors", "Nursing & Trainers"].map((filter) => (
+            {/* Filter Pills */}
+            <div className="flex justify-center items-center gap-2 sm:gap-3 mb-10 overflow-x-auto no-scrollbar py-2 px-1 max-w-full">
+              {categories.map((filter) => (
                 <button
                   key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-200 ${
+                  onClick={() => handleFilterClick(filter)}
+                  className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 cursor-pointer min-h-[44px] flex items-center ${
                     activeFilter === filter 
-                      ? 'bg-[#7B2CBF] text-white shadow-md' 
-                      : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                      ? 'bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] text-white shadow-md shadow-purple-500/20' 
+                      : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200/80 shadow-xs'
                   }`}
                 >
                   {filter}
@@ -164,75 +244,122 @@ export default function Professionals() {
               ))}
             </div>
 
+            {/* Team Grid */}
             {loading ? (
-              <div className="py-12 text-center text-slate-500 font-medium">Loading clinical profiles...</div>
+              <div className="py-16 text-center text-slate-500 font-medium">Loading clinical profiles...</div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredStaff.map((pro) => (
-                  <Card key={pro.id} className="overflow-hidden border-slate-200 hover:border-[#9D4EDD] hover:shadow-xl transition-all bg-white rounded-3xl group">
-                    <CardContent className="p-8 text-center">
-                      {pro.imageUrl ? (
-                        <div className="mx-auto h-28 w-28 rounded-full overflow-hidden bg-purple-50 border-4 border-white mb-6 shadow-md group-hover:scale-105 transition-transform">
-                          <img src={pro.imageUrl} alt={pro.name} className="w-full h-full object-cover" loading="lazy" />
-                        </div>
-                      ) : (
-                        <div className="mx-auto h-24 w-24 bg-purple-100 border-4 border-white rounded-full flex items-center justify-center text-[#7B2CBF] mb-6 shadow-md group-hover:scale-110 transition-transform">
-                          {pro.designation.includes('Physician') || pro.designation.includes('Doctor') ? (
-                            <Stethoscope size={40} />
-                          ) : pro.designation.includes('Trainer') ? (
-                            <GraduationCap size={40} />
+              <AnimatePresence mode="wait">
+                <motion.div 
+                  key={activeFilter}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.35 }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7 items-stretch"
+                >
+                  {filteredStaff.map((pro) => (
+                    <motion.div 
+                      key={pro.id}
+                      className="bg-white rounded-[20px] border border-slate-200/80 shadow-xs hover:shadow-md hover:border-purple-200 hover:-translate-y-1.5 transition-all duration-300 p-6 flex flex-col justify-between h-full group"
+                    >
+                      <div>
+                        {/* Member Photo */}
+                        <div className="flex justify-center mb-5">
+                          {pro.imageUrl ? (
+                            <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-slate-50 shadow-sm bg-purple-50 group-hover:scale-102 transition-transform duration-300">
+                              <img 
+                                src={pro.imageUrl} 
+                                alt={pro.name} 
+                                className="w-full h-full object-cover object-top" 
+                                loading="lazy" 
+                              />
+                            </div>
                           ) : (
-                            <UserCheck size={40} />
+                            <div className="w-24 h-24 rounded-full bg-purple-100 border-4 border-slate-50 flex items-center justify-center text-[#7B2CBF] shadow-sm group-hover:scale-102 transition-transform duration-300">
+                              {pro.designation.toLowerCase().includes('physician') || pro.designation.toLowerCase().includes('doctor') ? (
+                                <Stethoscope size={36} />
+                              ) : pro.designation.toLowerCase().includes('trainer') ? (
+                                <GraduationCap size={36} />
+                              ) : (
+                                <UserCheck size={36} />
+                              )}
+                            </div>
                           )}
                         </div>
-                      )}
-                      
-                      <h3 className="text-xl font-extrabold text-slate-900 mb-1">{pro.name}</h3>
-                      <p className="text-[#7B2CBF] font-bold text-xs uppercase tracking-wider mb-4">{pro.designation}</p>
-                      
-                      <div className="space-y-3 text-left bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                        {pro.qualification && (
-                          <div className="flex items-start gap-2.5 text-slate-700">
-                            <GraduationCap size={18} className="text-[#7B2CBF] shrink-0 mt-0.5" />
-                            <span className="text-xs font-medium leading-snug">{pro.qualification}</span>
-                          </div>
-                        )}
-                        {pro.experience && (
-                          <div className="flex items-start gap-2.5 text-slate-700">
-                            <Award size={18} className="text-[#7B2CBF] shrink-0 mt-0.5" />
-                            <span className="text-xs font-bold leading-snug">{pro.experience} Clinical Practice</span>
-                          </div>
-                        )}
+
+                        {/* Name & Title */}
+                        <div className="text-center mb-4">
+                          <h3 className="text-lg font-bold text-slate-900 mb-1">{pro.name}</h3>
+                          <p className="text-[#7B2CBF] font-bold text-xs uppercase tracking-wider">{pro.designation}</p>
+                        </div>
+
+                        {/* Credentials Card */}
+                        <div className="bg-slate-50 border border-slate-100 rounded-xl p-3.5 space-y-2 text-xs text-slate-600 leading-relaxed mb-6">
+                          {pro.qualification && (
+                            <div className="flex items-start gap-2 text-slate-700">
+                              <GraduationCap size={16} className="text-[#7B2CBF] shrink-0 mt-0.5" />
+                              <span className="font-medium leading-snug">{pro.qualification}</span>
+                            </div>
+                          )}
+                          {pro.experience && (
+                            <div className="flex items-start gap-2 text-slate-700">
+                              <Award size={16} className="text-[#7B2CBF] shrink-0 mt-0.5" />
+                              <span className="font-bold leading-snug">{pro.experience} Clinical Practice</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
 
-                      <div className="mt-6 pt-4 border-t border-slate-100">
-                        <Link to={`/book?service=${pro.designation.toLowerCase().includes('physician') ? 'doctor-visit-at-home' : 'nursing-attendant-care'}`}>
-                          <Button variant="outline" className="w-full border-purple-200 text-[#7B2CBF] hover:bg-purple-50 font-bold text-xs h-10 rounded-xl">
-                            Request Consultation
-                          </Button>
-                        </Link>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                      {/* Request Consultation CTA */}
+                      <Link 
+                        to={`/book?service=${pro.designation.toLowerCase().includes('physician') ? 'doctor-visit-at-home' : 'nursing-attendant-care'}`}
+                        className="w-full"
+                      >
+                        <Button 
+                          variant="outline" 
+                          className="w-full border-purple-200 text-[#7B2CBF] hover:bg-[#7B2CBF] hover:text-white font-bold text-xs h-10 rounded-xl transition-all duration-200 cursor-pointer"
+                        >
+                          Request Consultation
+                        </Button>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
             )}
           </div>
           
-          {/* JOIN US BANNER */}
-          <div className="mt-20 bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] rounded-3xl p-10 text-center text-white relative overflow-hidden max-w-5xl mx-auto shadow-xl">
+          {/* HEALTHCARE PROFESSIONAL CTA SECTION */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mt-16 lg:mt-20 bg-[linear-gradient(135deg,#17345E_0%,#7B2CBF_60%,#9D4EDD_100%)] rounded-[24px] p-8 sm:p-10 lg:p-12 text-center text-white relative overflow-hidden max-w-[920px] mx-auto shadow-xl"
+          >
+            {/* Subtle background glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-purple-400/20 rounded-full blur-3xl pointer-events-none" />
+            
             <div className="relative z-10 max-w-2xl mx-auto">
-              <h2 className="text-3xl font-extrabold mb-4">Are You a Healthcare Professional?</h2>
-              <p className="text-purple-100 mb-8 text-base">Join our network of elite caregivers, nurses, supervisors, and doctors across North India.</p>
+              <h3 className="text-2xl sm:text-3xl font-black mb-3 text-white">
+                Are You a Healthcare Professional?
+              </h3>
+              <p className="text-purple-100 text-sm sm:text-base leading-relaxed mb-8">
+                Join our network of professionals committed to delivering compassionate and dependable eldercare.
+              </p>
               <Link to="/contact">
-                <Button size="lg" className="bg-white text-[#7B2CBF] hover:bg-slate-100 font-extrabold px-8 h-14 rounded-xl shadow-lg">Apply to Join SilverCare</Button>
+                <Button 
+                  size="lg" 
+                  className="bg-white text-[#7B2CBF] hover:bg-slate-100 font-extrabold px-8 h-12 sm:h-14 rounded-xl shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer"
+                >
+                  Apply to Join SilverCare
+                </Button>
               </Link>
             </div>
-          </div>
-          
+          </motion.div>
+
         </div>
       </div>
     </>
   );
 }
-

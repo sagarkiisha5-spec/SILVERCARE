@@ -167,6 +167,14 @@ export default function Navbar() {
                   )}
                 </div>
 
+                {/* Plans */}
+                <Link
+                  to="/plans"
+                  className={`flex items-center px-2 lg:px-2.5 xl:px-3 text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap transition-colors border-b-2 ${isActive('/plans') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
+                >
+                  Plans
+                </Link>
+
                 {/* Contact Us */}
                 <Link
                   to="/contact"
@@ -224,6 +232,7 @@ export default function Navbar() {
               <Link to="/" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold ${isActive('/') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Home</Link>
               <Link to="/about" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold ${isActive('/about') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>About Us</Link>
               <Link to="/services" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold ${isActive('/services') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Services</Link>
+              <Link to="/plans" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold ${isActive('/plans') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Freedom Care Plans</Link>
               <Link to="/book" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold ${isActive('/book') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Book Appointment</Link>
               <Link to="/contact" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold ${isActive('/contact') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Contact us</Link>
               <Link to="/blog" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold ${isActive('/blog') || location.pathname.startsWith('/blog') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Blog & Stories</Link>

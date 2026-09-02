@@ -31,6 +31,12 @@ const CITIES = [
 ];
 
 const CARE_TYPES = [
+  "Healthy Age Package (Plan #1)",
+  "Chronic Care Package (Plan #2)",
+  "Heart Care Package (Plan #3)",
+  "Dementia & Memory Care (Plan #4)",
+  "Respiratory Care Package (Plan #5)",
+  "Mobility & Bone Health Package (Plan #6)",
   "Doctor Visit at Home",
   "Nursing & Attendant Care",
   "Physiotherapy at Home",
@@ -41,39 +47,53 @@ const CARE_TYPES = [
   "Other Eldercare Support"
 ];
 
-export default function AutoBookingModal() {
-  const [isOpen, setIsOpen] = useState(false);
+interface AutoBookingModalProps {
+  forceOpen?: boolean;
+  initialService?: string;
+  onClose?: () => void;
+}
+
+export default function AutoBookingModal({ forceOpen = false, initialService, onClose }: AutoBookingModalProps = {}) {
+  const [isOpen, setIsOpen] = useState(forceOpen);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [submittedPhone, setSubmittedPhone] = useState("");
   const [error, setError] = useState("");
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<SimpleBookingFormValues>({
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<SimpleBookingFormValues>({
     resolver: zodResolver(simpleBookingSchema),
     defaultValues: {
       firstName: '',
       phone: '',
       city: 'Delhi NCR',
-      careType: 'Doctor Visit at Home',
+      careType: initialService || 'Healthy Age Package (Plan #1)',
       consent: true
     }
   });
 
-  // Automatically trigger modal popup 2 seconds after visitor arrives
+  // Dynamically update selected careType when initialService prop changes
   useEffect(() => {
-    const hasSeenModal = sessionStorage.getItem("silvercare_modal_seen");
-    if (!hasSeenModal) {
-      const timer = setTimeout(() => {
-        setIsOpen(true);
-      }, 2000); // 2 seconds delay as requested
-
-      return () => clearTimeout(timer);
+    if (initialService) {
+      setValue('careType', initialService);
     }
-  }, []);
+  }, [initialService, setValue]);
+
+  // Automatically trigger modal popup 1.5s after visitor arrives or refreshes page if not forced open
+  useEffect(() => {
+    if (forceOpen) {
+      setIsOpen(true);
+      return;
+    }
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, [forceOpen]);
 
   const handleClose = () => {
     setIsOpen(false);
-    sessionStorage.setItem("silvercare_modal_seen", "true");
+    onClose?.();
   };
 
   const onSubmit = async (data: SimpleBookingFormValues) => {

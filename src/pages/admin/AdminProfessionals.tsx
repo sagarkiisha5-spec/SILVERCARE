@@ -27,15 +27,6 @@ const initialProfessionals: Professional[] = [
     isActive: true
   },
   {
-    id: "p2",
-    name: "Dr. Vikas Sharma",
-    designation: "Co-founder & Chief Operating Officer",
-    qualification: "25+ Years in Diagnostics & Pharma (Dr. Reddy’s, Lupin, Dr Lal PathLabs)",
-    experience: "25+ Years",
-    imageUrl: "https://silvercareindia.com/wp-content/uploads/2026/04/Vikas_sharma.png",
-    isActive: true
-  },
-  {
     id: "p3",
     name: "Komal Gupta",
     designation: "Co-founder & Chief Product Officer",

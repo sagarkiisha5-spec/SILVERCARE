@@ -62,8 +62,8 @@ export const initialBlogPosts: BlogPost[] = [
       avatarUrl: 'https://silvercareindia.com/wp-content/uploads/2025/12/Navin.png'
     },
     reviewer: {
-      name: 'Dr. Vikas Sharma',
-      role: 'MD, Senior Medical Director'
+      name: 'Dr. Kirandeep Kaur',
+      role: 'General Physician & Eldercare Specialist'
     },
     publishedAt: 'August 18, 2026',
     readTime: '5 min read',
@@ -168,8 +168,8 @@ export const initialBlogPosts: BlogPost[] = [
       role: 'CEO & Founder, SilverCare India'
     },
     reviewer: {
-      name: 'Dr. Vikas Sharma',
-      role: 'Senior Medical Director'
+      name: 'Dr. Kirandeep Kaur',
+      role: 'General Physician & Eldercare Specialist'
     },
     publishedAt: 'July 28, 2026',
     readTime: '7 min read',

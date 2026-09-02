@@ -19,6 +19,7 @@ import SearchResults from './pages/public/SearchResults';
 import Contact from './pages/public/Contact';
 import Blog from './pages/public/Blog';
 import BlogPost from './pages/public/BlogPost';
+import Plans from './pages/public/Plans';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -73,6 +74,7 @@ export default function App() {
               <Route path="/book" element={<BookForm />} />
               <Route path="/services" element={<Services />} />
               <Route path="/services/:slug" element={<ServiceDetail />} />
+              <Route path="/plans" element={<Plans />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/about" element={<About />} />
               <Route path="/professionals" element={<Professionals />} />

@@ -49,11 +49,13 @@ export default function AdminRequests() {
   }, []);
 
   const handleStatusChange = async (id: string, newStatus: string) => {
+    // Optimistic state update
+    setRequests(prev => prev.map(r => r.id === id ? { ...r, status: newStatus, updatedAt: Date.now() } : r));
     setUpdatingId(id);
     try {
       await updateServiceRequestStatus(id, newStatus);
     } catch (err) {
-      console.error(err);
+      console.error("Status update error:", err);
     } finally {
       setUpdatingId(null);
     }
@@ -61,11 +63,13 @@ export default function AdminRequests() {
 
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this service request?")) return;
+    // Optimistic removal
+    setRequests(prev => prev.filter(r => r.id !== id));
     setUpdatingId(id);
     try {
       await deleteServiceRequest(id);
     } catch (err) {
-      console.error(err);
+      console.error("Delete request error:", err);
     } finally {
       setUpdatingId(null);
     }
@@ -109,14 +113,14 @@ export default function AdminRequests() {
           <p className="text-sm text-slate-500">Manage real-time call back requests, consultations, and home care bookings.</p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold px-3 py-1 bg-purple-100 text-[#7B2CBF] rounded-full">
+          <span className="text-xs font-bold px-3 py-1.5 bg-purple-100 text-[#7B2CBF] rounded-full border border-purple-200">
             Total Requests: {requests.length}
           </span>
         </div>
       </div>
 
       {/* Filter and Search controls */}
-      <div className="flex flex-col md:flex-row gap-3 items-center justify-between bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+      <div className="flex flex-col md:flex-row gap-3 items-center justify-between bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs">
         <div className="relative w-full md:w-80">
           <Search size={16} className="absolute left-3 top-3 text-slate-400" />
           <Input
@@ -133,9 +137,9 @@ export default function AdminRequests() {
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                 statusFilter === st
-                  ? "bg-[#7B2CBF] text-white shadow-xs"
+                  ? "bg-[#7B2CBF] text-white shadow-2xs"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
@@ -145,18 +149,18 @@ export default function AdminRequests() {
         </div>
       </div>
 
-      <Card className="border border-slate-200/80 shadow-xs overflow-hidden">
+      <Card className="border border-slate-200/80 shadow-2xs overflow-hidden">
         <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs text-left">
+          <div className="overflow-x-auto w-full">
+            <table className="w-full min-w-[950px] text-xs text-left">
               <thead className="bg-slate-50 text-slate-600 font-bold uppercase tracking-wider border-b border-slate-200">
                 <tr>
-                  <th className="px-5 py-3.5">Date & Time</th>
-                  <th className="px-5 py-3.5">Patient Details</th>
-                  <th className="px-5 py-3.5">Requested Care</th>
-                  <th className="px-5 py-3.5">City / Location</th>
-                  <th className="px-5 py-3.5">Status</th>
-                  <th className="px-5 py-3.5 text-right">Actions</th>
+                  <th className="px-5 py-3.5 min-w-[150px]">Date & Time</th>
+                  <th className="px-5 py-3.5 min-w-[200px]">Patient Details</th>
+                  <th className="px-5 py-3.5 min-w-[180px]">Requested Care</th>
+                  <th className="px-5 py-3.5 min-w-[140px]">City / Location</th>
+                  <th className="px-5 py-3.5 min-w-[120px]">Status</th>
+                  <th className="px-5 py-3.5 text-right min-w-[170px]">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -222,7 +226,7 @@ export default function AdminRequests() {
                         <td className="px-5 py-4 text-right">
                           <div className="flex items-center justify-end gap-2">
                             <select 
-                              className="text-xs font-semibold border border-slate-300 rounded-lg px-2 py-1 bg-white text-slate-800 focus:ring-1 focus:ring-[#7B2CBF]"
+                              className="w-32 min-w-[125px] text-xs font-bold border border-slate-300 rounded-xl px-2.5 py-1.5 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#7B2CBF] cursor-pointer shadow-2xs shrink-0"
                               value={req.status || "New"}
                               disabled={updatingId === req.id}
                               onChange={(e) => handleStatusChange(req.id, e.target.value)}
@@ -238,10 +242,10 @@ export default function AdminRequests() {
                             <button
                               onClick={() => handleDelete(req.id)}
                               disabled={updatingId === req.id}
-                              className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                              className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors shrink-0 cursor-pointer"
                               title="Delete request"
                             >
-                              <Trash2 size={15} />
+                              <Trash2 size={16} />
                             </button>
                           </div>
                         </td>

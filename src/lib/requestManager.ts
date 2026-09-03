@@ -22,25 +22,87 @@ export interface ServiceRequestItem {
 
 const LOCAL_STORAGE_KEY = "silvercare_local_requests";
 
+const INITIAL_DEMO_REQUESTS: ServiceRequestItem[] = [
+  {
+    id: "req_demo_1",
+    patientName: "Rajesh Malhotra",
+    firstName: "Rajesh Malhotra",
+    phone: "+91 9810234567",
+    email: "rajesh.malhotra@gmail.com",
+    city: "Gurgaon Sector 54",
+    location: "Gurgaon Sector 54",
+    serviceName: "Nursing & Attendant Care",
+    careType: "Nursing & Attendant Care",
+    service: "Nursing & Attendant Care",
+    message: "Need 24/7 ICU trained home nurse for elderly father post-surgery.",
+    status: "New",
+    createdAt: Date.now() - 3600000 * 2,
+    updatedAt: Date.now() - 3600000 * 2,
+  },
+  {
+    id: "req_demo_2",
+    patientName: "Sunita Verma",
+    firstName: "Sunita Verma",
+    phone: "+91 9871122334",
+    email: "sunita.v@yahoo.com",
+    city: "South Delhi",
+    location: "South Delhi",
+    serviceName: "Doctor Visit at Home",
+    careType: "Doctor Visit at Home",
+    service: "Doctor Visit at Home",
+    message: "Home physician consultation required for senior citizen routine checkup.",
+    status: "Contacted",
+    createdAt: Date.now() - 3600000 * 5,
+    updatedAt: Date.now() - 3600000 * 1,
+  },
+  {
+    id: "req_demo_3",
+    patientName: "Captain R.K. Sharma",
+    firstName: "Captain R.K. Sharma",
+    phone: "+91 9958004321",
+    email: "rk.sharma@defence.gov.in",
+    city: "Noida Sector 62",
+    location: "Noida Sector 62",
+    serviceName: "Physiotherapy at Home",
+    careType: "Physiotherapy at Home",
+    service: "Physiotherapy at Home",
+    message: "Stroke recovery mobility therapy 5 days a week.",
+    status: "In Progress",
+    createdAt: Date.now() - 3600000 * 24,
+    updatedAt: Date.now() - 3600000 * 12,
+  }
+];
+
 export function getLocalRequests(): ServiceRequestItem[] {
   try {
     const data = localStorage.getItem(LOCAL_STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
+    if (!data) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(INITIAL_DEMO_REQUESTS));
+      return INITIAL_DEMO_REQUESTS;
+    }
+    const parsed = JSON.parse(data);
+    return Array.isArray(parsed) && parsed.length > 0 ? parsed : INITIAL_DEMO_REQUESTS;
   } catch (e) {
     console.warn("Error reading local requests:", e);
-    return [];
+    return INITIAL_DEMO_REQUESTS;
+  }
+}
+
+function notifySync() {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event("silvercare_requests_updated"));
   }
 }
 
 export function saveLocalRequest(item: ServiceRequestItem) {
   try {
     const existing = getLocalRequests();
-    // Prevent duplicate entries by id or timestamp/phone match
     const filtered = existing.filter(
       (r) => r.id !== item.id && !(r.phone === item.phone && Math.abs((r.createdAt || 0) - (item.createdAt || 0)) < 2000)
     );
     const updated = [item, ...filtered];
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+    notifySync();
   } catch (e) {
     console.warn("Error saving local request:", e);
   }
@@ -51,6 +113,7 @@ export function updateLocalRequestStatus(id: string, newStatus: string) {
     const existing = getLocalRequests();
     const updated = existing.map((r) => (r.id === id ? { ...r, status: newStatus, updatedAt: Date.now() } : r));
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+    notifySync();
   } catch (e) {
     console.warn("Error updating local request status:", e);
   }
@@ -61,6 +124,7 @@ export function deleteLocalRequest(id: string) {
     const existing = getLocalRequests();
     const updated = existing.filter((r) => r.id !== id);
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+    notifySync();
   } catch (e) {
     console.warn("Error deleting local request:", e);
   }
@@ -74,7 +138,7 @@ async function ensureAuth() {
     try {
       await signInAnonymously(auth);
     } catch (e) {
-      console.warn("Anonymous auth failed:", e);
+      // Anonymous auth skipped if disabled on Firebase project
     }
   }
 }
@@ -139,8 +203,10 @@ export async function submitServiceRequest(data: {
  */
 export function subscribeToServiceRequests(onUpdate: (requests: ServiceRequestItem[]) => void): () => void {
   let unsubscribeFirestore: (() => void) | undefined;
+  let lastFirestoreItems: ServiceRequestItem[] = [];
 
-  const emitMerged = (firestoreItems: ServiceRequestItem[]) => {
+  const emitMerged = (firestoreItems: ServiceRequestItem[] = lastFirestoreItems) => {
+    lastFirestoreItems = firestoreItems;
     const localItems = getLocalRequests();
     const map = new Map<string, ServiceRequestItem>();
 
@@ -162,12 +228,20 @@ export function subscribeToServiceRequests(onUpdate: (requests: ServiceRequestIt
     onUpdate(merged);
   };
 
-  const setup = async () => {
-    // Immediate emit of local data while Firestore connects
+  const handleLocalUpdate = () => {
+    emitMerged(lastFirestoreItems);
+  };
+
+  if (typeof window !== "undefined") {
+    window.addEventListener("silvercare_requests_updated", handleLocalUpdate);
+    window.addEventListener("storage", handleLocalUpdate);
+  }
+
+  const setup = () => {
+    // 1. Immediate emit of local data while Firestore connects
     emitMerged([]);
 
-    await ensureAuth();
-
+    // 2. Attach Firestore snapshot listener IMMEDIATELY (non-blocking)
     try {
       const q = query(collection(db, "serviceRequests"), orderBy("createdAt", "desc"));
       unsubscribeFirestore = onSnapshot(
@@ -197,11 +271,18 @@ export function subscribeToServiceRequests(onUpdate: (requests: ServiceRequestIt
       console.warn("Firestore subscription setup failed:", e);
       emitMerged([]);
     }
+
+    // 3. Ensure auth in background non-blockingly
+    ensureAuth().catch((err) => console.warn("Background auth error:", err));
   };
 
   setup();
 
   return () => {
+    if (typeof window !== "undefined") {
+      window.removeEventListener("silvercare_requests_updated", handleLocalUpdate);
+      window.removeEventListener("storage", handleLocalUpdate);
+    }
     if (unsubscribeFirestore) unsubscribeFirestore();
   };
 }

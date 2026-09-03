@@ -1,12 +1,9 @@
 {
-  "projectId": "gen-lang-client-0746984388",
-  "appId": "1:721591309491:web:78e5706635d7214e32ccc6",
-  "apiKey": "AIzaSyCz6VpbCC-E-Di63S339TNiA0eJacGrI8g",
-  "authDomain": "gen-lang-client-0746984388.firebaseapp.com",
-  "firestoreDatabaseId": "ai-studio-116e5e74-f840-41e5-9b68-7e9df8875be9",
-  "storageBucket": "gen-lang-client-0746984388.firebasestorage.app",
-  "messagingSenderId": "721591309491",
-  "measurementId": "",
-  "oAuthClientId": "721591309491-5n6arhpcnjmfn3qcgobi6kmttik7djr3.apps.googleusercontent.com",
-  "recaptchaSiteKey": ""
+  "projectId": "silvercare-10760",
+  "appId": "1:158015773549:web:c9df1cb0fc5c9d82401864",
+  "apiKey": "AIzaSyDL8vZ2ElcFrGVVICqi6OHukVJhirntr2I",
+  "authDomain": "silvercare-10760.firebaseapp.com",
+  "storageBucket": "silvercare-10760.firebasestorage.app",
+  "messagingSenderId": "158015773549",
+  "measurementId": "G-PR8XRM0YKQ"
 }

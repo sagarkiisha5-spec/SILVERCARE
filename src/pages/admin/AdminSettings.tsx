@@ -63,6 +63,51 @@ export default function AdminSettings() {
         </CardContent>
       </Card>
 
+      {/* Firebase Cloud Connection Status & Setup */}
+      <Card className="border border-purple-200 bg-purple-50/40 shadow-sm">
+        <CardHeader>
+          <CardTitle className="text-lg font-bold text-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <span className="flex items-center gap-2">
+              <Server className="text-[#7B2CBF]" size={20} /> Firebase Backend & Cloud Sync Configuration
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
+              <span className="h-2 w-2 rounded-full bg-amber-500 animate-pulse"></span>
+              Cloud Database Setup Required
+            </span>
+          </CardTitle>
+          <CardDescription className="text-xs text-slate-500">
+            Realtime Firestore cloud sync across all laptops and devices.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 space-y-2">
+            <p className="font-bold flex items-center gap-1.5">
+              <span>⚠️</span> How to enable multi-computer Cloud Sync:
+            </p>
+            <ol className="list-decimal pl-5 space-y-1 text-slate-700">
+              <li>Open <a href="https://console.firebase.google.com/" target="_blank" rel="noreferrer" className="text-[#7B2CBF] font-bold underline">Firebase Console</a> and create or select your project.</li>
+              <li>Go to <strong>Build &rarr; Firestore Database &rarr; Create database</strong> (Select <em>Native Mode</em> & <em>Start in test mode</em>).</li>
+              <li>Under <strong>Project Settings &rarr; Your apps &rarr; Web app</strong>, copy your Firebase config values and paste them below or in the <code>.env</code> file.</li>
+            </ol>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="p-3 rounded-xl bg-white border border-purple-100">
+              <p className="text-[10px] uppercase font-bold text-slate-400">Firebase Project ID</p>
+              <p className="text-xs font-semibold text-slate-800 truncate mt-0.5">gen-lang-client-0746984388</p>
+            </div>
+            <div className="p-3 rounded-xl bg-white border border-purple-100">
+              <p className="text-[10px] uppercase font-bold text-slate-400">Auth Domain</p>
+              <p className="text-xs font-semibold text-slate-800 truncate mt-0.5">gen-lang-client-0746984388.firebaseapp.com</p>
+            </div>
+            <div className="p-3 rounded-xl bg-white border border-purple-100">
+              <p className="text-[10px] uppercase font-bold text-slate-400">Storage Bucket</p>
+              <p className="text-xs font-semibold text-slate-800 truncate mt-0.5">gen-lang-client-0746984388.firebasestorage.app</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Dispatch Notifications */}
       <Card className="border border-slate-200/80 shadow-sm">
         <CardHeader>

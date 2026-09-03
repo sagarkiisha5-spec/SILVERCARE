@@ -21,6 +21,28 @@ export interface ServiceRequestItem {
 }
 
 const LOCAL_STORAGE_KEY = "silvercare_local_requests";
+const DELETED_IDS_KEY = "silvercare_deleted_request_ids";
+
+function getDeletedIds(): Set<string> {
+  try {
+    if (typeof localStorage === "undefined") return new Set();
+    const raw = localStorage.getItem(DELETED_IDS_KEY);
+    return raw ? new Set(JSON.parse(raw)) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
+function addDeletedId(id: string) {
+  try {
+    if (typeof localStorage === "undefined") return;
+    const set = getDeletedIds();
+    set.add(id);
+    localStorage.setItem(DELETED_IDS_KEY, JSON.stringify(Array.from(set)));
+  } catch (e) {
+    console.warn("Error recording deleted ID:", e);
+  }
+}
 
 const INITIAL_DEMO_REQUESTS: ServiceRequestItem[] = [
   {
@@ -75,16 +97,20 @@ const INITIAL_DEMO_REQUESTS: ServiceRequestItem[] = [
 
 export function getLocalRequests(): ServiceRequestItem[] {
   try {
+    if (typeof localStorage === "undefined") return [];
+    const deleted = getDeletedIds();
     const data = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (!data) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(INITIAL_DEMO_REQUESTS));
-      return INITIAL_DEMO_REQUESTS;
+    if (data === null) {
+      const initial = INITIAL_DEMO_REQUESTS.filter(r => !deleted.has(r.id || ""));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(initial));
+      return initial;
     }
     const parsed = JSON.parse(data);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : INITIAL_DEMO_REQUESTS;
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter(r => !deleted.has(r.id || ""));
   } catch (e) {
     console.warn("Error reading local requests:", e);
-    return INITIAL_DEMO_REQUESTS;
+    return [];
   }
 }
 
@@ -96,6 +122,7 @@ function notifySync() {
 
 export function saveLocalRequest(item: ServiceRequestItem) {
   try {
+    if (typeof localStorage === "undefined") return;
     const existing = getLocalRequests();
     const filtered = existing.filter(
       (r) => r.id !== item.id && !(r.phone === item.phone && Math.abs((r.createdAt || 0) - (item.createdAt || 0)) < 2000)
@@ -110,6 +137,7 @@ export function saveLocalRequest(item: ServiceRequestItem) {
 
 export function updateLocalRequestStatus(id: string, newStatus: string) {
   try {
+    if (typeof localStorage === "undefined") return;
     const existing = getLocalRequests();
     const updated = existing.map((r) => (r.id === id ? { ...r, status: newStatus, updatedAt: Date.now() } : r));
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
@@ -121,6 +149,8 @@ export function updateLocalRequestStatus(id: string, newStatus: string) {
 
 export function deleteLocalRequest(id: string) {
   try {
+    if (typeof localStorage === "undefined") return;
+    addDeletedId(id);
     const existing = getLocalRequests();
     const updated = existing.filter((r) => r.id !== id);
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
@@ -208,14 +238,15 @@ export function subscribeToServiceRequests(onUpdate: (requests: ServiceRequestIt
   const emitMerged = (firestoreItems: ServiceRequestItem[] = lastFirestoreItems) => {
     lastFirestoreItems = firestoreItems;
     const localItems = getLocalRequests();
+    const deleted = getDeletedIds();
     const map = new Map<string, ServiceRequestItem>();
 
     localItems.forEach((item) => {
-      if (item.id) map.set(item.id, item);
+      if (item.id && !deleted.has(item.id)) map.set(item.id, item);
     });
 
     firestoreItems.forEach((item) => {
-      if (item.id) map.set(item.id, item);
+      if (item.id && !deleted.has(item.id)) map.set(item.id, item);
     });
 
     const merged = Array.from(map.values());

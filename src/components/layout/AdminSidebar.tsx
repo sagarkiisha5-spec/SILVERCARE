@@ -1,5 +1,18 @@
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, CalendarDays, Users, Stethoscope, FileText, Settings, LogOut, HeartPulse, Share2, Image, BookOpen } from "lucide-react";
+import {
+  LayoutDashboard,
+  CalendarDays,
+  Users,
+  Stethoscope,
+  Settings,
+  LogOut,
+  Share2,
+  Image,
+  BookOpen,
+  UserCheck,
+  Receipt,
+  CalendarClock
+} from "lucide-react";
 import { cn } from "@/src/lib/utils";
 import { useAuth } from "@/src/lib/AuthContext";
 
@@ -15,6 +28,9 @@ export default function AdminSidebar({ onCloseMobile }: AdminSidebarProps) {
   const navItems = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Service Requests", href: "/admin/requests", icon: CalendarDays },
+    { name: "Team & Sub-Admins", href: "/admin/team", icon: UserCheck },
+    { name: "Billing & Invoices", href: "/admin/billing", icon: Receipt },
+    { name: "Care Follow-Ups", href: "/admin/followups", icon: CalendarClock },
     { name: "Healthcare Staff", href: "/admin/professionals", icon: Users },
     { name: "Eldercare Services", href: "/admin/services", icon: Stethoscope },
     { name: "Blog & Stories", href: "/admin/blog", icon: BookOpen },

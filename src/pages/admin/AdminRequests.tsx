@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/src/components/ui/card";
 import { Input } from "@/src/components/ui/input";
+import { Button } from "@/src/components/ui/button";
 import { format } from "date-fns";
-import { Trash2, Phone, MapPin, Search, Filter, RefreshCw } from "lucide-react";
+import { Trash2, Phone, MapPin, Search, Filter, RefreshCw, Send, Download, Stethoscope } from "lucide-react";
 import { 
   subscribeToServiceRequests, 
   updateServiceRequestStatus, 
@@ -15,6 +16,44 @@ export default function AdminRequests() {
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
+
+  const exportToCSV = () => {
+    if (requests.length === 0) return;
+    const headers = ["ID", "Patient Name", "Phone", "Email", "Service Required", "Location", "Status", "Date"];
+    const rows = requests.map(r => [
+      r.id || "",
+      `"${(r.patientName || r.firstName || "Patient").replace(/"/g, '""')}"`,
+      `"${(r.phone || "").replace(/"/g, '""')}"`,
+      `"${(r.email || "").replace(/"/g, '""')}"`,
+      `"${(r.serviceName || r.careType || "Eldercare").replace(/"/g, '""')}"`,
+      `"${(r.city || r.location || "Delhi NCR").replace(/"/g, '""')}"`,
+      r.status || "New",
+      new Date(r.createdAt || Date.now()).toLocaleDateString()
+    ]);
+
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `silvercare_enquiries_${new Date().toISOString().split("T")[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handlePatientWhatsApp = (req: any) => {
+    const cleanPhone = (req.phone || "").replace(/[^0-9]/g, "");
+    const patientName = req.patientName || req.firstName || "Sir/Ma'am";
+    const service = req.serviceName || req.careType || "Eldercare Support";
+    const msg = encodeURIComponent(
+      `*Namaste ${patientName}!* Greetings from *SilverCare India*.\n\n` +
+      `We have received your enquiry for *${service}*.\n` +
+      `Our Senior Care Coordinator is reviewing your request and a verified doctor/attendant is on standby for your area.\n\n` +
+      `How can we best assist you today? You can also reach our 24/7 Helpline directly at +91 800-14-800-75.\n\n` +
+      `Warm Regards,\n*SilverCare India Eldercare Services*`
+    );
+    window.open(`https://wa.me/${cleanPhone}?text=${msg}`, "_blank");
+  };
 
   const formatDate = (rawDate: any): string => {
     if (!rawDate) return "Just now";
@@ -113,6 +152,13 @@ export default function AdminRequests() {
           <p className="text-sm text-slate-500">Manage real-time call back requests, consultations, and home care bookings.</p>
         </div>
         <div className="flex items-center gap-2">
+          <Button
+            onClick={exportToCSV}
+            variant="outline"
+            className="text-xs font-bold border-slate-200 hover:bg-purple-50 hover:text-[#7B2CBF] shadow-2xs h-9 px-3 rounded-xl flex items-center gap-1.5"
+          >
+            <Download size={14} /> Export CSV
+          </Button>
           <span className="text-xs font-bold px-3 py-1.5 bg-purple-100 text-[#7B2CBF] rounded-full border border-purple-200">
             Total Requests: {requests.length}
           </span>
@@ -225,6 +271,15 @@ export default function AdminRequests() {
                         </td>
                         <td className="px-5 py-4 text-right">
                           <div className="flex items-center justify-end gap-2">
+                            <Button
+                              size="sm"
+                              onClick={() => handlePatientWhatsApp(req)}
+                              className="h-8 px-2.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs shadow-2xs rounded-xl shrink-0"
+                              title="Send WhatsApp message to patient"
+                            >
+                              <Send size={13} className="mr-1" /> WhatsApp
+                            </Button>
+
                             <select 
                               className="w-32 min-w-[125px] text-xs font-bold border border-slate-300 rounded-xl px-2.5 py-1.5 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#7B2CBF] cursor-pointer shadow-2xs shrink-0"
                               value={req.status || "New"}

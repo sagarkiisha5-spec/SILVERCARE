@@ -32,6 +32,9 @@ import AdminMediaManager from './pages/admin/AdminMediaManager';
 import AdminSocialSync from './pages/admin/AdminSocialSync';
 import AdminSettings from './pages/admin/AdminSettings';
 import AdminBlog from './pages/admin/AdminBlog';
+import AdminTeam from './pages/admin/AdminTeam';
+import AdminBilling from './pages/admin/AdminBilling';
+import AdminFollowUps from './pages/admin/AdminFollowUps';
 
 // Fallback empty component for unfinished routes
 const Placeholder = ({ title }: { title: string }) => (
@@ -90,6 +93,9 @@ export default function App() {
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="requests" element={<AdminRequests />} />
+              <Route path="team" element={<AdminTeam />} />
+              <Route path="billing" element={<AdminBilling />} />
+              <Route path="followups" element={<AdminFollowUps />} />
               <Route path="professionals" element={<AdminProfessionals />} />
               <Route path="services" element={<AdminServices />} />
               <Route path="blog" element={<AdminBlog />} />

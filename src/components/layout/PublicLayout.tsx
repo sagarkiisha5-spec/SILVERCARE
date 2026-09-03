@@ -6,6 +6,8 @@ import Footer from "./Footer";
 import { useAppContent } from "@/src/hooks/useAppContent";
 import AutoBookingModal from "@/src/components/shared/AutoBookingModal";
 
+import MobileBottomNav from "./MobileBottomNav";
+
 export default function PublicLayout() {
   const location = useLocation();
   const { siteSettings } = useAppContent();
@@ -15,7 +17,7 @@ export default function PublicLayout() {
   const waLink = `https://wa.me/${rawPhone.replace('+', '')}?text=${waMessage}`;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 font-sans pb-[72px] md:pb-0 relative">
+    <div className="min-h-screen flex flex-col bg-slate-50 font-sans pb-[76px] md:pb-0 relative">
       <Navbar />
       <main className="flex-1">
         <AnimatePresence mode="wait">
@@ -36,7 +38,7 @@ export default function PublicLayout() {
       {/* Auto Popup Booking Modal after 2 seconds */}
       <AutoBookingModal />
       
-      {/* Floating WhatsApp Button */}
+      {/* Floating WhatsApp Button (Desktop) */}
       <a 
         href={waLink}
         target="_blank"
@@ -47,21 +49,8 @@ export default function PublicLayout() {
         <MessageCircle size={28} />
       </a>
       
-      {/* Mobile Sticky Action Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-50 flex">
-        <a href={`tel:${rawPhone}`} className="flex-1 flex flex-col items-center justify-center py-3 text-slate-600 hover:text-[#7B2CBF] hover:bg-slate-50 transition-colors">
-          <PhoneCall size={20} className="mb-1" />
-          <span className="text-[10px] font-bold uppercase tracking-wider">Call Now</span>
-        </a>
-        <a href={waLink} target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col items-center justify-center py-3 border-l border-r border-slate-100 text-slate-600 hover:text-emerald-600 hover:bg-slate-50 transition-colors">
-          <MessageCircle size={20} className="mb-1 text-[#25D366]" />
-          <span className="text-[10px] font-bold uppercase tracking-wider">WhatsApp</span>
-        </a>
-        <Link to="/book" className="flex-[1.5] flex flex-col items-center justify-center py-3 bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] text-white hover:opacity-90 transition-colors">
-          <CalendarDays size={20} className="mb-1" />
-          <span className="text-[10px] font-bold uppercase tracking-wider">Book a Visit</span>
-        </Link>
-      </div>
+      {/* Native-feel Mobile Bottom Navigation Bar */}
+      <MobileBottomNav />
     </div>
   );
 }

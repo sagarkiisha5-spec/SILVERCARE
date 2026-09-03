@@ -1,0 +1,25 @@
+{
+  "short_name": "SilverCare",
+  "name": "SilverCare India - Eldercare & Doctor at Home",
+  "description": "Compassionate eldercare, 24/7 dedicated home nursing, doctor visits, physiotherapy, and senior healthcare plans.",
+  "icons": [
+    {
+      "src": "/silvercare-logo.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/silvercare-logo.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#FFFFFF",
+  "theme_color": "#7B2CBF",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "categories": ["medical", "health", "lifestyle"]
+}

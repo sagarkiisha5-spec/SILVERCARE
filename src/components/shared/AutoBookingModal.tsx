@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "motion/react";
 import { X, CheckCircle2, AlertCircle, ShieldCheck, ChevronDown, PhoneCall } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
+import { CareTypeSelect } from "@/src/components/shared/CareTypeSelect";
+import { CitySearchSelect, ALL_CITIES as CITIES } from "@/src/components/shared/CitySearchSelect";
 
 const simpleBookingSchema = z.object({
   firstName: z.string().min(2, "First name is required").max(100),
@@ -18,32 +20,26 @@ const simpleBookingSchema = z.object({
 
 type SimpleBookingFormValues = z.infer<typeof simpleBookingSchema>;
 
-const CITIES = [
-  "Delhi NCR",
-  "Gurugram",
-  "Noida",
-  "Faridabad",
-  "Ghaziabad",
-  "Bangalore",
-  "Mumbai",
-  "Other City"
+const CARE_TYPES = [
+  "Freedom Care Plans",
+  "Nursing & Attendant Care",
+  "Doctor Visit at Home",
+  "Physiotherapy at Home",
+  "Medical Equipment Rental & Delivery",
+  "Elder Care / Companionship",
+  "Telemedicine / Online Doctor",
+  "Pathology & Diagnostics",
+  "Mother & Baby Care",
+  "Other Eldercare Support"
 ];
 
-const CARE_TYPES = [
+const FREEDOM_PLANS = [
   "Healthy Age Package (Plan #1)",
   "Chronic Care Package (Plan #2)",
   "Heart Care Package (Plan #3)",
   "Dementia & Memory Care (Plan #4)",
   "Respiratory Care Package (Plan #5)",
   "Mobility & Bone Health Package (Plan #6)",
-  "Doctor Visit at Home",
-  "Nursing & Attendant Care",
-  "Physiotherapy at Home",
-  "Pathology & Diagnostics",
-  "Medical Equipment Rental & Delivery",
-  "Elder Care / Companionship",
-  "Telemedicine / Online Doctor",
-  "Other Eldercare Support"
 ];
 
 interface AutoBookingModalProps {
@@ -58,8 +54,9 @@ export default function AutoBookingModal({ forceOpen = false, initialService, on
   const [isSuccess, setIsSuccess] = useState(false);
   const [submittedPhone, setSubmittedPhone] = useState("");
   const [error, setError] = useState("");
+  const [freedomSubPlan, setFreedomSubPlan] = useState("Healthy Age Package (Plan #1)");
 
-  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<SimpleBookingFormValues>({
+  const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm<SimpleBookingFormValues>({
     resolver: zodResolver(simpleBookingSchema),
     defaultValues: {
       firstName: '',
@@ -69,6 +66,18 @@ export default function AutoBookingModal({ forceOpen = false, initialService, on
       consent: true
     }
   });
+
+  const selectedCareType = watch("careType");
+  const isFreedomSelected = selectedCareType === "Freedom Care Plans" || FREEDOM_PLANS.includes(selectedCareType);
+
+  const handlePrimaryCareChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const val = e.target.value;
+    if (val === "Freedom Care Plans") {
+      setValue("careType", freedomSubPlan, { shouldValidate: true });
+    } else {
+      setValue("careType", val, { shouldValidate: true });
+    }
+  };
 
   // Dynamically update selected careType when initialService prop changes
   useEffect(() => {
@@ -238,39 +247,69 @@ export default function AutoBookingModal({ forceOpen = false, initialService, on
                     <label className="block text-xs sm:text-sm font-extrabold text-slate-800">
                       City preference<span className="text-red-500 ml-0.5">*</span>
                     </label>
-                    <div className="relative">
-                      <select
-                        {...register("city")}
-                        className="flex h-12 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-800 appearance-none focus:outline-none focus:ring-2 focus:ring-[#FF4F81] focus:border-[#FF4F81]"
-                      >
-                        {CITIES.map((c, i) => (
-                          <option key={i} value={c}>{c}</option>
-                        ))}
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500">
-                        <ChevronDown size={16} />
-                      </div>
-                    </div>
+                    <CitySearchSelect
+                      compact={true}
+                      value={watch("city")}
+                      onChange={(val) => setValue("city", val, { shouldValidate: true })}
+                      error={errors.city?.message}
+                    />
+                    {errors.city && (
+                      <p className="text-[11px] font-semibold text-red-500 mt-0.5">{errors.city.message}</p>
+                    )}
                   </div>
 
                   {/* 4. Type of Care Required Field */}
-                  <div className="space-y-1">
-                    <label className="block text-xs sm:text-sm font-extrabold text-slate-800">
-                      Type of care required<span className="text-red-500 ml-0.5">*</span>
-                    </label>
-                    <div className="relative">
-                      <select
-                        {...register("careType")}
-                        className="flex h-12 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-800 appearance-none focus:outline-none focus:ring-2 focus:ring-[#FF4F81] focus:border-[#FF4F81]"
-                      >
-                        {CARE_TYPES.map((ct, i) => (
-                          <option key={i} value={ct}>{ct}</option>
-                        ))}
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500">
-                        <ChevronDown size={16} />
+                  <div className="space-y-2">
+                    <div className="space-y-1">
+                      <label className="block text-xs sm:text-sm font-extrabold text-slate-800">
+                        Type of care required<span className="text-red-500 ml-0.5">*</span>
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={isFreedomSelected ? "Freedom Care Plans" : selectedCareType}
+                          onChange={handlePrimaryCareChange}
+                          className="flex h-12 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-800 appearance-none focus:outline-none focus:ring-2 focus:ring-[#FF4F81] focus:border-[#FF4F81]"
+                        >
+                          {CARE_TYPES.map((type, i) => (
+                            <option key={i} value={type}>{type}</option>
+                          ))}
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500">
+                          <ChevronDown size={16} />
+                        </div>
                       </div>
                     </div>
+
+                    {/* Secondary Freedom Care Sub-Plan Dropdown */}
+                    {isFreedomSelected && (
+                      <div className="space-y-1 p-3 bg-purple-50/80 border border-purple-200 rounded-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                        <label className="block text-xs font-extrabold text-[#7B2CBF] flex items-center gap-1">
+                          <ShieldCheck size={14} className="text-[#7B2CBF]" />
+                          <span>Select Freedom Care Plan<span className="text-red-500 ml-0.5">*</span></span>
+                        </label>
+                        <div className="relative">
+                          <select
+                            value={FREEDOM_PLANS.includes(selectedCareType) ? selectedCareType : freedomSubPlan}
+                            onChange={(e) => {
+                              setFreedomSubPlan(e.target.value);
+                              setValue("careType", e.target.value, { shouldValidate: true });
+                            }}
+                            className="flex h-10 w-full rounded-lg border border-purple-300 bg-white px-2.5 py-1 text-xs sm:text-sm font-bold text-slate-800 appearance-none focus:outline-none focus:ring-2 focus:ring-[#7B2CBF] focus:border-[#7B2CBF]"
+                          >
+                            {FREEDOM_PLANS.map((plan, i) => (
+                              <option key={i} value={plan}>{plan}</option>
+                            ))}
+                          </select>
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-purple-600">
+                            <ChevronDown size={14} />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {errors.careType && (
+                      <p className="text-xs font-semibold text-red-500 mt-1">{errors.careType.message}</p>
+                    )}
                   </div>
 
                   {/* 5. Consent Checkbox */}

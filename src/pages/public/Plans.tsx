@@ -18,7 +18,8 @@ import {
   CheckCircle2, 
   Star,
   Users,
-  Award
+  Award,
+  Globe
 } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
 import SEO from "@/src/components/seo/SEO";
@@ -70,6 +71,43 @@ export interface PlanPackage {
 }
 
 const CARE_PLANS: PlanPackage[] = [
+  {
+    id: "nri-care",
+    number: 1,
+    title: "NRI Care Plan",
+    subtitle: "Global Eldercare for Families Living Abroad",
+    tagline: "24/7 dedicated care manager & daily vitals log sent overseas to children in USA, UK, Canada & worldwide",
+    badge: "NRI Exclusive",
+    originalPrice: "₹6,999",
+    discountedPrice: "₹4,999",
+    period: "/month",
+    icon: Globe,
+    colorScheme: {
+      primary: "#0284C7",
+      secondary: "#E0F2FE",
+      badgeBg: "bg-sky-100",
+      badgeText: "text-sky-900",
+      border: "border-sky-300",
+      shadow: "shadow-sky-100",
+      accentGradient: "bg-[linear-gradient(135deg,#0284C7,#0369A1)]"
+    },
+    monthlyFeatures: [
+      "Dedicated Eldercare Manager assigned",
+      "Daily WhatsApp vitals & status log to overseas family",
+      "24/7 SOS Emergency & Instant Ambulance Response",
+      "2 Home Nursing / Doctor Vitals Check visits",
+      "Bi-weekly Doctor Video Call with Family Overseas",
+      "Medication Delivery & Prescription Renewal",
+      "Priority Access to Home ICU & Specialist Visits",
+      "Monthly Comprehensive Health Audit Report"
+    ],
+    quarterlyFeatures: [
+      "Full Body Senior Pathology Diagnostic Test",
+      "Geriatric Specialist Review",
+      "Home Safety & Fall Risk Inspection Audit"
+    ],
+    bannerImage: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80"
+  },
   {
     id: "healthy-age-package",
     number: 1,
@@ -336,7 +374,7 @@ export default function Plans() {
                 initial="hidden" 
                 animate="visible" 
                 variants={staggerContainer}
-                className="lg:col-span-7 text-left"
+                className="lg:col-span-7 text-left order-2 lg:order-1"
               >
                 {/* Freedom Care Badge */}
                 <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/80 border border-pink-200 text-[#FF4F81] font-extrabold text-xs sm:text-sm mb-6 shadow-xs">
@@ -390,32 +428,33 @@ export default function Plans() {
                 </motion.div>
               </motion.div>
 
-              {/* Right Column Visual: Brand Ambassador & Trust Card */}
+              {/* Right Column Visual: Brand Ambassador & Trust Card (First on Mobile) */}
               <motion.div 
                 initial={{ opacity: 0, scale: 0.97, y: 16 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: 0.75, delay: 0.2, ease: premiumEase }}
-                className="lg:col-span-5 relative flex flex-col items-center justify-center"
+                className="lg:col-span-5 relative flex flex-col items-center justify-center order-1 lg:order-2 mb-6 lg:mb-0"
               >
-                <div className="relative w-full max-w-[580px]">
+                <div className="relative w-full max-w-[340px] sm:max-w-[480px] lg:max-w-[580px]">
                   <img 
                     src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorImg}
                     alt={siteSettings.doctorName || "Rakesh Bedi - SilverCare Brand Ambassador"} 
-                    className="w-full h-auto object-contain object-bottom max-h-[580px] lg:max-h-[640px] transition-transform duration-500 hover:scale-[1.01]"
+                    className="w-full h-auto object-contain object-bottom max-h-[340px] sm:max-h-[480px] lg:max-h-[640px] transition-transform duration-500 hover:scale-[1.01]"
                     loading="eager"
                     referrerPolicy="no-referrer"
                   />
 
                   {/* Brand Ambassador Badge ("TRUSTED BY RAKESH BEDI") */}
-                  <div className="absolute bottom-0 right-4 sm:bottom-1 sm:right-6 bg-white/95 backdrop-blur-md border border-pink-100/90 shadow-[0_10px_30px_rgba(233,30,99,0.18)] rounded-2xl px-4 py-2.5 flex items-center gap-3 z-20 transition-all duration-300 hover:scale-105">
-                    <div className="w-10 h-10 rounded-xl bg-[linear-gradient(135deg,#FF4F81,#E91E63)] text-white flex items-center justify-center shrink-0 shadow-md">
-                      <ShieldCheck size={22} />
+                  <div className="absolute bottom-0 right-2 sm:bottom-1 sm:right-6 bg-white/95 backdrop-blur-md border border-pink-100/90 shadow-[0_10px_30px_rgba(233,30,99,0.18)] rounded-2xl px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 z-20 transition-all duration-300 hover:scale-105">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[linear-gradient(135deg,#FF4F81,#E91E63)] text-white flex items-center justify-center shrink-0 shadow-md">
+                      <ShieldCheck size={18} className="sm:hidden" />
+                      <ShieldCheck size={22} className="hidden sm:block" />
                     </div>
                     <div>
-                      <span className="block text-[10px] font-extrabold uppercase tracking-wider text-[#FF4F81] leading-none mb-1">
+                      <span className="block text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#FF4F81] leading-none mb-0.5 sm:mb-1">
                         Brand Ambassador
                       </span>
-                      <span className="block text-xs sm:text-sm font-black text-[#17345E] tracking-tight">
+                      <span className="block text-[11px] sm:text-xs sm:text-sm font-black text-[#17345E] tracking-tight">
                         TRUSTED BY RAKESH BEDI
                       </span>
                     </div>

@@ -42,7 +42,8 @@ export default function Services() {
     "Diagnostics & Lab",
     "Virtual Care",
     "Equipment & Supplies",
-    "Eldercare & Engagement"
+    "Eldercare & Engagement",
+    "Mother & Baby Care"
   ];
 
   const getIcon = (slug?: string, iconName?: string) => {
@@ -52,6 +53,7 @@ export default function Services() {
     if (slug?.includes('pathology') || slug?.includes('diag')) return UserCheck;
     if (slug?.includes('tele')) return PhoneCall;
     if (slug?.includes('equipment')) return ShieldCheck;
+    if (slug?.includes('mother') || slug?.includes('baby')) return Heart;
     return Stethoscope;
   };
 
@@ -64,6 +66,7 @@ export default function Services() {
       case 'telemedicine': return 'Instant Online Consult';
       case 'medical-equipment': return 'Home Delivery & Setup';
       case 'daycare-companionship': return 'Senior Engagement';
+      case 'mother-baby-care': return 'Postnatal & Baby Care';
       default: return 'Professional Support';
     }
   };
@@ -118,6 +121,13 @@ export default function Services() {
           "Cognitive exercises, memory games & recreational activities",
           "Accompaniment for walks, appointments & daily errands",
           "Regular emotional well-being updates to family"
+        ];
+      case 'mother-baby-care':
+        return [
+          "24/7 & 12-hour trained newborn care attendants & Jhaia caregivers",
+          "Post-natal mother recovery, nutritional support & lactation guidance",
+          "Newborn hygiene, umbilical cord care, oil massage & bathing protocols",
+          "Night-time baby care ensuring restful sleep & recovery for new mothers"
         ];
       default:
         return [

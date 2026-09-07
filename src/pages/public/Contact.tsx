@@ -44,8 +44,8 @@ export default function Contact() {
 
   const phone = siteSettings.phone || "+91 800-14-800-75";
   const rawPhone = phone.replace(/[^0-9+]/g, '');
-  const email = siteSettings.email || "care@silvercareindia.com";
-  const address = siteSettings.address || "Flat No-60, SF Sector-33, Gurgaon, Haryana, India 122001";
+  const email = siteSettings.email || "info@silvercareindia.com";
+  const address = siteSettings.address || "SCO 110, 1st Floor, Green Lotus Avenue Complex, Near, Singhpura Rd, Chandigarh, Zirakpur, Punjab 140603";
   const whatsappNumber = "918001480075";
 
   return (
@@ -119,7 +119,7 @@ export default function Contact() {
                 <div className="h-12 w-12 rounded-2xl bg-purple-100 flex items-center justify-center text-[#7B2CBF] mb-4">
                   <MapPin size={24} />
                 </div>
-                <h3 className="font-extrabold text-slate-900 text-lg mb-1">Gurgaon Office</h3>
+                <h3 className="font-extrabold text-slate-900 text-lg mb-1">Head Office</h3>
                 <p className="text-slate-600 text-sm leading-relaxed">{address}</p>
               </div>
 
@@ -224,6 +224,37 @@ export default function Contact() {
 
           </div>
         </div>
+
+        {/* JOIN US / CAREERS SECTION */}
+        <section id="join-us" className="bg-[linear-gradient(135deg,#1E1B4B_0%,#31103F_50%,#4C1D95_100%)] text-white py-16 md:py-20 border-t border-purple-800/30">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 sm:p-12 border border-white/20 shadow-2xl">
+              <div className="max-w-3xl">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-pink-500/20 text-pink-300 font-extrabold text-xs uppercase tracking-wider rounded-full mb-4 border border-pink-500/30">
+                  <Sparkles size={14} className="text-pink-400" /> Career & Partnership Opportunities
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 leading-tight">
+                  Join Team SilverCare — Build a Rewarding Healthcare Career
+                </h2>
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+                  Are you a qualified Home Nurse, Attendant, Physiotherapist, Doctor, or Care Coordinator? Join India's leading home eldercare network. Work with flexible shifts, competitive compensation, and full administrative support.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <a href={`tel:${rawPhone}`}>
+                    <Button className="bg-[linear-gradient(90deg,#FF4F81,#E91E63)] text-white font-extrabold h-12 px-6 rounded-xl shadow-lg border-0">
+                      Call HR / Recruitment: {phone}
+                    </Button>
+                  </a>
+                  <a href={`mailto:${email}?subject=Application%20for%20Joining%20SilverCare%20Team`}>
+                    <Button variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/30 font-bold h-12 px-6 rounded-xl">
+                      Email Your CV / Resume
+                    </Button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
       </div>
     </>

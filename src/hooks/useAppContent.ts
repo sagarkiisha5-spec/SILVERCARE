@@ -83,8 +83,8 @@ export const defaultSiteSettings: SiteSettings = {
   phone: "+91 800-14-800-75",
   emergencyPhone: "+91 800-14-800-75",
   whatsapp: "+918001480075",
-  email: "care@silvercareindia.com",
-  address: "Flat No-60, SF Sector-33, Gurgaon, Haryana, India 122001",
+  email: "info@silvercareindia.com",
+  address: "SCO 110, 1st Floor, Green Lotus Avenue Complex, Near, Singhpura Rd, Chandigarh, Zirakpur, Punjab 140603",
   workingHours: "24/7 Care & Emergency Support",
   experienceYears: "10+",
   happyPatients: "10,000+",
@@ -175,6 +175,18 @@ export const fallbackServices: Service[] = [
     isActive: true, 
     isFeatured: true,
     aliases: ['companionship', 'senior daycare', 'elder companionship', 'dementia care', 'senior engagement'] 
+  },
+  { 
+    id: 'sc-8', 
+    title: 'Mother & Baby Care', 
+    slug: 'mother-baby-care', 
+    category: 'Mother & Baby Care', 
+    shortDescription: 'Specialized post-natal care for mothers and comprehensive newborn care by certified nurses and trained Jhaia caregivers at home.', 
+    description: 'Comprehensive post-partum support for new mothers and delicate care for newborns. Our experienced maternity nurses and certified baby care attendants assist with newborn hygiene, feeding support, lactation guidance, maternal post-recovery, baby massage, and round-the-clock newborn monitoring at home.', 
+    icon: 'heartpulse', 
+    isActive: true, 
+    isFeatured: true,
+    aliases: ['mother and baby care', 'jhaiya', 'jhaiya care', 'newborn care', 'maternity care', 'postnatal care', 'postpartum care', 'baby care', 'nanhi care', 'mother care'] 
   }
 ];
 

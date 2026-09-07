@@ -33,4 +33,8 @@ Thumbs.db
 coverage/
 .nyc_output/
 scratch/
+# Binary & Android Builds
+*.apk
+android/app/build/
+
 

@@ -56,6 +56,7 @@ const slideInRight = {
 const HERO_ROTATING_SERVICES = [
   "Caregivers",
   "Nursing Care",
+  "Mother & Baby Care",
   "Physiotherapy",
   "Doctor Visits",
   "Senior Companionship",
@@ -162,7 +163,7 @@ export default function Home() {
                 initial="hidden" 
                 animate="visible" 
                 variants={heroStagger} 
-                className="max-w-2xl text-left"
+                className="max-w-2xl text-left order-2 lg:order-1"
               >
                 {/* 1. Trusted Eldercare Badge */}
                 <motion.div 
@@ -251,32 +252,33 @@ export default function Home() {
                 </motion.div>
               </motion.div>
               
-              {/* 7. Right Visual Column - Direct Role Model Portrait Seamlessly Integrated */}
+              {/* 7. Right Visual Column - Rakesh Bedi Portrait (Placed first on mobile) */}
               <motion.div 
                 initial={{ opacity: 0, scale: 0.97, y: 16 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: 0.75, delay: 0.2, ease: premiumEase }}
-                className="relative mt-10 lg:mt-0 flex flex-col items-center justify-center"
+                className="relative mb-6 lg:mb-0 flex flex-col items-center justify-center order-1 lg:order-2"
               >
-                <div className="relative w-full max-w-[580px] lg:max-w-[640px]">
+                <div className="relative w-full max-w-[340px] sm:max-w-[480px] lg:max-w-[640px]">
                   <img 
                     src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorImg}
                     alt={siteSettings.doctorName || "Rakesh Bedi - SilverCare Brand Ambassador"} 
-                    className="w-full h-auto object-contain object-bottom max-h-[580px] lg:max-h-[640px] transition-transform duration-500 hover:scale-[1.01]"
+                    className="w-full h-auto object-contain object-bottom max-h-[340px] sm:max-h-[480px] lg:max-h-[640px] transition-transform duration-500 hover:scale-[1.01]"
                     loading="eager"
                     referrerPolicy="no-referrer"
                   />
 
                   {/* Brand Ambassador Badge ("TRUSTED BY RAKESH BEDI") */}
-                  <div className="absolute bottom-0 right-4 sm:bottom-1 sm:right-8 bg-white/95 backdrop-blur-md border border-pink-100/90 shadow-[0_10px_30px_rgba(233,30,99,0.18)] rounded-2xl px-4 py-2.5 flex items-center gap-3 z-20 transition-all duration-300 hover:scale-105">
-                    <div className="w-10 h-10 rounded-xl bg-[linear-gradient(135deg,#FF4F81,#E91E63)] text-white flex items-center justify-center shrink-0 shadow-md">
-                      <ShieldCheck size={22} />
+                  <div className="absolute bottom-0 right-2 sm:bottom-1 sm:right-8 bg-white/95 backdrop-blur-md border border-pink-100/90 shadow-[0_10px_30px_rgba(233,30,99,0.18)] rounded-2xl px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 z-20 transition-all duration-300 hover:scale-105">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[linear-gradient(135deg,#FF4F81,#E91E63)] text-white flex items-center justify-center shrink-0 shadow-md">
+                      <ShieldCheck size={18} className="sm:hidden" />
+                      <ShieldCheck size={22} className="hidden sm:block" />
                     </div>
                     <div>
-                      <span className="block text-[10px] font-extrabold uppercase tracking-wider text-[#FF4F81] leading-none mb-1">
+                      <span className="block text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#FF4F81] leading-none mb-0.5 sm:mb-1">
                         Brand Ambassador
                       </span>
-                      <span className="block text-xs sm:text-sm font-black text-[#17345E] tracking-tight">
+                      <span className="block text-[11px] sm:text-xs sm:text-sm font-black text-[#17345E] tracking-tight">
                         TRUSTED BY RAKESH BEDI
                       </span>
                     </div>

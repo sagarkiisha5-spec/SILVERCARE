@@ -119,11 +119,14 @@ export default function AdminDashboard() {
     const unsubscribeReqs = subscribeToServiceRequests((data) => {
       let newReqs = 0;
       let completed = 0;
+      let franchiseLeadsCount = 0;
 
       data.forEach((d) => {
         const st = String(d.status || "New").trim().toLowerCase();
+        const srv = String(d.careType || d.serviceName || "").toLowerCase();
         if (st === "new") newReqs++;
         if (st === "completed") completed++;
+        if (srv.includes("franchise") || srv.includes("partner")) franchiseLeadsCount++;
       });
 
       const liveReqs: RecentRequest[] = data.slice(0, 5).map((d) => {
@@ -146,6 +149,7 @@ export default function AdminDashboard() {
         totalRequests: data.length,
         newRequests: newReqs,
         completedRequests: completed,
+        franchiseLeads: franchiseLeadsCount,
       }));
       setRecentRequests(liveReqs);
       setLoading(false);
@@ -165,9 +169,9 @@ export default function AdminDashboard() {
 
   const statCards = [
     { title: "New Enquiries", value: stats.newRequests, sub: "Pending Action", icon: Clock, color: "text-amber-600", bg: "bg-amber-100/80", border: "border-amber-200" },
+    { title: "Franchise Partner Leads", value: (stats as any).franchiseLeads || 0, sub: "Expansion Applicants", icon: Globe, color: "text-pink-600", bg: "bg-pink-100/80", border: "border-pink-200" },
     { title: "Active Doctors & Staff", value: stats.activeProfessionals, sub: "Verified On Duty", icon: Users, color: "text-blue-600", bg: "bg-blue-100/80", border: "border-blue-200" },
-    { title: "Completed Care Services", value: stats.completedRequests, sub: "High Satisfaction", icon: CheckCircle2, color: "text-emerald-600", bg: "bg-emerald-100/80", border: "border-emerald-200" },
-    { title: "Total Care Bookings", value: stats.totalRequests, sub: "NCR & North India", icon: CalendarDays, color: "text-purple-600", bg: "bg-purple-100/80", border: "border-purple-200" },
+    { title: "Total Bookings & Inquiries", value: stats.totalRequests, sub: "NCR & North India", icon: CalendarDays, color: "text-purple-600", bg: "bg-purple-100/80", border: "border-purple-200" },
   ];
 
   const maxHourly = Math.max(...traffic.hourlyTraffic.map((h) => h.views));

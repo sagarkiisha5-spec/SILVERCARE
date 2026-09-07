@@ -56,6 +56,73 @@ export default function ServiceDetail() {
   const allServices = services.length > 0 ? services : fallbackServices;
   const relatedServices = allServices.filter(s => s.id !== service.id).slice(0, 3);
 
+  const getWhoIsThisFor = (slug: string): string[] => {
+    switch (slug) {
+      case 'mother-baby-care':
+        return [
+          "New mothers seeking expert post-natal recovery, lactation support, and maternal physical care after delivery (C-section or natural delivery).",
+          "Newborn infants requiring delicate daily hygiene, gentle oil massage, umbilical cord care, and round-the-clock monitoring.",
+          "Working parents & families needing experienced, background-verified Jhaia / baby care attendants for 12-hour or 24-hour shifts.",
+          "First-time mothers looking for compassionate guidance on baby feeding routines, sleep training, and overall post-partum well-being."
+        ];
+      case 'nursing-attendant-care':
+        return [
+          "Patients recovering from major surgeries, joint replacements, stroke rehabilitation, or hospital discharge.",
+          "Bedridden or semi-dependent seniors requiring vital signs monitoring, medication administration, and daily hygiene support.",
+          "Families seeking dependable 24/7 or 12-hour trained nursing care at home under clinical doctor supervision."
+        ];
+      case 'doctor-visit-at-home':
+        return [
+          "Elderly or bedridden individuals who face difficulty traveling to hospitals or diagnostic clinics.",
+          "Patients needing routine medical checkups, chronic disease management, and prescription adjustments.",
+          "Families seeking timely home consultations by experienced MBBS physicians without long waiting room delays."
+        ];
+      case 'physiotherapy-at-home':
+        return [
+          "Patients recovering from stroke, paralysis, joint replacements (knee/hip), or spine surgeries.",
+          "Seniors suffering from arthritis, chronic back pain, balance issues, or mobility impairment.",
+          "Individuals needing personalized rehabilitation exercises and movement therapy in the comfort of home."
+        ];
+      case 'pathology-diagnostics':
+        return [
+          "Seniors and patients needing regular blood tests, diabetic screening (HbA1c), or organ function panels.",
+          "Individuals looking for hassle-free, hygienic sample collection at home with digital reports on WhatsApp.",
+          "Busy families seeking certified lab testing without visiting diagnostic labs."
+        ];
+      case 'telemedicine':
+        return [
+          "Patients requiring fast online medical advice, second opinions, or quick prescription renewals.",
+          "Families and NRIs wanting to join doctor consultations remotely alongside elderly parents.",
+          "Individuals seeking routine follow-ups for non-emergency healthcare queries."
+        ];
+      case 'medical-equipment':
+        return [
+          "Families needing ICU setups at home, hospital beds, oxygen concentrators, or BiPAP/CPAP units.",
+          "Patients requiring temporary mobility aids like wheelchairs, walkers, or patient lifts.",
+          "Home care setups requiring patient monitoring devices and suction machines."
+        ];
+      case 'daycare-companionship':
+        return [
+          "Senior citizens experiencing loneliness, social isolation, or mild cognitive decline.",
+          "Elderly individuals looking for engaging conversation, recreational activities, and accompaniment on walks.",
+          "Families wanting trusted companions for elderly parents while family members are at work."
+        ];
+      default:
+        return [
+          "Families seeking dependable, professional home healthcare and specialized personal assistance.",
+          "Patients needing structured care plans customized to their medical and recovery requirements.",
+          "Individuals looking for verified, compassionate care professionals supervised by clinical experts."
+        ];
+    }
+  };
+
+  const getSidebarDescription = (slug: string): string => {
+    if (slug === 'mother-baby-care') {
+      return "Request a trained baby caregiver or maternity nurse deployment to your home in Gurgaon & North India.";
+    }
+    return "Request a doctor visit or nurse deployment to your home in Gurgaon & North India.";
+  };
+
   return (
     <>
       <SEO 
@@ -155,18 +222,12 @@ export default function ServiceDetail() {
                     Who Is This Service Best For?
                   </h3>
                   <div className="space-y-4">
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-purple-50/50 border border-purple-100 text-slate-700 font-medium text-sm sm:text-base">
-                      <CheckCircle2 size={20} className="text-[#7B2CBF] shrink-0 mt-0.5" />
-                      <span>Seniors recovering from major surgeries, joint replacements, or stroke rehabilitation.</span>
-                    </div>
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-purple-50/50 border border-purple-100 text-slate-700 font-medium text-sm sm:text-base">
-                      <CheckCircle2 size={20} className="text-[#7B2CBF] shrink-0 mt-0.5" />
-                      <span>Elderly individuals managing chronic illnesses (diabetes, hypertension, cardiac care, dementia).</span>
-                    </div>
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-purple-50/50 border border-purple-100 text-slate-700 font-medium text-sm sm:text-base">
-                      <CheckCircle2 size={20} className="text-[#7B2CBF] shrink-0 mt-0.5" />
-                      <span>Families seeking dependable, professional medical care at home without hospital admissions.</span>
-                    </div>
+                    {getWhoIsThisFor(service.slug).map((item, idx) => (
+                      <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-purple-50/50 border border-purple-100 text-slate-700 font-medium text-sm sm:text-base">
+                        <CheckCircle2 size={20} className="text-[#7B2CBF] shrink-0 mt-0.5" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -176,7 +237,7 @@ export default function ServiceDetail() {
               <div className="lg:col-span-4">
                 <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-md sticky top-28">
                   <h3 className="text-xl font-extrabold text-[#17345E] mb-2">Book {service.title}</h3>
-                  <p className="text-slate-500 text-xs mb-6">Request a doctor visit or nurse deployment to your home in Gurgaon & North India.</p>
+                  <p className="text-slate-500 text-xs mb-6">{getSidebarDescription(service.slug)}</p>
 
                   <div className="space-y-4 mb-8">
                     <div className="p-4 rounded-2xl bg-purple-50 border border-purple-100 flex items-center gap-3 text-xs font-bold text-[#7B2CBF]">

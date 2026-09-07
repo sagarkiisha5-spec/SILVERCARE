@@ -20,6 +20,8 @@ import Contact from './pages/public/Contact';
 import Blog from './pages/public/Blog';
 import BlogPost from './pages/public/BlogPost';
 import Plans from './pages/public/Plans';
+import NRICare from './pages/public/NRICare';
+import PartnerWithUs from './pages/public/PartnerWithUs';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -78,6 +80,8 @@ export default function App() {
               <Route path="/services" element={<Services />} />
               <Route path="/services/:slug" element={<ServiceDetail />} />
               <Route path="/plans" element={<Plans />} />
+              <Route path="/nri-care" element={<NRICare />} />
+              <Route path="/partner-with-us" element={<PartnerWithUs />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/about" element={<About />} />
               <Route path="/professionals" element={<Professionals />} />

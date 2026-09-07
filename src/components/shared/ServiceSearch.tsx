@@ -8,6 +8,7 @@ const POPULAR_SEARCHES = [
   { term: "24/7 Nursing & Attendant Care", slug: "nursing-attendant-care", category: "Medical Care" },
   { term: "Doctor Visit at Home", slug: "doctor-visit-at-home", category: "Physician" },
   { term: "Physiotherapy at Home", slug: "physiotherapy-at-home", category: "Rehab" },
+  { term: "Mother & Baby Care (Jhaiya Care)", slug: "mother-baby-care", category: "Maternity" },
   { term: "Pathology & Lab Diagnostics", slug: "pathology-diagnostics", category: "Lab" },
   { term: "Medical Equipment Rental", slug: "medical-equipment", category: "Supplies" },
   { term: "Senior Companionship & Care", slug: "daycare-companionship", category: "Daily Care" }

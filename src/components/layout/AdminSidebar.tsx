@@ -27,7 +27,7 @@ export default function AdminSidebar({ onCloseMobile }: AdminSidebarProps) {
 
   const navItems = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-    { name: "Service Requests", href: "/admin/requests", icon: CalendarDays },
+    { name: "Service & Franchise Leads", href: "/admin/requests", icon: CalendarDays },
     { name: "Team & Sub-Admins", href: "/admin/team", icon: UserCheck },
     { name: "Billing & Invoices", href: "/admin/billing", icon: Receipt },
     { name: "Care Follow-Ups", href: "/admin/followups", icon: CalendarClock },

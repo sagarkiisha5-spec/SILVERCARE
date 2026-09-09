@@ -41,7 +41,7 @@ const CARE_CATEGORIES: CareCategory[] = [
       { value: "Physiotherapy at Home", label: "Physiotherapy at Home" },
       { value: "Pathology & Diagnostics", label: "Pathology & Diagnostics" },
       { value: "Medical Equipment Rental & Delivery", label: "Medical Equipment Rental & Delivery" },
-      { value: "Elder Care / Companionship", label: "Elder Care / Companionship" },
+      { value: "ICU Set-up at Home", label: "ICU Set-up at Home" },
       { value: "Telemedicine / Online Doctor", label: "Telemedicine / Online Doctor" },
     ]
   },

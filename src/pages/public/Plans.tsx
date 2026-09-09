@@ -451,11 +451,11 @@ export default function Plans() {
                       <ShieldCheck size={22} className="hidden sm:block" />
                     </div>
                     <div>
-                      <span className="block text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#FF4F81] leading-none mb-0.5 sm:mb-1">
-                        Brand Ambassador
-                      </span>
-                      <span className="block text-[11px] sm:text-xs sm:text-sm font-black text-[#17345E] tracking-tight">
+                      <span className="block text-[11px] sm:text-xs sm:text-sm font-black text-[#17345E] tracking-tight mb-0.5 sm:mb-1">
                         TRUSTED BY RAKESH BEDI
+                      </span>
+                      <span className="block text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#FF4F81] leading-none">
+                        Brand Ambassador
                       </span>
                     </div>
                   </div>

@@ -60,7 +60,7 @@ export default function Footer() {
               <li><Link to="/services/pathology-diagnostics" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Pathology & Diagnostics</Link></li>
               <li><Link to="/services/telemedicine" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Telemedicine</Link></li>
               <li><Link to="/services/medical-equipment" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Medical Equipment</Link></li>
-              <li><Link to="/services/daycare-companionship" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Daycare & Companionship</Link></li>
+              <li><Link to="/services/icu-setup" className="text-slate-400 hover:text-[#FF4F81] transition-colors">ICU Set-up</Link></li>
               <li><Link to="/services/mother-baby-care" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Mother & Baby Care</Link></li>
             </ul>
           </div>
@@ -136,18 +136,21 @@ export default function Footer() {
         </div>
         
         {/* Bottom Bar with Digiexplode AI Developer Credit */}
-        <div className="mt-16 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-xs sm:text-sm text-slate-400 text-center sm:text-left">
+        <div className="mt-16 pt-8 border-t border-pink-950/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs sm:text-[13px] text-pink-200/60">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3.5 text-center sm:text-left">
             <span>&copy; {new Date().getFullYear()} SilverCare India. All Rights Reserved.</span>
-            <span className="hidden sm:inline text-slate-600">•</span>
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold bg-white/5 border border-white/10 px-3 py-1 rounded-full text-slate-300">
-              Developed by <strong className="text-[#FF4F81] font-extrabold tracking-wide">Digiexplode AI</strong>
-            </span>
+            <span className="hidden sm:inline text-pink-400/30">•</span>
+            <div className="inline-flex items-center gap-1.5 text-pink-200/70">
+              <span className="text-[12px] text-pink-200/50">Developed by</span>
+              <span className="font-bold tracking-wide text-transparent bg-clip-text bg-[linear-gradient(90deg,#FF85A8,#E2B4FC)] text-[12.5px] hover:brightness-125 transition-all">
+                Digiexplode AI
+              </span>
+            </div>
           </div>
           
-          <div className="flex gap-6 text-xs sm:text-sm">
-            <Link to="/privacy" className="text-slate-500 hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="text-slate-500 hover:text-white transition-colors">Terms of Service</Link>
+          <div className="flex gap-6 text-xs sm:text-[13px]">
+            <Link to="/privacy" className="text-pink-200/60 hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="text-pink-200/60 hover:text-white transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

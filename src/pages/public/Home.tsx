@@ -275,11 +275,11 @@ export default function Home() {
                       <ShieldCheck size={22} className="hidden sm:block" />
                     </div>
                     <div>
-                      <span className="block text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#FF4F81] leading-none mb-0.5 sm:mb-1">
-                        Brand Ambassador
-                      </span>
-                      <span className="block text-[11px] sm:text-xs sm:text-sm font-black text-[#17345E] tracking-tight">
+                      <span className="block text-[11px] sm:text-xs sm:text-sm font-black text-[#17345E] tracking-tight mb-0.5 sm:mb-1">
                         TRUSTED BY RAKESH BEDI
+                      </span>
+                      <span className="block text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#FF4F81] leading-none">
+                        Brand Ambassador
                       </span>
                     </div>
                   </div>
@@ -443,10 +443,12 @@ export default function Home() {
                   <div className="flex items-center gap-4 group shrink-0">
                     <div className="relative shrink-0">
                       <img 
-                        src={siteSettings.ceoPhotoUrl && siteSettings.ceoPhotoUrl.startsWith('http') ? siteSettings.ceoPhotoUrl : "https://silvercareindia.com/wp-content/uploads/2025/12/Navin.png"} 
+                        src={siteSettings.ceoPhotoUrl && siteSettings.ceoPhotoUrl.startsWith('http') ? siteSettings.ceoPhotoUrl : "/navin-chauhan.png"} 
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = "/hero-doctor.png";
+                        }}
                         alt="Navin Chauhan, Founder and CEO of SilverCare" 
                         className="h-[76px] w-[76px] rounded-full border-2 border-pink-200 shadow-md object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                        referrerPolicy="no-referrer"
                       />
                     </div>
                     <div>
@@ -472,6 +474,9 @@ export default function Home() {
                 <div className="relative w-full max-w-[500px] lg:max-w-[560px] xl:max-w-[580px] rounded-[36px] overflow-hidden shadow-xl border border-pink-100/60 bg-white group">
                   <img 
                     src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&q=80&w=1200&fmt=webp" 
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = "/about-doc-care.jpg";
+                    }}
                     alt="Professional interacting warmly with senior" 
                     className="w-full h-[460px] sm:h-[500px] lg:h-[530px] xl:h-[550px] object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
                   />

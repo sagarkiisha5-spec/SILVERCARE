@@ -20,7 +20,9 @@ import {
   CheckCircle2, 
   Clock, 
   Building2,
-  Tag
+  Tag,
+  Shield,
+  Award
 } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
 import SEO from "@/src/components/seo/SEO";
@@ -106,43 +108,114 @@ export default function NRICare() {
         description="Luxury Healthcare Concierge for parents in India. Dedicated care manager, daily vitals, doctor visits, hospital saathi & weekly WhatsApp photo updates for NRIs in USA, UK, Canada & worldwide."
       />
 
-      <div className="bg-slate-900 text-slate-100 min-h-screen font-sans">
+      {/* Scoped NRI Care Page Container */}
+      <div className="nri-care-page min-h-screen font-sans text-[#F8FAFC] selection:bg-[#C9A45C]/30 selection:text-[#F1D995]" style={{ backgroundColor: "#050A18" }}>
 
         {/* HERO SECTION */}
-        <section className="relative bg-[linear-gradient(135deg,#0B132B_0%,#1C2541_50%,#3A506B_100%)] text-white py-16 md:py-24 border-b border-amber-500/20 overflow-hidden">
-          {/* Subtle Golden Glow Overlay */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 blur-[120px] rounded-full pointer-events-none"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+        <section 
+          className="relative py-20 md:py-28 overflow-hidden border-b"
+          style={{
+            background: "radial-gradient(circle at 72% 30%, rgba(201,164,92,0.14), transparent 38%), linear-gradient(120deg, #060B1A 0%, #101B30 55%, #17253B 100%)",
+            borderColor: "rgba(215, 182, 109, 0.2)"
+          }}
+        >
+          {/* Subtle Golden Glow Overlays & Ambient Light */}
+          <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#C9A45C]/10 blur-[130px] rounded-full pointer-events-none" />
+          <div className="absolute -bottom-24 left-10 w-[420px] h-[420px] bg-[#9C7739]/15 blur-[140px] rounded-full pointer-events-none" />
           
+          {/* Faint Luxury Radial Grid */}
+          <div 
+            className="absolute inset-0 pointer-events-none opacity-20"
+            style={{
+              backgroundImage: "radial-gradient(rgba(215, 182, 109, 0.25) 1px, transparent 1px)",
+              backgroundSize: "32px 32px"
+            }}
+          />
+
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl relative z-10 text-center">
             
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs sm:text-sm font-extrabold uppercase tracking-widest mb-6">
-              <Sparkles size={16} className="text-amber-400" /> SILVERCARE INDIA
+            {/* Luxury Translucent Pill Badge */}
+            <div 
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-widest mb-8 backdrop-blur-md shadow-sm transition-all"
+              style={{
+                background: "rgba(201, 164, 92, 0.08)",
+                border: "1px solid rgba(215, 182, 109, 0.5)",
+                color: "#E7D19A"
+              }}
+            >
+              <Sparkles size={15} style={{ color: "#D7B66D" }} />
+              <span>SILVERCARE INDIA CONCIERGE</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-4 uppercase leading-tight">
-              NRI SIGNATURE <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#F59E0B,#FBBF24,#FDE68A)]">ELDERCARE MEMBERSHIP</span>
+            {/* Main Headline with Brushed Champagne Metallic Gold */}
+            <h1 
+              className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-4 uppercase leading-[1.15]"
+              style={{ textShadow: "0 4px 30px rgba(0,0,0,0.4)" }}
+            >
+              NRI SIGNATURE <br className="hidden sm:inline" />
+              <span 
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: "linear-gradient(90deg, #F3DEAA 0%, #C99E4E 48%, #F1D995 100%)"
+                }}
+              >
+                ELDERCARE MEMBERSHIP
+              </span>
             </h1>
 
-            <p className="text-xl sm:text-2xl text-amber-200/90 font-medium mb-6 max-w-3xl mx-auto">
+            {/* Subheading */}
+            <p 
+              className="text-xl sm:text-2xl font-medium mb-6 max-w-3xl mx-auto tracking-wide"
+              style={{ color: "#E5CF92" }}
+            >
               Luxury Healthcare Concierge for Parents in India
             </p>
 
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl mx-auto bg-slate-800/60 p-4 sm:p-6 rounded-2xl border border-slate-700/80 backdrop-blur-md">
-              Designed around the real concerns of NRIs living in USA, UK, Canada, UAE & worldwide: emergency support, preventive healthcare, transparent photo reporting, and dignified aging at home.
-            </p>
+            {/* Description Card */}
+            <div 
+              className="p-5 sm:p-7 rounded-2xl max-w-3xl mx-auto backdrop-blur-md transition-all mb-10"
+              style={{
+                backgroundColor: "rgba(8, 15, 30, 0.65)",
+                border: "1px solid rgba(215, 182, 109, 0.22)",
+                boxShadow: "0 18px 50px rgba(0, 0, 0, 0.35)",
+                color: "#B6C0D1"
+              }}
+            >
+              <p className="text-sm sm:text-base leading-relaxed">
+                Designed around the real concerns of NRIs living in USA, UK, Canada, UAE & worldwide: emergency support, preventive healthcare, transparent photo reporting, and dignified aging at home.
+              </p>
+            </div>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
               <Button 
                 onClick={() => handleBook("NRI Plus")} 
                 size="lg" 
-                className="bg-[linear-gradient(90deg,#F59E0B,#D97706)] hover:opacity-95 text-slate-950 font-black text-sm sm:text-base px-8 h-14 rounded-full shadow-lg shadow-amber-500/20 border-0"
+                className="cursor-pointer font-bold text-sm sm:text-base px-9 h-14 rounded-full transition-all duration-300 hover:-translate-y-0.5 active:scale-95 flex items-center gap-2.5"
+                style={{
+                  background: "linear-gradient(135deg, #B88D43 0%, #E0BD70 45%, #C39749 100%)",
+                  color: "#090D16",
+                  border: "1px solid rgba(255, 235, 185, 0.55)",
+                  boxShadow: "0 10px 30px rgba(201, 164, 92, 0.25)"
+                }}
               >
-                Book Membership Now <ArrowRight size={18} />
+                <span>Book Membership Now</span>
+                <ArrowRight size={18} />
               </Button>
+              
               <a href={`tel:${rawPhone}`}>
-                <Button variant="outline" size="lg" className="bg-white/5 hover:bg-white/10 text-amber-300 border-amber-500/40 font-bold h-14 px-6 rounded-full">
-                  <PhoneCall size={18} className="mr-2" /> Care Line: {phone}
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="cursor-pointer font-semibold h-14 px-8 rounded-full transition-all duration-300 hover:-translate-y-0.5"
+                  style={{
+                    backgroundColor: "rgba(201, 164, 92, 0.06)",
+                    border: "1px solid rgba(215, 182, 109, 0.60)",
+                    color: "#E6CB8A"
+                  }}
+                >
+                  <PhoneCall size={18} className="mr-2" style={{ color: "#D7B66D" }} />
+                  <span>Care Line: {phone}</span>
                 </Button>
               </a>
             </div>
@@ -151,27 +224,54 @@ export default function NRICare() {
         </section>
 
 
-        {/* MEMBERSHIP CARDS SECTION */}
-        <section className="py-16 bg-slate-950">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+        {/* MEMBERSHIP PACKAGES SECTION */}
+        <section 
+          className="py-20 relative"
+          style={{ backgroundColor: "#050918" }}
+        >
+          {/* Central Subtle Warm Glow */}
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#C9A45C]/6 blur-[150px] rounded-full pointer-events-none" />
+
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl relative z-10">
             
-            <div className="text-center max-w-3xl mx-auto mb-8">
-              <span className="text-xs font-extrabold text-amber-400 uppercase tracking-widest block mb-2">TIERED HEALTHCARE PLANS</span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Membership Packages</h2>
-              <p className="text-slate-400 text-sm sm:text-base mt-2">Select the level of care and concierge frequency tailored for your parents</p>
+            <div className="text-center max-w-3xl mx-auto mb-10">
+              <span 
+                className="text-xs font-extrabold uppercase block mb-2"
+                style={{ color: "#D7B66D", letterSpacing: "0.14em" }}
+              >
+                TIERED HEALTHCARE PLANS
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F8FAFC] tracking-tight">
+                Membership Packages
+              </h2>
+              <p className="text-sm sm:text-base mt-2" style={{ color: "#9EABC0" }}>
+                Select the level of care and concierge frequency tailored for your parents
+              </p>
             </div>
 
-            {/* BILLING CYCLE TOGGLE SWITCH (MONTHLY vs 1-YEAR ANNUAL 20% OFF) */}
-            <div className="flex items-center justify-center mb-12">
-              <div className="bg-slate-900/90 p-1.5 rounded-full border border-slate-800 flex items-center shadow-xl backdrop-blur-md">
+            {/* BILLING CYCLE TOGGLE SWITCH */}
+            <div className="flex items-center justify-center mb-14">
+              <div 
+                className="p-1.5 rounded-full flex items-center shadow-xl backdrop-blur-md"
+                style={{
+                  backgroundColor: "#10192A",
+                  border: "1px solid rgba(215, 182, 109, 0.22)"
+                }}
+              >
                 <button
                   type="button"
                   onClick={() => setIsAnnual(false)}
-                  className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-extrabold transition-all duration-300 ${
+                  className="px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer"
+                  style={
                     !isAnnual 
-                      ? "bg-[linear-gradient(90deg,#F59E0B,#D97706)] text-slate-950 shadow-md scale-105" 
-                      : "text-slate-400 hover:text-white"
-                  }`}
+                      ? {
+                          background: "linear-gradient(135deg, #B98A3D 0%, #E0B95E 100%)",
+                          color: "#090D16",
+                          boxShadow: "0 4px 15px rgba(201, 164, 92, 0.28)",
+                          transform: "scale(1.02)"
+                        } 
+                      : { color: "#AEB8C7" }
+                  }
                 >
                   Monthly Plan
                 </button>
@@ -179,31 +279,65 @@ export default function NRICare() {
                 <button
                   type="button"
                   onClick={() => setIsAnnual(true)}
-                  className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-extrabold transition-all duration-300 flex items-center gap-2 ${
+                  className="px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 flex items-center gap-2 cursor-pointer"
+                  style={
                     isAnnual 
-                      ? "bg-[linear-gradient(90deg,#F59E0B,#D97706)] text-slate-950 shadow-md scale-105" 
-                      : "text-slate-400 hover:text-white"
-                  }`}
+                      ? {
+                          background: "linear-gradient(135deg, #B98A3D 0%, #E0B95E 100%)",
+                          color: "#090D16",
+                          boxShadow: "0 4px 15px rgba(201, 164, 92, 0.28)",
+                          transform: "scale(1.02)"
+                        } 
+                      : { color: "#AEB8C7" }
+                  }
                 >
                   <span>1-Year Annual Plan</span>
-                  <span className="bg-amber-400 text-slate-950 font-black text-[10px] uppercase px-2.5 py-0.5 rounded-full shadow-xs flex items-center gap-1">
+                  <span 
+                    className="font-black text-[10px] uppercase px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-xs"
+                    style={{
+                      backgroundColor: "#D4AE58",
+                      color: "#0B101A"
+                    }}
+                  >
                     <Tag size={10} /> 20% OFF
                   </span>
                 </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* 3 PRICING CARDS */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
               
               {/* CARD 1: NRI CONNECT */}
-              <div className="bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition-all shadow-xl">
+              <div 
+                className="rounded-[20px] p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5"
+                style={{
+                  background: "linear-gradient(145deg, rgba(18, 29, 49, 0.96), rgba(10, 18, 32, 0.98))",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  boxShadow: "0 20px 55px rgba(0, 0, 0, 0.26)"
+                }}
+              >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="inline-block px-3 py-1 rounded-full bg-slate-800 text-slate-300 font-extrabold text-xs">
+                    <span 
+                      className="inline-block px-3 py-1 rounded-full font-bold text-xs"
+                      style={{
+                        backgroundColor: "rgba(148, 163, 184, 0.12)",
+                        border: "1px solid rgba(148, 163, 184, 0.3)",
+                        color: "#CBD5E1"
+                      }}
+                    >
                       NRI CONNECT
                     </span>
                     {isAnnual && (
-                      <span className="bg-amber-500/20 text-amber-300 font-black text-[10px] px-2.5 py-0.5 rounded-full border border-amber-500/30">
+                      <span 
+                        className="font-black text-[10px] px-2.5 py-0.5 rounded-full"
+                        style={{
+                          backgroundColor: "rgba(201, 164, 92, 0.15)",
+                          border: "1px solid rgba(215, 182, 109, 0.4)",
+                          color: "#F1D995"
+                        }}
+                      >
                         20% OFF
                       </span>
                     )}
@@ -215,54 +349,96 @@ export default function NRICare() {
                     <div className="my-4">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xs line-through text-slate-500 font-bold">₹4,999/mo</span>
-                        <span className="text-[10px] text-amber-300 font-extrabold bg-amber-500/10 px-2 py-0.5 rounded-md">Save ₹11,998/yr</span>
+                        <span 
+                          className="text-[10px] font-bold px-2 py-0.5 rounded-md"
+                          style={{
+                            backgroundColor: "rgba(201, 164, 92, 0.15)",
+                            color: "#E7D19A"
+                          }}
+                        >
+                          Save ₹11,998/yr
+                        </span>
                       </div>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-3xl sm:text-4xl font-black text-amber-400">₹3,999</span>
+                        <span className="text-3xl sm:text-4xl font-black" style={{ color: "#E3BF68" }}>₹3,999</span>
                         <span className="text-xs text-slate-400 font-medium">/month</span>
                       </div>
-                      <p className="text-[11px] text-emerald-400 font-bold mt-1">Billed ₹47,990 for 1 Year</p>
+                      <p className="text-[11px] font-semibold mt-1" style={{ color: "#7EE787" }}>Billed ₹47,990 for 1 Year</p>
                     </div>
                   ) : (
                     <div className="flex items-baseline gap-1 my-4">
-                      <span className="text-3xl sm:text-4xl font-black text-amber-400">₹4,999</span>
+                      <span className="text-3xl sm:text-4xl font-black" style={{ color: "#E3BF68" }}>₹4,999</span>
                       <span className="text-xs text-slate-400 font-medium">/month</span>
                     </div>
                   )}
 
-                  <p className="text-xs text-slate-400 mb-6">Routine nursing checks, vital monitoring, and monthly health updates for stable seniors.</p>
+                  <p className="text-xs leading-relaxed mb-6" style={{ color: "#9EABC0" }}>
+                    Routine nursing checks, vital monitoring, and monthly health updates for stable seniors.
+                  </p>
                   
-                  <ul className="space-y-3 text-xs text-slate-300 mb-8 border-t border-slate-800 pt-6">
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> 1 Nurse Home Visit per month</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> BP, Pulse, SpO₂, Blood Sugar & Temp</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> Basic Medication Management</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> Monthly Family Health Report</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> Shared Care Manager</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> 24×7 Emergency Helpline</li>
+                  <ul className="space-y-3 text-xs mb-8 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", color: "#CBD5E1" }}>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> 1 Nurse Home Visit per month</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> BP, Pulse, SpO₂, Blood Sugar & Temp</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> Basic Medication Management</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> Monthly Family Health Report</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> Shared Care Manager</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> 24×7 Emergency Helpline</li>
                   </ul>
                 </div>
 
                 <Button 
                   onClick={() => handleBook("NRI Connect")}
-                  className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold h-12 rounded-xl border border-slate-700"
+                  className="w-full font-bold h-12 rounded-xl transition-all duration-200 cursor-pointer"
+                  style={{
+                    backgroundColor: "rgba(201, 164, 92, 0.08)",
+                    border: "1px solid rgba(215, 182, 109, 0.45)",
+                    color: "#E7D19A"
+                  }}
                 >
                   Select NRI Connect {isAnnual && "(20% OFF)"}
                 </Button>
               </div>
 
-              {/* CARD 2: NRI PLUS (POPULAR) */}
-              <div className="bg-[linear-gradient(180deg,#1E293B_0%,#0F172A_100%)] rounded-3xl p-6 sm:p-8 border-2 border-amber-500/80 flex flex-col justify-between relative shadow-2xl scale-105 z-10">
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[linear-gradient(90deg,#F59E0B,#D97706)] text-slate-950 text-[10px] font-black tracking-wider uppercase px-4 py-1.5 rounded-full shadow-md whitespace-nowrap">
+              {/* CARD 2: NRI PLUS (MOST POPULAR FEATURED CARD) */}
+              <div 
+                className="rounded-[20px] p-6 sm:p-8 flex flex-col justify-between relative transition-all duration-300 hover:-translate-y-2 md:-translate-y-2"
+                style={{
+                  background: "linear-gradient(145deg, rgba(31, 39, 54, 0.98), rgba(13, 21, 35, 0.98))",
+                  border: "1.5px solid #C99D4E",
+                  boxShadow: "0 24px 65px rgba(201, 164, 92, 0.18)"
+                }}
+              >
+                {/* Featured Badge */}
+                <div 
+                  className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[10px] font-black tracking-wider uppercase px-4 py-1 rounded-full shadow-md whitespace-nowrap"
+                  style={{
+                    background: "linear-gradient(90deg, #B88B3E 0%, #E2BD67 100%)",
+                    color: "#0B0F17"
+                  }}
+                >
                   ★ MOST POPULAR CHOICE
                 </div>
 
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 font-extrabold text-xs border border-amber-500/30">
+                    <span 
+                      className="inline-block px-3 py-1 rounded-full font-bold text-xs"
+                      style={{
+                        backgroundColor: "rgba(201, 164, 92, 0.18)",
+                        border: "1px solid rgba(215, 182, 109, 0.5)",
+                        color: "#F1D995"
+                      }}
+                    >
                       NRI PLUS
                     </span>
                     {isAnnual && (
-                      <span className="bg-amber-400 text-slate-950 font-black text-[10px] px-2.5 py-0.5 rounded-full shadow-xs">
+                      <span 
+                        className="font-black text-[10px] px-2.5 py-0.5 rounded-full"
+                        style={{
+                          backgroundColor: "#D4AE58",
+                          color: "#0B101A"
+                        }}
+                      >
                         SAVE 20%
                       </span>
                     )}
@@ -274,51 +450,89 @@ export default function NRICare() {
                     <div className="my-4">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xs line-through text-slate-400 font-bold">₹11,999/mo</span>
-                        <span className="text-[10px] text-amber-300 font-extrabold bg-amber-500/20 px-2 py-0.5 rounded-md border border-amber-500/30">Save ₹28,798/yr</span>
+                        <span 
+                          className="text-[10px] font-bold px-2 py-0.5 rounded-md"
+                          style={{
+                            backgroundColor: "rgba(201, 164, 92, 0.22)",
+                            border: "1px solid rgba(215, 182, 109, 0.4)",
+                            color: "#F3DEAA"
+                          }}
+                        >
+                          Save ₹28,798/yr
+                        </span>
                       </div>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-3xl sm:text-4xl font-black text-amber-400">₹9,599</span>
+                        <span className="text-3xl sm:text-4xl font-black" style={{ color: "#E3BF68" }}>₹9,599</span>
                         <span className="text-xs text-slate-400 font-medium">/month</span>
                       </div>
-                      <p className="text-[11px] text-emerald-400 font-bold mt-1">Billed ₹1,15,190 for 1 Year</p>
+                      <p className="text-[11px] font-semibold mt-1" style={{ color: "#7EE787" }}>Billed ₹1,15,190 for 1 Year</p>
                     </div>
                   ) : (
                     <div className="flex items-baseline gap-1 my-4">
-                      <span className="text-3xl sm:text-4xl font-black text-amber-400">₹11,999</span>
+                      <span className="text-3xl sm:text-4xl font-black" style={{ color: "#E3BF68" }}>₹11,999</span>
                       <span className="text-xs text-slate-400 font-medium">/month</span>
                     </div>
                   )}
 
-                  <p className="text-xs text-slate-300 mb-6">Comprehensive care including monthly doctor home visit, bi-weekly nurse visits & Hospital Saathi support.</p>
+                  <p className="text-xs leading-relaxed mb-6" style={{ color: "#B6C0D1" }}>
+                    Comprehensive care including monthly doctor home visit, bi-weekly nurse visits & Hospital Saathi support.
+                  </p>
                   
-                  <ul className="space-y-3 text-xs text-slate-200 mb-8 border-t border-slate-700 pt-6">
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> <strong>2 Nurse Home Visits</strong> per month</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> <strong>1 Doctor Home Visit</strong> per month</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> 1 Blood Sample Collection included</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> 1 ECG at Home / year</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> <strong>12 Hours/year Hospital Saathi</strong></li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> Dedicated Care Manager</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> Bi-weekly Health Reports</li>
+                  <ul className="space-y-3 text-xs mb-8 pt-6" style={{ borderTop: "1px solid rgba(215, 182, 109, 0.2)", color: "#F1F5F9" }}>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#F1D995" }} className="shrink-0" /> <strong>2 Nurse Home Visits</strong> per month</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#F1D995" }} className="shrink-0" /> <strong>1 Doctor Home Visit</strong> per month</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#F1D995" }} className="shrink-0" /> 1 Blood Sample Collection included</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#F1D995" }} className="shrink-0" /> 1 ECG at Home / year</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#F1D995" }} className="shrink-0" /> <strong>12 Hours/year Hospital Saathi</strong></li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#F1D995" }} className="shrink-0" /> Dedicated Care Manager</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#F1D995" }} className="shrink-0" /> Bi-weekly Health Reports</li>
                   </ul>
                 </div>
 
                 <Button 
                   onClick={() => handleBook("NRI Plus")}
-                  className="w-full bg-[linear-gradient(90deg,#F59E0B,#D97706)] text-slate-950 font-black h-12 rounded-xl shadow-lg border-0"
+                  className="w-full font-bold text-sm h-12 rounded-xl shadow-lg transition-all duration-300 hover:brightness-105 active:scale-95 cursor-pointer"
+                  style={{
+                    background: "linear-gradient(135deg, #B88D43 0%, #E0BD70 45%, #C39749 100%)",
+                    color: "#090D16",
+                    border: "1px solid rgba(255, 235, 185, 0.45)",
+                    boxShadow: "0 8px 25px rgba(201, 164, 92, 0.28)"
+                  }}
                 >
                   Select NRI Plus {isAnnual && "(20% OFF)"}
                 </Button>
               </div>
 
               {/* CARD 3: NRI SIGNATURE */}
-              <div className="bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition-all shadow-xl">
+              <div 
+                className="rounded-[20px] p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5"
+                style={{
+                  background: "linear-gradient(145deg, rgba(18, 29, 49, 0.96), rgba(10, 18, 32, 0.98))",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  boxShadow: "0 20px 55px rgba(0, 0, 0, 0.26)"
+                }}
+              >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="inline-block px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 font-extrabold text-xs border border-purple-500/30">
+                    <span 
+                      className="inline-block px-3 py-1 rounded-full font-bold text-xs"
+                      style={{
+                        backgroundColor: "rgba(107, 33, 168, 0.25)",
+                        border: "1px solid rgba(215, 182, 109, 0.35)",
+                        color: "#F1D995"
+                      }}
+                    >
                       NRI SIGNATURE
                     </span>
                     {isAnnual && (
-                      <span className="bg-purple-500/20 text-purple-300 font-black text-[10px] px-2.5 py-0.5 rounded-full border border-purple-500/30">
+                      <span 
+                        className="font-black text-[10px] px-2.5 py-0.5 rounded-full"
+                        style={{
+                          backgroundColor: "rgba(201, 164, 92, 0.15)",
+                          border: "1px solid rgba(215, 182, 109, 0.4)",
+                          color: "#F1D995"
+                        }}
+                      >
                         20% OFF
                       </span>
                     )}
@@ -330,38 +544,53 @@ export default function NRICare() {
                     <div className="my-4">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xs line-through text-slate-500 font-bold">₹24,999/mo</span>
-                        <span className="text-[10px] text-amber-300 font-extrabold bg-amber-500/10 px-2 py-0.5 rounded-md">Save ₹59,998/yr</span>
+                        <span 
+                          className="text-[10px] font-bold px-2 py-0.5 rounded-md"
+                          style={{
+                            backgroundColor: "rgba(201, 164, 92, 0.15)",
+                            color: "#E7D19A"
+                          }}
+                        >
+                          Save ₹59,998/yr
+                        </span>
                       </div>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-3xl sm:text-4xl font-black text-amber-400">₹19,999</span>
+                        <span className="text-3xl sm:text-4xl font-black" style={{ color: "#E3BF68" }}>₹19,999</span>
                         <span className="text-xs text-slate-400 font-medium">/month</span>
                       </div>
-                      <p className="text-[11px] text-emerald-400 font-bold mt-1">Billed ₹2,39,990 for 1 Year</p>
+                      <p className="text-[11px] font-semibold mt-1" style={{ color: "#7EE787" }}>Billed ₹2,39,990 for 1 Year</p>
                     </div>
                   ) : (
                     <div className="flex items-baseline gap-1 my-4">
-                      <span className="text-3xl sm:text-4xl font-black text-amber-400">₹24,999+</span>
+                      <span className="text-3xl sm:text-4xl font-black" style={{ color: "#E3BF68" }}>₹24,999+</span>
                       <span className="text-xs text-slate-400 font-medium">/month</span>
                     </div>
                   )}
 
-                  <p className="text-xs text-slate-400 mb-6">VIP 24×7 Senior Concierge care with weekly nurse visits, 2 doctor home visits, and unlimited hospital coordination.</p>
+                  <p className="text-xs leading-relaxed mb-6" style={{ color: "#9EABC0" }}>
+                    VIP 24×7 Senior Concierge care with weekly nurse visits, 2 doctor home visits, and unlimited hospital coordination.
+                  </p>
                   
-                  <ul className="space-y-3 text-xs text-slate-300 mb-8 border-t border-slate-800 pt-6">
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> <strong>4 Nurse Home Visits</strong> per month</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> <strong>2 Doctor Home Visits</strong> per month</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> Unlimited BP, Sugar & Vitals tracking</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> 2 Blood Sample Collections included</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> 2 ECGs at Home / year</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> <strong>Unlimited Hospital Saathi Coordination</strong></li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> Weekly Health Reports + Photo Logs</li>
-                    <li className="flex items-center gap-2"><Check size={16} className="text-amber-400 shrink-0" /> Senior VIP Concierge Manager</li>
+                  <ul className="space-y-3 text-xs mb-8 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", color: "#CBD5E1" }}>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> <strong>4 Nurse Home Visits</strong> per month</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> <strong>2 Doctor Home Visits</strong> per month</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> Unlimited BP, Sugar & Vitals tracking</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> 2 Blood Sample Collections included</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> 2 ECGs at Home / year</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> <strong>Unlimited Hospital Saathi Coordination</strong></li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> Weekly Health Reports + Photo Logs</li>
+                    <li className="flex items-center gap-2"><Check size={16} style={{ color: "#D7B66D" }} className="shrink-0" /> Senior VIP Concierge Manager</li>
                   </ul>
                 </div>
 
                 <Button 
                   onClick={() => handleBook("NRI Signature")}
-                  className="w-full bg-purple-900/60 hover:bg-purple-800 text-white font-bold h-12 rounded-xl border border-purple-700"
+                  className="w-full font-bold h-12 rounded-xl transition-all duration-200 cursor-pointer"
+                  style={{
+                    backgroundColor: "rgba(201, 164, 92, 0.08)",
+                    border: "1px solid rgba(215, 182, 109, 0.45)",
+                    color: "#E7D19A"
+                  }}
                 >
                   Select NRI Signature {isAnnual && "(20% OFF)"}
                 </Button>
@@ -373,39 +602,86 @@ export default function NRICare() {
 
 
         {/* DETAILED FEATURE COMPARISON TABLE */}
-        <section className="py-16 bg-slate-900 border-t border-slate-800">
+        <section 
+          className="py-20 border-t"
+          style={{
+            backgroundColor: "#0B1426",
+            borderColor: "rgba(215, 182, 109, 0.2)"
+          }}
+        >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
             
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-xs font-extrabold text-amber-400 uppercase tracking-widest block mb-2">COMPLETE SIDE-BY-SIDE MATRIX</span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Full Feature Comparison</h2>
-              <p className="text-slate-400 text-sm sm:text-base mt-2">Compare services across NRI Connect, NRI Plus, and NRI Signature packages</p>
+              <span 
+                className="text-xs font-extrabold uppercase block mb-2"
+                style={{ color: "#D7B66D", letterSpacing: "0.14em" }}
+              >
+                COMPLETE SIDE-BY-SIDE MATRIX
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F8FAFC]">Full Feature Comparison</h2>
+              <p className="text-sm sm:text-base mt-2" style={{ color: "#9EABC0" }}>
+                Compare services across NRI Connect, NRI Plus, and NRI Signature packages
+              </p>
             </div>
 
-            <div className="overflow-x-auto rounded-3xl border border-slate-800 bg-slate-950 shadow-2xl">
+            <div 
+              className="overflow-x-auto rounded-3xl shadow-2xl backdrop-blur-md"
+              style={{
+                backgroundColor: "#050A18",
+                border: "1px solid rgba(215, 182, 109, 0.25)"
+              }}
+            >
               <table className="w-full text-left border-collapse min-w-[700px]">
                 <thead>
-                  <tr className="bg-slate-900 border-b border-slate-800">
+                  <tr style={{ backgroundColor: "#111C30", borderBottom: "1px solid rgba(215, 182, 109, 0.25)" }}>
                     <th className="p-4 sm:p-5 text-sm font-extrabold text-white uppercase tracking-wider w-2/5">Services</th>
-                    <th className="p-4 sm:p-5 text-sm font-extrabold text-slate-300 text-center w-1/5 bg-slate-900">NRI Connect</th>
-                    <th className="p-4 sm:p-5 text-sm font-extrabold text-amber-300 text-center w-1/5 bg-amber-500/10 border-x border-amber-500/20">NRI Plus</th>
-                    <th className="p-4 sm:p-5 text-sm font-extrabold text-purple-300 text-center w-1/5 bg-purple-900/20">NRI Signature</th>
+                    <th className="p-4 sm:p-5 text-sm font-extrabold text-center w-1/5" style={{ color: "#CBD5E1" }}>NRI Connect</th>
+                    <th 
+                      className="p-4 sm:p-5 text-sm font-extrabold text-center w-1/5" 
+                      style={{
+                        backgroundColor: "rgba(201, 164, 92, 0.12)",
+                        borderLeft: "1px solid rgba(215, 182, 109, 0.3)",
+                        borderRight: "1px solid rgba(215, 182, 109, 0.3)",
+                        color: "#F1D995"
+                      }}
+                    >
+                      NRI Plus
+                    </th>
+                    <th className="p-4 sm:p-5 text-sm font-extrabold text-center w-1/5" style={{ color: "#E7D19A" }}>
+                      NRI Signature
+                    </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/80 text-xs sm:text-sm">
+                <tbody className="divide-y text-xs sm:text-sm" style={{ borderColor: "rgba(255, 255, 255, 0.06)" }}>
                   {tableFeatures.map((row, idx) => (
-                    <tr key={row.name} className={row.highlight ? "bg-slate-900/80 font-bold text-amber-300" : idx % 2 === 0 ? "bg-slate-950" : "bg-slate-900/40"}>
-                      <td className="p-4 sm:p-5 font-bold text-slate-200 flex items-center gap-2">
+                    <tr 
+                      key={row.name} 
+                      className="transition-colors"
+                      style={{
+                        backgroundColor: row.highlight 
+                          ? "rgba(201, 164, 92, 0.08)" 
+                          : idx % 2 === 0 ? "#050A18" : "#0A1224"
+                      }}
+                    >
+                      <td className="p-4 sm:p-5 font-bold" style={{ color: row.highlight ? "#F1D995" : "#E2E8F0" }}>
                         {row.name}
                       </td>
-                      <td className="p-4 sm:p-5 text-center text-slate-300">
-                        {row.connect === "✓" ? <Check size={18} className="text-emerald-400 mx-auto" /> : row.connect}
+                      <td className="p-4 sm:p-5 text-center" style={{ color: "#94A3B8" }}>
+                        {row.connect === "✓" ? <Check size={18} style={{ color: "#D7B66D" }} className="mx-auto" /> : row.connect}
                       </td>
-                      <td className="p-4 sm:p-5 text-center text-amber-200 font-semibold bg-amber-500/5 border-x border-amber-500/10">
-                        {row.plus === "✓" ? <Check size={18} className="text-emerald-400 mx-auto" /> : row.plus}
+                      <td 
+                        className="p-4 sm:p-5 text-center font-bold"
+                        style={{
+                          backgroundColor: "rgba(201, 164, 92, 0.05)",
+                          borderLeft: "1px solid rgba(215, 182, 109, 0.15)",
+                          borderRight: "1px solid rgba(215, 182, 109, 0.15)",
+                          color: "#F1D995"
+                        }}
+                      >
+                        {row.plus === "✓" ? <Check size={18} style={{ color: "#F1D995" }} className="mx-auto" /> : row.plus}
                       </td>
-                      <td className="p-4 sm:p-5 text-center text-purple-200 font-bold bg-purple-900/10">
-                        {row.signature === "✓" ? <Check size={18} className="text-emerald-400 mx-auto" /> : row.signature}
+                      <td className="p-4 sm:p-5 text-center font-semibold" style={{ color: "#E7D19A" }}>
+                        {row.signature === "✓" ? <Check size={18} style={{ color: "#D7B66D" }} className="mx-auto" /> : row.signature}
                       </td>
                     </tr>
                   ))}
@@ -418,25 +694,50 @@ export default function NRICare() {
 
 
         {/* DETAILED WELLNESS VITALS SECTION */}
-        <section className="py-16 bg-slate-950">
+        <section 
+          className="py-20"
+          style={{ backgroundColor: "#050A18" }}
+        >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
             
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-xs font-extrabold text-amber-400 uppercase tracking-widest block mb-2">CLINICAL PRECISION AT HOME</span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Detailed Wellness Vitals Included</h2>
-              <p className="text-slate-400 text-sm sm:text-base mt-2">Every home visit includes structured monitoring of essential vital parameters</p>
+              <span 
+                className="text-xs font-extrabold uppercase block mb-2"
+                style={{ color: "#D7B66D", letterSpacing: "0.14em" }}
+              >
+                CLINICAL PRECISION AT HOME
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F8FAFC]">Detailed Wellness Vitals Included</h2>
+              <p className="text-sm sm:text-base mt-2" style={{ color: "#9EABC0" }}>
+                Every home visit includes structured monitoring of essential vital parameters
+              </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {wellnessVitals.map(vital => {
                 const Icon = vital.icon;
                 return (
-                  <div key={vital.title} className="bg-slate-900 p-6 rounded-2xl border border-slate-800 hover:border-amber-500/50 transition-colors">
-                    <div className="h-10 w-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4">
-                      <Icon size={20} />
+                  <div 
+                    key={vital.title} 
+                    className="p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-[#D7B66D]"
+                    style={{
+                      backgroundColor: "#111C30",
+                      border: "1px solid rgba(215, 182, 109, 0.22)",
+                      boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)"
+                    }}
+                  >
+                    <div 
+                      className="h-11 w-11 rounded-xl flex items-center justify-center mb-4"
+                      style={{
+                        backgroundColor: "rgba(201, 164, 92, 0.1)",
+                        border: "1px solid rgba(215, 182, 109, 0.3)",
+                        color: "#C9A45C"
+                      }}
+                    >
+                      <Icon size={22} />
                     </div>
-                    <h3 className="font-bold text-white text-base mb-1">{vital.title}</h3>
-                    <p className="text-xs text-slate-400 leading-relaxed">{vital.desc}</p>
+                    <h3 className="font-bold text-white text-base mb-1.5">{vital.title}</h3>
+                    <p className="text-xs leading-relaxed" style={{ color: "#B6C0D1" }}>{vital.desc}</p>
                   </div>
                 );
               })}
@@ -447,38 +748,84 @@ export default function NRICare() {
 
 
         {/* PREMIUM SIGNATURE PRIVILEGES SECTION */}
-        <section className="py-16 bg-slate-900 border-t border-slate-800">
+        <section 
+          className="py-20 border-t"
+          style={{
+            backgroundColor: "#0B1426",
+            borderColor: "rgba(215, 182, 109, 0.2)"
+          }}
+        >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
             
-            <div className="bg-[linear-gradient(135deg,#1E1B4B_0%,#1C2541_50%,#0F172A_100%)] p-8 sm:p-12 rounded-3xl border border-amber-500/30 shadow-2xl">
-              <div className="max-w-3xl">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 font-extrabold text-xs uppercase tracking-wider mb-4 border border-amber-500/30">
-                  <Star size={14} className="text-amber-400 fill-amber-400" /> LUXURY CONCIERGE BENEFITS
+            <div 
+              className="p-8 sm:p-12 rounded-3xl shadow-2xl relative overflow-hidden"
+              style={{
+                background: "linear-gradient(135deg, #101B30 0%, #152238 60%, #0B1426 100%)",
+                border: "1.5px solid rgba(215, 182, 109, 0.35)",
+                boxShadow: "0 24px 60px rgba(0, 0, 0, 0.4)"
+              }}
+            >
+              {/* Subtle Ambient Glow */}
+              <div className="absolute top-0 right-0 w-80 h-80 bg-[#C9A45C]/10 blur-[100px] rounded-full pointer-events-none" />
+
+              <div className="max-w-3xl relative z-10">
+                <span 
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider mb-5"
+                  style={{
+                    backgroundColor: "rgba(201, 164, 92, 0.12)",
+                    border: "1px solid rgba(215, 182, 109, 0.4)",
+                    color: "#E7D19A"
+                  }}
+                >
+                  <Star size={14} style={{ color: "#D7B66D", fill: "#D7B66D" }} /> LUXURY CONCIERGE BENEFITS
                 </span>
                 
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-6">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-6 tracking-tight">
                   Premium Signature Privileges
                 </h2>
 
-                <div className="space-y-4 mb-8">
+                <div className="space-y-3.5 mb-8">
                   {signaturePrivileges.map(privilege => (
-                    <div key={privilege} className="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
-                      <CheckCircle2 size={20} className="text-amber-400 shrink-0 mt-0.5" />
-                      <span className="text-slate-200 text-sm sm:text-base font-semibold">{privilege}</span>
+                    <div 
+                      key={privilege} 
+                      className="flex items-start gap-3.5 p-4 rounded-xl transition-all"
+                      style={{
+                        backgroundColor: "rgba(8, 15, 30, 0.5)",
+                        border: "1px solid rgba(215, 182, 109, 0.18)"
+                      }}
+                    >
+                      <CheckCircle2 size={20} style={{ color: "#D7B66D" }} className="shrink-0 mt-0.5" />
+                      <span className="text-sm sm:text-base font-semibold" style={{ color: "#E2E8F0" }}>{privilege}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="flex flex-wrap gap-4 pt-4 border-t border-white/10">
+                <div className="flex flex-wrap gap-4 pt-6" style={{ borderTop: "1px solid rgba(215, 182, 109, 0.2)" }}>
                   <Button 
                     onClick={() => handleBook("NRI Signature Membership")}
                     size="lg"
-                    className="bg-[linear-gradient(90deg,#F59E0B,#D97706)] text-slate-950 font-black h-12 px-8 rounded-xl border-0 shadow-lg"
+                    className="font-bold text-sm sm:text-base h-13 px-8 rounded-xl shadow-lg transition-all duration-300 hover:brightness-105 active:scale-95 cursor-pointer"
+                    style={{
+                      background: "linear-gradient(135deg, #B88D43 0%, #E0BD70 45%, #C39749 100%)",
+                      color: "#090D16",
+                      border: "1px solid rgba(255, 235, 185, 0.5)",
+                      boxShadow: "0 8px 25px rgba(201, 164, 92, 0.25)"
+                    }}
                   >
                     Inquire for Signature Membership
                   </Button>
+                  
                   <a href={`tel:${rawPhone}`}>
-                    <Button variant="outline" size="lg" className="bg-white/10 hover:bg-white/20 text-white border-white/20 font-bold h-12 px-6 rounded-xl">
+                    <Button 
+                      variant="outline" 
+                      size="lg" 
+                      className="font-semibold h-13 px-7 rounded-xl transition-all duration-300 cursor-pointer"
+                      style={{
+                        backgroundColor: "rgba(201, 164, 92, 0.05)",
+                        border: "1px solid rgba(215, 182, 109, 0.55)",
+                        color: "#E6CB8A"
+                      }}
+                    >
                       Call Care Manager Direct
                     </Button>
                   </a>
@@ -492,13 +839,22 @@ export default function NRICare() {
 
 
         {/* LOCATION FOOTER BANNER */}
-        <section className="py-12 bg-slate-950 border-t border-slate-800 text-center">
+        <section 
+          className="py-14 border-t text-center"
+          style={{
+            backgroundColor: "#050A18",
+            borderColor: "rgba(215, 182, 109, 0.2)"
+          }}
+        >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
             <h3 className="text-xl font-bold text-white mb-2">SilverCare India • Trusted Home Healthcare for Seniors</h3>
-            <p className="text-sm text-slate-400 mb-4 flex items-center justify-center gap-2 flex-wrap">
-              <Building2 size={16} className="text-amber-400" /> Chandigarh • Zirakpur • Delhi NCR • Gurgaon • Noida
+            <p className="text-sm mb-4 flex items-center justify-center gap-2 flex-wrap" style={{ color: "#B6C0D1" }}>
+              <Building2 size={16} style={{ color: "#C9A45C" }} /> Chandigarh • Zirakpur • Delhi NCR • Gurgaon • Noida
             </p>
-            <p className="text-xs text-amber-300 font-extrabold tracking-widest uppercase">
+            <p 
+              className="text-xs font-extrabold tracking-widest uppercase"
+              style={{ color: "#E7D19A" }}
+            >
               24/7 NRI CARE LINE: {phone}
             </p>
           </div>

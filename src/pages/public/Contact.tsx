@@ -194,7 +194,8 @@ export default function Contact() {
                           <option value="Pathology & Diagnostics">Pathology & Diagnostics</option>
                           <option value="Telemedicine">Telemedicine</option>
                           <option value="Medical Equipment">Medical Equipment Rental</option>
-                          <option value="Daycare & Companionship">Daycare & Companionship</option>
+                          <option value="ICU Set-up at Home">ICU Set-up at Home</option>
+                          <option value="Mother & Baby Care">Mother & Baby Care</option>
                         </select>
                       </div>
                     </div>

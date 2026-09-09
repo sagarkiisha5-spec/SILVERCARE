@@ -15,23 +15,27 @@ export default function About() {
       <div className="bg-slate-50 min-h-screen font-sans">
         
         {/* HERO SECTION */}
-        <section className="relative bg-[linear-gradient(135deg,#0F172A_0%,#1E1B4B_50%,#3B0764_100%)] text-white py-16 md:py-24 overflow-hidden">
+        <section 
+          className="relative py-14 md:py-20 overflow-hidden border-b border-pink-100/60"
+          style={{
+            background: 'linear-gradient(135deg, #FFF6F9 0%, #FAF2FB 45%, #F5F0FF 100%)'
+          }}
+        >
           <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
-            <HalftoneWaveSVG density="high" />
+            <HalftoneWaveSVG density="medium" />
           </div>
 
-          
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl relative z-10">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs sm:text-sm font-semibold text-purple-200 mb-6">
-              <Sparkles size={14} className="text-[#D946EF]" />
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur-md border border-pink-200/80 px-4 py-1.5 text-xs sm:text-sm font-bold text-[#E91E63] mb-5 shadow-2xs">
+              <Sparkles size={14} className="text-[#E91E63]" />
               Rakhe Aapke Apno Ka Khyal
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
-              About <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF6B9B,#D946EF,#9D4EDD)]">SilverCare</span> India
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-[#17345E] mb-5 leading-tight tracking-tight">
+              About <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,#FF4F81,#E91E63,#7B2CBF)]">SilverCare</span> India
             </h1>
 
-            <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium">
               An eldercare service provider dedicated to home-based medical and non-medical support for seniors across North India. Bringing dignity, comfort, and peace of mind to families.
             </p>
           </div>
@@ -43,8 +47,8 @@ export default function About() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               
               <div className="lg:col-span-7 space-y-6">
-                <span className="text-[#E91E63] font-extrabold uppercase tracking-wider text-xs block">Our Philosophy</span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-[#17345E] leading-tight">
+                <span className="text-[#E91E63] font-black uppercase tracking-wider text-xs block">Our Philosophy</span>
+                <h2 className="text-3xl sm:text-4xl font-black text-[#17345E] leading-tight">
                   Compassionate Care That Feels Like Family
                 </h2>
                 
@@ -56,19 +60,24 @@ export default function About() {
                   You rely on us to deliver structured, dependable care at home. Our trained nurses, caregivers, doctors, and therapists work as one coordinated team. Care plans follow medical needs, daily routines, and personal preferences.
                 </p>
 
-                {/* CEO Quote Spotlight Card */}
-                <div className="bg-[linear-gradient(135deg,#E91E63_0%,#FF4F81_100%)] text-white p-6 sm:p-8 rounded-3xl shadow-xl relative overflow-hidden mt-8">
-                  <Quote size={40} className="text-pink-200/40 absolute top-4 right-4" />
-                  <p className="text-base sm:text-lg font-medium leading-relaxed italic mb-4 relative z-10">
+                {/* CEO Editorial Quote Spotlight Card */}
+                <div className="bg-gradient-to-br from-pink-50/90 via-white to-purple-50/40 p-6 sm:p-7 rounded-3xl border border-pink-200/80 shadow-sm relative overflow-hidden mt-8">
+                  <Quote size={32} className="text-pink-300/40 absolute top-4 right-4 pointer-events-none" />
+                  <p className="text-sm sm:text-base font-semibold leading-relaxed italic text-[#17345E] mb-5 relative z-10">
                     "Eldercare is not only about medical support. It is about presence, patience, and respect. Every senior deserves to feel safe, heard, and valued in their own home."
                   </p>
-                  <div className="flex items-center gap-3 relative z-10 pt-4 border-t border-white/20">
-                    <div className="h-10 w-10 rounded-full bg-white/20 overflow-hidden flex items-center justify-center font-bold text-white text-sm">
-                      NC
-                    </div>
+                  <div className="flex items-center gap-3.5 relative z-10 pt-4 border-t border-pink-100">
+                    <img 
+                      src="/navin-chauhan.png" 
+                      alt="Navin Chauhan - Founder & CEO SilverCare India" 
+                      className="h-12 w-12 rounded-full object-cover border-2 border-[#E91E63] shadow-xs"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLElement).style.display = 'none';
+                      }}
+                    />
                     <div>
-                      <h4 className="font-extrabold text-sm text-white">Navin Chauhan</h4>
-                      <p className="text-xs text-pink-200">Founder & CEO, SilverCare India</p>
+                      <h4 className="font-extrabold text-sm text-[#17345E]">Navin Chauhan</h4>
+                      <p className="text-xs font-bold text-[#E91E63]">Founder & CEO, SilverCare India</p>
                     </div>
                   </div>
                 </div>
@@ -77,9 +86,12 @@ export default function About() {
               <div className="lg:col-span-5">
                 <div className="rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-100 relative group">
                   <img 
-                    src="https://silvercareindia.com/wp-content/uploads/2025/12/Doc-treat-1.png" 
+                    src="/about-doc-care.jpg" 
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80";
+                    }}
                     alt="SilverCare Doctor treating patient at home" 
-                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-[460px] object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>

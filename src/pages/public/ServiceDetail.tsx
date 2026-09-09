@@ -101,6 +101,13 @@ export default function ServiceDetail() {
           "Patients requiring temporary mobility aids like wheelchairs, walkers, or patient lifts.",
           "Home care setups requiring patient monitoring devices and suction machines."
         ];
+      case 'icu-setup':
+        return [
+          "Critically ill patients requiring intensive clinical monitoring and life-support equipment at home.",
+          "Patients transitioning from hospital ICU to home-based critical care with mechanical ventilation or tracheostomy.",
+          "Post-surgical or palliative care patients needing 24/7 dedicated ICU-trained critical care nurses.",
+          "Families seeking hospital-standard intensive care at home with doctor supervision at significant cost savings."
+        ];
       case 'daycare-companionship':
         return [
           "Senior citizens experiencing loneliness, social isolation, or mild cognitive decline.",

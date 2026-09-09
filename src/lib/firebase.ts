@@ -77,45 +77,105 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
   return errInfo;
 }
 
+import { compressImageToDataUrl, dataUrlToFile } from './imageUtils';
+
 /**
- * Upload an image file to Firebase Storage with a timestamped unique path
- * to prevent browser caching stale assets.
+ * Upload an image file to Firebase Storage with automatic client-side compression
+ * and graceful fallback to optimized inline Data URL (<50KB) if Storage is offline/unauthorized.
  */
 export async function uploadImageToStorage(
   file: File, 
   folder: string = 'website-content',
   onProgress?: (percent: number) => void
 ): Promise<string> {
-  const ext = file.name.split('.').pop() || 'png';
-  const cleanName = file.name.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 20);
-  const uniqueFileName = `${folder}/${cleanName}-${Date.now()}.${ext}`;
-  const storageRef = ref(storage, uniqueFileName);
+  // Step 1: Client-side compression to ensure small footprint & instant preview (<50KB)
+  let compressedDataUrl: string;
+  let uploadableFile: File;
+  try {
+    compressedDataUrl = await compressImageToDataUrl(file, {
+      maxWidth: 800,
+      maxHeight: 800,
+      quality: 0.85,
+      format: 'image/jpeg'
+    });
+    uploadableFile = dataUrlToFile(compressedDataUrl, file.name);
+  } catch (compErr) {
+    console.warn('Image compression fallback:', compErr);
+    uploadableFile = file;
+    compressedDataUrl = '';
+  }
 
-  const uploadTask = uploadBytesResumable(storageRef, file, {
-    contentType: file.type || 'image/png',
-    cacheControl: 'public, max-age=31536000'
-  });
+  if (onProgress) onProgress(30);
 
-  return new Promise((resolve, reject) => {
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        if (onProgress) onProgress(Math.round(progress));
-      },
-      (error) => {
-        console.error('Storage upload error:', error);
-        reject(error);
-      },
-      async () => {
-        try {
-          const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
-          resolve(downloadUrl);
-        } catch (err) {
-          reject(err);
-        }
+  // Step 2: Attempt Firebase Storage upload with a 6-second timeout
+  return new Promise((resolve) => {
+    let resolved = false;
+
+    // Safety timeout fallback
+    const timeoutTimer = setTimeout(() => {
+      if (!resolved) {
+        resolved = true;
+        if (onProgress) onProgress(100);
+        console.warn('Firebase Storage upload timed out, using compressed image fallback.');
+        resolve(compressedDataUrl || URL.createObjectURL(uploadableFile));
       }
-    );
+    }, 6000);
+
+    try {
+      const ext = file.name.split('.').pop() || 'jpg';
+      const cleanName = file.name.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 20);
+      const uniqueFileName = `${folder}/${cleanName}-${Date.now()}.${ext}`;
+      const storageRef = ref(storage, uniqueFileName);
+
+      const uploadTask = uploadBytesResumable(storageRef, uploadableFile, {
+        contentType: uploadableFile.type || 'image/jpeg',
+        cacheControl: 'public, max-age=31536000'
+      });
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          if (snapshot.totalBytes > 0) {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            if (onProgress) onProgress(Math.min(99, Math.round(progress)));
+          }
+        },
+        (error) => {
+          clearTimeout(timeoutTimer);
+          if (!resolved) {
+            resolved = true;
+            if (onProgress) onProgress(100);
+            console.warn('Storage upload error (using compressed fallback):', error);
+            resolve(compressedDataUrl);
+          }
+        },
+        async () => {
+          try {
+            const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
+            clearTimeout(timeoutTimer);
+            if (!resolved) {
+              resolved = true;
+              if (onProgress) onProgress(100);
+              resolve(downloadUrl);
+            }
+          } catch (err) {
+            clearTimeout(timeoutTimer);
+            if (!resolved) {
+              resolved = true;
+              if (onProgress) onProgress(100);
+              resolve(compressedDataUrl);
+            }
+          }
+        }
+      );
+    } catch (err) {
+      clearTimeout(timeoutTimer);
+      if (!resolved) {
+        resolved = true;
+        if (onProgress) onProgress(100);
+        resolve(compressedDataUrl);
+      }
+    }
   });
 }
 

@@ -65,6 +65,7 @@ export default function Services() {
       case 'pathology-diagnostics': return 'NABL Partnered Labs';
       case 'telemedicine': return 'Instant Online Consult';
       case 'medical-equipment': return 'Home Delivery & Setup';
+      case 'icu-setup': return 'Critical Care at Home';
       case 'daycare-companionship': return 'Senior Engagement';
       case 'mother-baby-care': return 'Postnatal & Baby Care';
       default: return 'Professional Support';
@@ -114,6 +115,13 @@ export default function Services() {
           "Oxygen concentrators, BiPAP & CPAP machines",
           "Wheelchairs, suction machines & pulse oximeters",
           "Free doorstep delivery, installation & technical demo"
+        ];
+      case 'icu-setup':
+        return [
+          "Hospital-grade ICU setup at home with multi-para monitors",
+          "Mechanical ventilators, BiPAP/CPAP & continuous oxygen support",
+          "24/7 dedicated ICU-trained critical care nurses & attendants",
+          "Continuous physician oversight & emergency protocol management"
         ];
       case 'daycare-companionship':
         return [

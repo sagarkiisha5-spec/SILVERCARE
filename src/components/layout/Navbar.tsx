@@ -26,6 +26,7 @@ export default function Navbar() {
       case 'physiotherapy-at-home': return Activity;
       case 'pathology-diagnostics': return Sparkles;
       case 'medical-equipment': return ShieldCheck;
+      case 'icu-setup': return Activity;
       case 'daycare-companionship': return Heart;
       case 'mother-baby-care': return Heart;
       default: return Stethoscope;
@@ -42,12 +43,12 @@ export default function Navbar() {
           <div className="flex h-20 lg:h-[86px] xl:h-[90px] items-center justify-between">
 
             {/* SilverCare Live Logo Container */}
-            <div className="flex items-center shrink-0 py-1 w-auto max-w-[180px] sm:max-w-[210px] lg:max-w-[200px] xl:max-w-[230px] pr-2 lg:pr-4">
+            <div className="flex items-center shrink-0 py-1 w-auto max-w-[170px] sm:max-w-[190px] xl:max-w-[220px] 2xl:max-w-[240px] mr-3 xl:mr-6">
               <Link to="/" className="flex items-center group">
                 <img
                   src="/silvercare-logo.png"
                   alt="SilverCare India - Rakhe Aapke Apne Ka Khayal"
-                  className="h-10 sm:h-12 lg:h-12 xl:h-14 w-auto max-w-[150px] sm:max-w-[190px] lg:max-w-[200px] xl:max-w-[230px] object-contain transition-transform group-hover:scale-[1.02]"
+                  className="h-10 sm:h-11 xl:h-12 2xl:h-14 w-auto max-w-[150px] sm:max-w-[180px] xl:max-w-[210px] 2xl:max-w-[230px] object-contain transition-transform group-hover:scale-[1.02]"
                   onError={(e) => {
                     (e.target as any).src = "https://silvercareindia.com/wp-content/uploads/2025/12/logo.png";
                   }}
@@ -55,27 +56,19 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Desktop Navigation Group (Central Column) */}
-            <div className="hidden lg:flex items-center justify-center flex-1 h-full px-1 lg:px-2 min-w-0">
-              <div className="flex items-stretch space-x-1 lg:space-x-1.5 xl:space-x-3 2xl:space-x-4 h-full">
-
-                {/* Home */}
-                <Link
-                  to="/"
-                  className={`flex items-center px-1.5 lg:px-2 xl:px-3 text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap transition-colors border-b-2 ${isActive('/') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
-                >
-                  Home
-                </Link>
+            {/* Desktop Navigation Group (Central Column) - 6 items with optimal spacing */}
+            <div className="hidden lg:flex items-center justify-center flex-1 h-full px-1 xl:px-3 min-w-0">
+              <div className="flex items-stretch gap-1 lg:gap-1.5 xl:gap-3.5 2xl:gap-5 h-full">
 
                 {/* Services Mega Menu */}
                 <div
-                  className="relative flex items-center h-full group"
+                  className="relative flex items-center h-full group shrink-0"
                   onMouseEnter={() => setIsServicesOpen(true)}
                   onMouseLeave={() => setIsServicesOpen(false)}
                 >
                   <Link
                     to="/services"
-                    className={`flex items-center gap-1 px-1.5 lg:px-2 xl:px-3 text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap transition-colors border-b-2 ${isActive('/services') || location.pathname.startsWith('/services/') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
+                    className={`flex items-center gap-1 px-2 lg:px-2 xl:px-3 text-[13px] lg:text-[13.5px] xl:text-[14.5px] 2xl:text-[15px] font-bold whitespace-nowrap transition-colors border-b-2 ${isActive('/services') || location.pathname.startsWith('/services/') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
                   >
                     Services <ChevronDown size={13} className={`transition-transform duration-200 opacity-70 ${isServicesOpen ? 'rotate-180' : ''}`} />
                   </Link>
@@ -156,7 +149,7 @@ export default function Navbar() {
                 {/* Freedom Plans */}
                 <Link
                   to="/plans"
-                  className={`flex items-center px-1.5 lg:px-2 xl:px-3 text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap transition-colors border-b-2 ${isActive('/plans') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
+                  className={`flex items-center px-2 xl:px-2.5 2xl:px-3 text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap shrink-0 transition-colors border-b-2 ${isActive('/plans') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
                 >
                   Freedom Plans
                 </Link>
@@ -164,16 +157,16 @@ export default function Navbar() {
                 {/* NRI Care Plan */}
                 <Link
                   to="/nri-care"
-                  className={`flex items-center gap-1 lg:gap-1.5 px-1.5 lg:px-2 xl:px-3 text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap transition-colors border-b-2 ${isActive('/nri-care') ? 'border-[#0284C7] text-[#0284C7]' : 'border-transparent text-sky-700 hover:text-[#0284C7]'}`}
+                  className={`flex items-center gap-1 xl:gap-1.5 px-2 xl:px-2.5 2xl:px-3 text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap shrink-0 transition-colors border-b-2 ${isActive('/nri-care') ? 'border-[#C9A45C] text-[#C9A45C]' : 'border-transparent text-slate-700 hover:text-[#C9A45C]'}`}
                 >
-                  <Globe size={13} className="text-[#0284C7] shrink-0" />
+                  <Globe size={13} className={isActive('/nri-care') ? "text-[#C9A45C] shrink-0" : "text-slate-500 shrink-0"} />
                   NRI Care Plan
                 </Link>
 
                 {/* Partner With Us / Franchise */}
                 <Link
                   to="/partner-with-us"
-                  className={`flex items-center gap-1 lg:gap-1.5 px-1.5 lg:px-2 xl:px-3 text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap transition-colors border-b-2 ${isActive('/partner-with-us') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-800 hover:text-[#E91E63]'}`}
+                  className={`flex items-center gap-1 xl:gap-1.5 px-2 xl:px-2.5 2xl:px-3 text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap shrink-0 transition-colors border-b-2 ${isActive('/partner-with-us') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-800 hover:text-[#E91E63]'}`}
                 >
                   <Handshake size={14} className="text-[#E91E63] shrink-0" />
                   Partner With Us
@@ -181,13 +174,13 @@ export default function Navbar() {
 
                 {/* About Us Dropdown */}
                 <div
-                  className="relative flex items-center h-full group"
+                  className="relative flex items-center h-full group shrink-0"
                   onMouseEnter={() => setIsAboutOpen(true)}
                   onMouseLeave={() => setIsAboutOpen(false)}
                 >
                   <Link
                     to="/about"
-                    className={`flex items-center gap-1 px-1.5 lg:px-2 xl:px-3 text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap transition-colors border-b-2 ${isActive('/about') || isActive('/professionals') || location.pathname.startsWith('/blog') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
+                    className={`flex items-center gap-1 px-2 xl:px-2.5 2xl:px-3 text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap transition-colors border-b-2 ${isActive('/about') || isActive('/professionals') || location.pathname.startsWith('/blog') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
                   >
                     About Us <ChevronDown size={13} className={`transition-transform duration-200 opacity-70 ${isAboutOpen ? 'rotate-180' : ''}`} />
                   </Link>
@@ -217,7 +210,7 @@ export default function Navbar() {
                 {/* Contact Us */}
                 <Link
                   to="/contact"
-                  className={`flex items-center px-1.5 lg:px-2 xl:px-3 text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap transition-colors border-b-2 ${isActive('/contact') && !location.hash.includes('join') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
+                  className={`flex items-center px-2 xl:px-2.5 2xl:px-3 text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap shrink-0 transition-colors border-b-2 ${isActive('/contact') && !location.hash.includes('join') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
                 >
                   Contact us
                 </Link>
@@ -225,8 +218,8 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Right Side Pill CTA Button Container */}
-            <div className="hidden lg:flex items-center justify-end shrink-0 pl-2 lg:pl-3">
+            {/* Right Side Pill CTA Button Container on Desktop (>= lg) */}
+            <div className="hidden lg:flex items-center justify-end shrink-0 ml-3 lg:ml-4 xl:ml-6">
               <Link to="/book">
                 <Button className="bg-[linear-gradient(90deg,#FF3E72,#FF5C8D)] hover:opacity-95 text-white font-extrabold h-9 lg:h-10 px-3.5 lg:px-4 rounded-full text-xs xl:text-sm shadow-md shadow-[#FF3E72]/20 border-0 flex items-center gap-1.5 lg:gap-2 transition-all hover:scale-105 active:scale-95 whitespace-nowrap shrink-0">
                   <span>Book Appointment</span>
@@ -235,28 +228,35 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Mobile menu button */}
-            <div className="-mr-2 flex lg:hidden">
+            {/* Tablet & Mobile Right Controls (< lg) */}
+            <div className="flex lg:hidden items-center gap-2 sm:gap-3">
+              <Link to="/book" className="hidden sm:inline-flex">
+                <Button className="bg-[linear-gradient(90deg,#FF3E72,#FF5C8D)] hover:opacity-95 text-white font-bold h-9 px-3.5 rounded-full text-xs shadow-sm border-0 flex items-center gap-1.5 whitespace-nowrap">
+                  <span>Book Appointment</span>
+                  <ArrowRightCircle size={13} className="text-white shrink-0" />
+                </Button>
+              </Link>
+
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="inline-flex items-center justify-center rounded-lg p-2 text-slate-700 hover:bg-pink-50 hover:text-[#E91E63] transition-colors focus:outline-none"
+                className="inline-flex items-center justify-center rounded-xl p-2 text-slate-700 hover:bg-pink-50 hover:text-[#E91E63] transition-colors focus:outline-none"
+                aria-label="Toggle Navigation Menu"
               >
-                <span className="sr-only">Open main menu</span>
                 {isOpen ? <X className="block h-7 w-7" /> : <Menu className="block h-7 w-7" />}
               </button>
             </div>
+
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile & Tablet Navigation Drawer (< lg) */}
         {isOpen && (
           <div className="lg:hidden border-t border-slate-100 bg-white absolute w-full shadow-xl z-50">
             <div className="space-y-1 px-4 pb-6 pt-4 max-h-[80vh] overflow-y-auto">
-              <Link to="/" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold ${isActive('/') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Home</Link>
               <Link to="/services" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold ${isActive('/services') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Services</Link>
               <Link to="/plans" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold ${isActive('/plans') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Freedom Plans</Link>
-              <Link to="/nri-care" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold text-sky-700 hover:bg-sky-50 flex items-center gap-2`}>
-                <Globe size={18} className="text-[#0284C7]" /> NRI Care Plan
+              <Link to="/nri-care" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold flex items-center gap-2 ${isActive('/nri-care') ? 'bg-[#C9A45C]/10 text-[#C9A45C]' : 'text-slate-700 hover:bg-slate-50'}`}>
+                <Globe size={18} className={isActive('/nri-care') ? "text-[#C9A45C]" : "text-slate-500"} /> NRI Care Plan
               </Link>
               <Link to="/partner-with-us" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold text-[#E91E63] hover:bg-pink-50 flex items-center gap-2`}>
                 <Handshake size={18} className="text-[#E91E63]" /> Partner With Us (Franchise)

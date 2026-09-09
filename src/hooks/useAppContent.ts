@@ -25,6 +25,7 @@ export interface Professional {
   qualification?: string;
   experience?: string;
   imageUrl?: string;
+  bio?: string;
   isActive: boolean;
   createdAt?: number;
   updatedAt?: number;
@@ -68,6 +69,7 @@ export interface SiteSettings {
   experienceYears: string;
   happyPatients: string;
   verifiedStaff: string;
+  ceoPhotoUrl?: string;
   updatedAt?: number;
 }
 
@@ -80,6 +82,7 @@ export const defaultSiteSettings: SiteSettings = {
   doctorTitle: "CEO & Founder, SilverCare India",
   doctorImageUrl: "/hero-doctor.png",
   doctorBadge: "Patient-First Approach",
+  ceoPhotoUrl: "/navin-chauhan.png",
   phone: "+91 800-14-800-75",
   emergencyPhone: "+91 800-14-800-75",
   whatsapp: "+918001480075",
@@ -138,43 +141,43 @@ export const fallbackServices: Service[] = [
     icon: 'usercheck', 
     isActive: true, 
     isFeatured: true,
-    aliases: ['lab test', 'pathology', 'blood test', 'diagnostics', 'home sample'] 
+    aliases: ['blood test', 'lab test', 'pathology', 'diagnostics', 'urine test', 'health checkup', 'home sample collection'] 
   },
   { 
     id: 'sc-5', 
-    title: 'Telemedicine', 
-    slug: 'telemedicine', 
-    category: 'Virtual Care', 
-    shortDescription: 'Online doctor consultations for routine medical advice, chronic disease follow-ups, and prescription guidance from the comfort of home.', 
-    description: 'Connect virtually with qualified doctors and specialists for routine healthcare guidance, prescription renewals, and medical follow-ups without stepping out of home.', 
+    title: 'Telemedicine Consultation', 
+    slug: 'telemedicine-consultation', 
+    category: 'Clinical Consultations', 
+    shortDescription: 'Instant video consultations with verified physicians and specialists from the comfort and safety of home.', 
+    description: 'Connect with expert doctors and medical specialists via secure video call. Perfect for second opinions, lab report reviews, routine follow-ups, and urgent clinical guidance without the hassle of stepping outside.', 
     icon: 'stethoscope', 
     isActive: true, 
-    isFeatured: false,
-    aliases: ['teleconsultation', 'online doctor', 'virtual consultation', 'telehealth'] 
+    isFeatured: true,
+    aliases: ['online doctor', 'teleconsult', 'video consultation', 'telemedicine', 'doctor call'] 
   },
   { 
     id: 'sc-6', 
-    title: 'Medical Equipment Rental & Delivery', 
-    slug: 'medical-equipment', 
-    category: 'Equipment & Supplies', 
-    shortDescription: 'Rental and home delivery of essential medical equipment including oxygen concentrators, hospital beds, wheelchairs, and monitoring devices.', 
-    description: 'Fast home delivery and technical setup of hospital-grade medical equipment. Rent or purchase oxygen concentrators, ICU hospital beds, wheelchairs, CPAP/BiPAP units, suction machines, and multipara patient monitors.', 
-    icon: 'usercheck', 
+    title: 'Medical Equipment Rental', 
+    slug: 'medical-equipment-rental', 
+    category: 'Equipment & Infrastructure', 
+    shortDescription: 'Certified hospital-grade medical equipment for rent and purchase with free home delivery, installation, and demonstration.', 
+    description: 'Hospital-grade medical equipment delivered and installed directly at your home. From oxygen concentrators, hospital beds, and BiPAP/CPAP machines to wheelchairs, suction apparatus, and cardiac monitors, we provide sanitized, tested gear with full demonstration.', 
+    icon: 'shieldcheck', 
     isActive: true, 
-    isFeatured: false,
-    aliases: ['medical equipment', 'oxygen concentrator', 'hospital bed', 'wheelchair', 'bipap'] 
+    isFeatured: true,
+    aliases: ['oxygen concentrator', 'hospital bed', 'bipap', 'cpap', 'wheelchair', 'suction machine', 'patient monitor', 'equipment'] 
   },
   { 
     id: 'sc-7', 
-    title: 'Daycare & Companionship', 
-    slug: 'daycare-companionship', 
-    category: 'Eldercare & Engagement', 
-    shortDescription: 'Social engagement, activities, and emotional support for seniors to prevent isolation and enhance mental well-being.', 
-    description: 'Prevent loneliness and promote mental agility. Our trained companions provide warm conversation, cognitive exercises, recreational activities, accompaniment on walks, and dedicated emotional support.', 
+    title: 'ICU Setup at Home', 
+    slug: 'icu-setup-at-home', 
+    category: 'Equipment & Infrastructure', 
+    shortDescription: 'Complete critical care infrastructure at home with multi-parameter monitors, ventilators, and 24/7 dedicated critical care nursing.', 
+    description: 'Transform your home into a fully functional critical care unit. Designed for patients needing tracheostomy care, mechanical ventilation, invasive monitoring, and post-ICU step-down support, supervised by experienced intensivists and specialized critical care nurses.', 
     icon: 'heartpulse', 
     isActive: true, 
     isFeatured: true,
-    aliases: ['companionship', 'senior daycare', 'elder companionship', 'dementia care', 'senior engagement'] 
+    aliases: ['home icu', 'critical care', 'ventilator at home', 'tracheostomy care', 'icu setup', 'step down care'] 
   },
   { 
     id: 'sc-8', 
@@ -197,7 +200,8 @@ export const fallbackProfessionals: Professional[] = [
     designation: 'Founder & CEO',
     qualification: 'Over 15+ years experience in Healthcare Administration (Healthians, Atulaya Healthcare)',
     experience: '15+ Years',
-    imageUrl: 'https://silvercareindia.com/wp-content/uploads/2025/12/Navin.png',
+    imageUrl: '/navin-chauhan.png',
+    bio: 'Visionary healthcare leader dedicated to bridging the hospital-to-home eldercare gap with clinical excellence.',
     isActive: true
   },
   {
@@ -206,7 +210,8 @@ export const fallbackProfessionals: Professional[] = [
     designation: 'Co-founder & Chief Product Officer',
     qualification: 'M.Tech NIT Karnataka, 13+ Years in Biopharma & Eldercare',
     experience: '13+ Years',
-    imageUrl: 'https://silvercareindia.com/wp-content/uploads/2026/04/IMG_1291-e1775877168885.jpg',
+    imageUrl: '/team/komal-gupta.jpg',
+    bio: 'Product strategist focused on clinical quality oversight, protocol standardization, and specialized caregiver training.',
     isActive: true
   },
   {
@@ -215,7 +220,8 @@ export const fallbackProfessionals: Professional[] = [
     designation: 'General Physician',
     qualification: 'MBBS - General Physician & Senior Eldercare Specialist',
     experience: '8+ Years',
-    imageUrl: 'https://silvercareindia.com/wp-content/uploads/2025/12/dr-kirandeep-300x300.png',
+    imageUrl: '/team/dr-kirandeep.jpg',
+    bio: 'Specializes in geriatric home consultations, chronic illness management, and compassionate preventive senior care.',
     isActive: true
   },
   {
@@ -224,7 +230,8 @@ export const fallbackProfessionals: Professional[] = [
     designation: 'Nursing Trainer',
     qualification: 'Experienced Nursing Trainer & Clinical Care Supervisor',
     experience: '10+ Years',
-    imageUrl: 'https://silvercareindia.com/wp-content/uploads/2025/12/nurse-2-300x300.png',
+    imageUrl: '/team/nurse-jasbir.jpg',
+    bio: 'Leads clinical nursing supervision, ICU-level attendant training, and patient safety monitoring across homes.',
     isActive: true
   },
   {
@@ -233,7 +240,8 @@ export const fallbackProfessionals: Professional[] = [
     designation: 'Nursing Supervisor',
     qualification: 'Expert in Patient Care Management & Bedside Excellence',
     experience: '12+ Years',
-    imageUrl: 'https://silvercareindia.com/wp-content/uploads/2025/12/Ms-Tejinder-300x300.png',
+    imageUrl: '/team/nurse-tejinder.jpg',
+    bio: 'Oversees round-the-clock eldercare routines, bedside palliative support, and emergency medical response protocols.',
     isActive: true
   },
   {
@@ -242,7 +250,8 @@ export const fallbackProfessionals: Professional[] = [
     designation: 'General Physician',
     qualification: 'MBBS Qualified General Physician & Home Health Specialist',
     experience: '6+ Years',
-    imageUrl: 'https://silvercareindia.com/wp-content/uploads/2025/12/Dr-Pashdeep-300x300.png',
+    imageUrl: '/team/dr-pashdeep.jpg',
+    bio: 'Focused on comprehensive doorstep clinical diagnostics, post-hospitalization recovery, and personalized senior treatment plans.',
     isActive: true
   },
   {
@@ -251,7 +260,8 @@ export const fallbackProfessionals: Professional[] = [
     designation: 'General Physician',
     qualification: 'MBBS - AIIMS Bathinda Clinical Experience',
     experience: '5+ Years',
-    imageUrl: 'https://silvercareindia.com/wp-content/uploads/2025/12/Dr-Ramandeep-300x300.png',
+    imageUrl: '/team/dr-ramandeep.jpg',
+    bio: 'AIIMS-trained physician committed to evidence-based eldercare, acute symptom management, and continuity of care.',
     isActive: true
   }
 ];
@@ -310,13 +320,36 @@ export function useAppContent() {
     // 5. Live listener for Professionals
     const proQuery = query(collection(db, 'professionals'), where('isActive', '==', true));
     const unsubProfessionals = onSnapshot(proQuery, (snap) => {
+      let deletedIds: string[] = [];
+      try {
+        const d = localStorage.getItem("silvercare_deleted_professionals");
+        if (d) deletedIds = JSON.parse(d);
+      } catch {}
+
+      const activeDefaults = fallbackProfessionals.filter(f => !deletedIds.includes(f.id));
+
       if (!snap.empty) {
-        setProfessionals(snap.docs.map(d => ({ id: d.id, ...d.data() } as Professional)));
+        const loaded = snap.docs
+          .map(d => ({ id: d.id, ...d.data() } as Professional))
+          .filter(p => !deletedIds.includes(p.id) && (p as any).isDeleted !== true);
+        const loadedMap = new Map(loaded.map(p => [p.id, p]));
+        const merged = activeDefaults.map(f => loadedMap.get(f.id) || f);
+        loaded.forEach(l => {
+          if (!activeDefaults.some(f => f.id === l.id)) {
+            merged.push(l);
+          }
+        });
+        setProfessionals(merged);
       } else {
-        setProfessionals(fallbackProfessionals);
+        setProfessionals(activeDefaults);
       }
     }, () => {
-      setProfessionals(fallbackProfessionals);
+      let deletedIds: string[] = [];
+      try {
+        const d = localStorage.getItem("silvercare_deleted_professionals");
+        if (d) deletedIds = JSON.parse(d);
+      } catch {}
+      setProfessionals(fallbackProfessionals.filter(f => !deletedIds.includes(f.id)));
     });
 
     return () => {

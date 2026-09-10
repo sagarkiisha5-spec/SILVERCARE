@@ -160,7 +160,7 @@ export default function Professionals() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
               
               {/* Left Column (38% to 42%): Founder Portrait */}
-              <div className="lg:col-span-5 w-full flex justify-center">
+              <div className="lg:col-span-5 w-full flex justify-center pb-5 lg:pb-0">
                 <div className="relative w-full max-w-[340px] sm:max-w-[380px]">
                   
                   {/* Extremely subtle abstract brand shape backdrop */}
@@ -179,10 +179,15 @@ export default function Professionals() {
                     />
                   </div>
                   
-                  {/* Refined Pill Badge Overlapping Bottom Edge */}
-                  <div className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 bg-[#17345E] text-white text-[11px] font-black uppercase tracking-[0.18em] px-5 py-1.5 rounded-full shadow-md whitespace-nowrap flex items-center gap-1.5 border border-white/20">
-                    <ShieldCheck size={13} className="text-[#FF4F81]" />
-                    FOUNDER & CEO
+                  {/* Refined Badge Overlapping Bottom Edge */}
+                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-[#17345E] text-white px-6 py-2 sm:py-2.5 rounded-2xl shadow-xl whitespace-nowrap flex flex-col items-center border border-white/20">
+                    <span className="text-sm sm:text-[15px] font-black tracking-wide text-white">
+                      {leadershipTeam[0].name}
+                    </span>
+                    <span className="text-xs sm:text-[13px] font-black uppercase tracking-[0.18em] text-white flex items-center gap-1.5 mt-0.5">
+                      <ShieldCheck size={14} className="text-[#FF4F81]" />
+                      FOUNDER & CEO
+                    </span>
                   </div>
                 </div>
               </div>

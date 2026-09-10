@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { collection, query, orderBy, onSnapshot, getDocs } from "firebase/firestore";
 import { db } from "@/src/lib/firebase";
-import { getLocalRequests, subscribeToServiceRequests } from "@/src/lib/requestManager";
+import { getLocalRequests, subscribeToServiceRequests, clearAllServiceRequests, ServiceRequestItem } from "@/src/lib/requestManager";
 import { getTrafficStats, TrafficStats } from "@/src/lib/trackingManager";
 import {
   Users,
@@ -22,7 +22,12 @@ import {
   Radio,
   Receipt,
   UserCheck,
-  CalendarClock
+  CalendarClock,
+  RefreshCw,
+  Trash2,
+  AlertTriangle,
+  Check,
+  X
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/src/components/ui/card";
 import { Button } from "@/src/components/ui/button";
@@ -54,10 +59,16 @@ export default function AdminDashboard() {
       newRequests: newCount,
       completedRequests: completedCount,
       activeProfessionals: 7,
+      franchiseLeads: 0
     };
   });
 
   const [loading, setLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [showClearModal, setShowClearModal] = useState(false);
+  const [isClearing, setIsClearing] = useState(false);
+  const [noticeMessage, setNoticeMessage] = useState<string | null>(null);
+  const [allRequestsRaw, setAllRequestsRaw] = useState<ServiceRequestItem[]>([]);
   const [traffic, setTraffic] = useState<TrafficStats>(() => getTrafficStats());
   const [recentRequests, setRecentRequests] = useState<RecentRequest[]>(() => {
     const initialReqs = getLocalRequests();
@@ -117,6 +128,7 @@ export default function AdminDashboard() {
 
     // 2. Subscribe to unified service requests (Firestore + Local)
     const unsubscribeReqs = subscribeToServiceRequests((data) => {
+      setAllRequestsRaw(data);
       let newReqs = 0;
       let completed = 0;
       let franchiseLeadsCount = 0;
@@ -167,6 +179,44 @@ export default function AdminDashboard() {
     };
   }, []);
 
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    // Refresh traffic stats
+    setTraffic(getTrafficStats());
+    // Trigger internal sync notification
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("silvercare_requests_updated"));
+    }
+    setTimeout(() => {
+      setIsRefreshing(false);
+      setNoticeMessage("Dashboard analytics & live patient requests refreshed!");
+      setTimeout(() => setNoticeMessage(null), 3500);
+    }, 600);
+  };
+
+  const handleClearAllConfirm = async () => {
+    setIsClearing(true);
+    try {
+      await clearAllServiceRequests(allRequestsRaw);
+      setStats((prev) => ({
+        ...prev,
+        totalRequests: 0,
+        newRequests: 0,
+        completedRequests: 0,
+        franchiseLeads: 0,
+      }));
+      setRecentRequests([]);
+      setShowClearModal(false);
+      setNoticeMessage("All patient bookings and enquiry records cleared successfully.");
+      setTimeout(() => setNoticeMessage(null), 4000);
+    } catch (err) {
+      console.error("Error clearing requests:", err);
+      setShowClearModal(false);
+    } finally {
+      setIsClearing(false);
+    }
+  };
+
   const statCards = [
     { title: "New Enquiries", value: stats.newRequests, sub: "Pending Action", icon: Clock, color: "text-amber-600", bg: "bg-amber-100/80", border: "border-amber-200" },
     { title: "Franchise Partner Leads", value: (stats as any).franchiseLeads || 0, sub: "Expansion Applicants", icon: Globe, color: "text-pink-600", bg: "bg-pink-100/80", border: "border-pink-200" },
@@ -177,7 +227,25 @@ export default function AdminDashboard() {
   const maxHourly = Math.max(...traffic.hourlyTraffic.map((h) => h.views));
 
   return (
-    <div className="space-y-8 font-sans">
+    <div className="space-y-8 font-sans relative">
+      {/* Toast Notice Banner */}
+      {noticeMessage && (
+        <div className="flex items-center justify-between gap-3 p-3.5 px-4 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl shadow-sm text-sm font-medium animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="flex items-center gap-2.5">
+            <span className="p-1 rounded-full bg-emerald-500 text-white">
+              <Check size={14} />
+            </span>
+            <span>{noticeMessage}</span>
+          </div>
+          <button
+            onClick={() => setNoticeMessage(null)}
+            className="text-emerald-700 hover:text-emerald-900 p-1 hover:bg-emerald-100/60 rounded-md transition-colors"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/80 pb-5">
         <div>
@@ -192,7 +260,30 @@ export default function AdminDashboard() {
             Real-time patient bookings, live website visitor tracking, team dispatch & revenue operations.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+
+        {/* Action Controls: Refresh, Clear All, View All */}
+        <div className="flex items-center flex-wrap gap-2.5">
+          <Button
+            variant="outline"
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            className="border-slate-300 hover:border-[#7B2CBF] text-slate-700 hover:text-[#7B2CBF] hover:bg-purple-50/50 font-bold shadow-2xs flex items-center gap-2 transition-all"
+            title="Refresh dashboard stats & live requests"
+          >
+            <RefreshCw size={15} className={`text-[#7B2CBF] ${isRefreshing ? "animate-spin" : ""}`} />
+            <span>{isRefreshing ? "Refreshing..." : "Refresh"}</span>
+          </Button>
+
+          <Button
+            variant="outline"
+            onClick={() => setShowClearModal(true)}
+            className="border-rose-200 hover:border-rose-400 text-rose-600 hover:bg-rose-50 font-bold shadow-2xs flex items-center gap-2 transition-all"
+            title="Clear all booking requests and inquiries"
+          >
+            <Trash2 size={15} className="text-rose-500" />
+            <span>Clear All</span>
+          </Button>
+
           <Link to="/admin/requests">
             <Button className="bg-[#7B2CBF] hover:bg-[#6A24A6] text-white font-bold shadow-sm flex items-center gap-2">
               View All Patient Requests <ArrowUpRight size={16} />
@@ -200,6 +291,56 @@ export default function AdminDashboard() {
           </Link>
         </div>
       </div>
+
+      {/* Clear All Confirmation Modal */}
+      {showClearModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 p-6 space-y-5 animate-in zoom-in-95 duration-200">
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-rose-100 text-rose-600 rounded-2xl shrink-0">
+                <AlertTriangle size={24} />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-lg font-extrabold text-slate-900">Clear All Dashboard Records?</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Are you sure you want to clear all active patient enquiries, booking requests, and franchise leads? This action will reset your active requests list.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-900 font-medium">
+              💡 Tip: If you want to backup your data first, you can export enquiries to CSV from the "View All Patient Requests" page before clearing.
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <Button
+                variant="outline"
+                onClick={() => setShowClearModal(false)}
+                disabled={isClearing}
+                className="border-slate-300 text-slate-700 font-bold"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleClearAllConfirm}
+                disabled={isClearing}
+                className="bg-rose-600 hover:bg-rose-700 text-white font-bold flex items-center gap-2 shadow-sm"
+              >
+                {isClearing ? (
+                  <>
+                    <RefreshCw size={14} className="animate-spin" /> Clearing...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 size={14} /> Yes, Clear All
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
 
       {/* Operational Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">

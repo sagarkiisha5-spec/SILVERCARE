@@ -82,6 +82,12 @@ export default function BookForm() {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
+
+  useEffect(() => {
     if (preselectedService && !loading) {
       const matched = activeServices.find(s => s.slug === preselectedService || s.title.toLowerCase().includes(preselectedService.toLowerCase()));
       if (matched) {

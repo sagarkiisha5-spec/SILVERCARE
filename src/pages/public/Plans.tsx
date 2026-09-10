@@ -445,17 +445,20 @@ export default function Plans() {
                   />
 
                   {/* Brand Ambassador Badge ("TRUSTED BY RAKESH BEDI") */}
-                  <div className="absolute bottom-0 right-2 sm:bottom-1 sm:right-6 bg-white/95 backdrop-blur-md border border-pink-100/90 shadow-[0_10px_30px_rgba(233,30,99,0.18)] rounded-2xl px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 z-20 transition-all duration-300 hover:scale-105">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[linear-gradient(135deg,#FF4F81,#E91E63)] text-white flex items-center justify-center shrink-0 shadow-md">
-                      <ShieldCheck size={18} className="sm:hidden" />
+                  <div className="absolute bottom-1 right-2 sm:bottom-2 sm:right-6 lg:bottom-4 lg:right-8 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(248,243,255,0.96)_100%)] backdrop-blur-md border border-[#7B4CC9]/[0.16] shadow-[0_8px_22px_rgba(72,45,128,0.14),inset_0_1px_0_rgba(255,255,255,0.9)] rounded-[14px] px-3.5 sm:px-4.5 py-2.5 sm:py-3 flex items-center gap-2.5 sm:gap-3 z-20 transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_26px_rgba(72,45,128,0.18)]">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#7B4CC9]/[0.12] border border-[#7B4CC9]/[0.14] text-[#7B4CC9] flex items-center justify-center shrink-0 shadow-2xs">
+                      <ShieldCheck size={20} className="sm:hidden" />
                       <ShieldCheck size={22} className="hidden sm:block" />
                     </div>
                     <div>
-                      <span className="block text-[11px] sm:text-xs sm:text-sm font-black text-[#17345E] tracking-tight mb-0.5 sm:mb-1">
+                      <span className="block text-[13px] sm:text-[14.5px] font-black uppercase text-[#17365C] tracking-[0.4px] leading-tight mb-0.5">
                         TRUSTED BY RAKESH BEDI
                       </span>
-                      <span className="block text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#FF4F81] leading-none">
-                        Brand Ambassador
+                      <span className="block text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-[0.6px] text-[#7B4CC9] leading-tight">
+                        BRAND AMBASSADOR
+                      </span>
+                      <span className="block text-[9px] sm:text-[9.5px] font-extrabold uppercase tracking-[0.8px] text-slate-500 leading-none mt-0.5">
+                        SILVERCARE
                       </span>
                     </div>
                   </div>

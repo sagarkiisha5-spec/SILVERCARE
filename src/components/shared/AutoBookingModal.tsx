@@ -102,6 +102,17 @@ export default function AutoBookingModal({ forceOpen = false, initialService, on
     return () => clearTimeout(timer);
   }, [forceOpen]);
 
+  // Lock background body scroll when modal is active
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isOpen]);
+
   const handleClose = () => {
     setIsOpen(false);
     sessionStorage.setItem("silvercare_modal_dismissed", "true");

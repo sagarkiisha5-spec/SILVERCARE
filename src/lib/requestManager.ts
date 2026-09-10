@@ -346,3 +346,41 @@ export async function deleteServiceRequest(id: string) {
     console.warn("Firestore delete warning (deleted locally):", e);
   }
 }
+
+/**
+ * Universal clear all requests helper
+ */
+export function clearAllRequests() {
+  try {
+    if (typeof localStorage === "undefined") return;
+    const current = getLocalRequests();
+    current.forEach((item) => {
+      if (item.id) addDeletedId(item.id);
+    });
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([]));
+    notifySync();
+  } catch (e) {
+    console.warn("Error clearing local requests:", e);
+  }
+}
+
+export async function clearAllServiceRequests(items?: ServiceRequestItem[]) {
+  clearAllRequests();
+  try {
+    await ensureAuth();
+    if (items && items.length > 0) {
+      for (const req of items) {
+        if (req.id && !req.id.startsWith("req_demo_")) {
+          try {
+            await deleteDoc(doc(db, "serviceRequests", req.id));
+          } catch (err) {
+            // ignore individual doc delete error
+          }
+        }
+      }
+    }
+  } catch (e) {
+    console.warn("Firestore clear all warning:", e);
+  }
+}
+

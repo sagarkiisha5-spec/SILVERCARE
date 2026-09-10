@@ -3,16 +3,21 @@ import { Card, CardContent } from "@/src/components/ui/card";
 import { Input } from "@/src/components/ui/input";
 import { Button } from "@/src/components/ui/button";
 import { format } from "date-fns";
-import { Trash2, Phone, MapPin, Search, Filter, RefreshCw, Send, Download, Stethoscope } from "lucide-react";
+import { Trash2, Phone, MapPin, Search, Filter, RefreshCw, Send, Download, Stethoscope, AlertTriangle } from "lucide-react";
 import { 
   subscribeToServiceRequests, 
   updateServiceRequestStatus, 
-  deleteServiceRequest 
+  deleteServiceRequest,
+  clearAllServiceRequests 
 } from "@/src/lib/requestManager";
+
 
 export default function AdminRequests() {
   const [requests, setRequests] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [showClearModal, setShowClearModal] = useState(false);
+  const [isClearing, setIsClearing] = useState(false);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
@@ -41,6 +46,31 @@ export default function AdminRequests() {
     link.click();
     document.body.removeChild(link);
   };
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("silvercare_requests_updated"));
+    }
+    setTimeout(() => {
+      setIsRefreshing(false);
+    }, 600);
+  };
+
+  const handleClearAll = async () => {
+    setIsClearing(true);
+    try {
+      await clearAllServiceRequests(requests);
+      setRequests([]);
+      setShowClearModal(false);
+    } catch (e) {
+      console.error("Failed to clear requests:", e);
+      setShowClearModal(false);
+    } finally {
+      setIsClearing(false);
+    }
+  };
+
 
   const handlePatientWhatsApp = (req: any) => {
     const cleanPhone = (req.phone || "").replace(/[^0-9]/g, "");
@@ -168,13 +198,34 @@ export default function AdminRequests() {
   const franchiseCount = requests.filter(r => (r.careType || r.serviceName || "").toLowerCase().includes("franchise")).length;
 
   return (
-    <div className="space-y-6 font-sans">
+    <div className="space-y-6 font-sans relative">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900">Service Requests & Franchise Leads</h1>
           <p className="text-sm text-slate-500">Manage real-time call back requests, eldercare bookings, and franchise partner inquiries.</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
+          <Button
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            variant="outline"
+            className="text-xs font-bold border-slate-200 hover:border-[#7B2CBF] hover:bg-purple-50 hover:text-[#7B2CBF] shadow-2xs h-9 px-3 rounded-xl flex items-center gap-1.5"
+            title="Refresh requests"
+          >
+            <RefreshCw size={14} className={`text-[#7B2CBF] ${isRefreshing ? "animate-spin" : ""}`} />
+            {isRefreshing ? "Refreshing..." : "Refresh"}
+          </Button>
+
+          <Button
+            onClick={() => setShowClearModal(true)}
+            variant="outline"
+            className="text-xs font-bold border-rose-200 text-rose-600 hover:bg-rose-50 hover:border-rose-300 shadow-2xs h-9 px-3 rounded-xl flex items-center gap-1.5"
+            title="Clear all requests"
+          >
+            <Trash2 size={14} className="text-rose-500" />
+            Clear All
+          </Button>
+
           <Button
             onClick={exportToCSV}
             variant="outline"
@@ -192,6 +243,56 @@ export default function AdminRequests() {
           )}
         </div>
       </div>
+
+      {/* Clear All Confirmation Modal */}
+      {showClearModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 p-6 space-y-5 animate-in zoom-in-95 duration-200">
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-rose-100 text-rose-600 rounded-2xl shrink-0">
+                <AlertTriangle size={24} />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-lg font-extrabold text-slate-900">Clear All Enquiries & Leads?</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Are you sure you want to clear all {requests.length} service requests and franchise partner leads? This action cannot be undone.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-900 font-medium">
+              💡 Tip: Click "Export CSV" to backup your records before clearing if you need them later.
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <Button
+                variant="outline"
+                onClick={() => setShowClearModal(false)}
+                disabled={isClearing}
+                className="border-slate-300 text-slate-700 font-bold"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleClearAll}
+                disabled={isClearing}
+                className="bg-rose-600 hover:bg-rose-700 text-white font-bold flex items-center gap-2 shadow-sm"
+              >
+                {isClearing ? (
+                  <>
+                    <RefreshCw size={14} className="animate-spin" /> Clearing...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 size={14} /> Yes, Clear All
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
 
       {/* Filter and Search controls */}
       <div className="flex flex-col md:flex-row gap-3 items-center justify-between bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs">

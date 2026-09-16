@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Allow: /best-elderly-healthcare-services-chandigarh
+Allow: /best-elderly-healthcare-services-mohali
+Allow: /best-elderly-healthcare-services-panchkula
+Allow: /best-elderly-healthcare-services-zirakpur
+Allow: /elderly-care-chandigarh
+Allow: /elderly-care-mohali
+Allow: /elderly-care-panchkula
+Allow: /elderly-care-zirakpur
+
+# Disallow admin/private paths
+Disallow: /admin
+Disallow: /api/
+
+# Sitemap declaration
+Sitemap: https://silvercareindia.com/sitemap.xml

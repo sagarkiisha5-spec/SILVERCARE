@@ -43,6 +43,10 @@ export default function Footer() {
               <li><Link to="/" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Home</Link></li>
               <li><Link to="/about" className="text-slate-400 hover:text-[#FF4F81] transition-colors">About Us</Link></li>
               <li><Link to="/plans" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Freedom Care Plans</Link></li>
+              <li><Link to="/best-elderly-healthcare-services-chandigarh" className="text-pink-300 font-bold hover:text-[#FF4F81] transition-colors flex items-center gap-1">📍 Chandigarh Eldercare</Link></li>
+              <li><Link to="/best-elderly-healthcare-services-mohali" className="text-pink-300 font-bold hover:text-[#FF4F81] transition-colors flex items-center gap-1">📍 Mohali Eldercare</Link></li>
+              <li><Link to="/best-elderly-healthcare-services-panchkula" className="text-pink-300 font-bold hover:text-[#FF4F81] transition-colors flex items-center gap-1">📍 Panchkula Eldercare</Link></li>
+              <li><Link to="/best-elderly-healthcare-services-zirakpur" className="text-pink-300 font-bold hover:text-[#FF4F81] transition-colors flex items-center gap-1">📍 Zirakpur Eldercare (HQ)</Link></li>
               <li><Link to="/partner-with-us" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Franchise (Partner With Us)</Link></li>
               <li><Link to="/professionals" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Our Team</Link></li>
               <li><Link to="/contact" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Contact Us</Link></li>

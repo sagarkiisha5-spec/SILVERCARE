@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, PhoneCall, ChevronDown, ArrowRightCircle, Stethoscope, UserCheck, Activity, Sparkles, ShieldCheck, Heart, ArrowRight, Globe, Users, Briefcase, BookOpen, Info, HelpCircle, Handshake } from 'lucide-react';
+import { Menu, X, PhoneCall, ChevronDown, ArrowRightCircle, Stethoscope, UserCheck, Activity, Sparkles, ShieldCheck, Heart, ArrowRight, Globe, Users, Briefcase, BookOpen, Info, HelpCircle, Handshake, MapPin } from 'lucide-react';
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Button } from '@/src/components/ui/button';
@@ -109,12 +109,24 @@ export default function Navbar() {
                           </div>
 
                           {/* Quick Plan Links Bar inside Services Dropdown */}
-                          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-                            <Link to="/plans" onClick={() => setIsServicesOpen(false)} className="text-xs font-bold text-slate-700 hover:text-[#E91E63] flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
-                              <ShieldCheck size={14} className="text-[#E91E63]" /> Freedom Care Plans
+                          <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-1.5">
+                            <Link to="/plans" onClick={() => setIsServicesOpen(false)} className="text-[11px] xl:text-xs font-bold text-slate-700 hover:text-[#E91E63] flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-lg border border-slate-100">
+                              <ShieldCheck size={13} className="text-[#E91E63]" /> Freedom Plans
                             </Link>
-                            <Link to="/nri-care" onClick={() => setIsServicesOpen(false)} className="text-xs font-bold text-slate-700 hover:text-sky-600 flex items-center gap-1.5 bg-sky-50 px-3 py-1.5 rounded-lg border border-sky-100">
-                              <Globe size={14} className="text-sky-600" /> NRI Care Plan
+                            <Link to="/best-elderly-healthcare-services-chandigarh" onClick={() => setIsServicesOpen(false)} className="text-[11px] xl:text-xs font-bold text-slate-700 hover:text-[#E91E63] flex items-center gap-1 bg-pink-50 px-2 py-1 rounded-lg border border-pink-100">
+                              <MapPin size={13} className="text-[#E91E63]" /> Chandigarh
+                            </Link>
+                            <Link to="/best-elderly-healthcare-services-mohali" onClick={() => setIsServicesOpen(false)} className="text-[11px] xl:text-xs font-bold text-slate-700 hover:text-[#E91E63] flex items-center gap-1 bg-pink-50 px-2 py-1 rounded-lg border border-pink-100">
+                              <MapPin size={13} className="text-[#E91E63]" /> Mohali
+                            </Link>
+                            <Link to="/best-elderly-healthcare-services-panchkula" onClick={() => setIsServicesOpen(false)} className="text-[11px] xl:text-xs font-bold text-slate-700 hover:text-[#E91E63] flex items-center gap-1 bg-pink-50 px-2 py-1 rounded-lg border border-pink-100">
+                              <MapPin size={13} className="text-[#E91E63]" /> Panchkula
+                            </Link>
+                            <Link to="/best-elderly-healthcare-services-zirakpur" onClick={() => setIsServicesOpen(false)} className="text-[11px] xl:text-xs font-bold text-slate-700 hover:text-[#E91E63] flex items-center gap-1 bg-pink-50 px-2 py-1 rounded-lg border border-pink-100">
+                              <MapPin size={13} className="text-[#E91E63]" /> Zirakpur (HQ)
+                            </Link>
+                            <Link to="/nri-care" onClick={() => setIsServicesOpen(false)} className="text-[11px] xl:text-xs font-bold text-slate-700 hover:text-sky-600 flex items-center gap-1 bg-sky-50 px-2 py-1 rounded-lg border border-sky-100">
+                              <Globe size={13} className="text-sky-600" /> NRI Care
                             </Link>
                           </div>
                         </div>

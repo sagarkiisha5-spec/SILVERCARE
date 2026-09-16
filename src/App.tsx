@@ -22,6 +22,10 @@ import BlogPost from './pages/public/BlogPost';
 import Plans from './pages/public/Plans';
 import NRICare from './pages/public/NRICare';
 import PartnerWithUs from './pages/public/PartnerWithUs';
+import ElderlyCareChandigarh from './pages/public/ElderlyCareChandigarh';
+import ElderlyCareMohali from './pages/public/ElderlyCareMohali';
+import ElderlyCarePanchkula from './pages/public/ElderlyCarePanchkula';
+import ElderlyCareZirakpur from './pages/public/ElderlyCareZirakpur';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -90,6 +94,14 @@ export default function App() {
               <Route path="/plans" element={<Plans />} />
               <Route path="/nri-care" element={<NRICare />} />
               <Route path="/partner-with-us" element={<PartnerWithUs />} />
+              <Route path="/elderly-care-chandigarh" element={<ElderlyCareChandigarh />} />
+              <Route path="/best-elderly-healthcare-services-chandigarh" element={<ElderlyCareChandigarh />} />
+              <Route path="/elderly-care-mohali" element={<ElderlyCareMohali />} />
+              <Route path="/best-elderly-healthcare-services-mohali" element={<ElderlyCareMohali />} />
+              <Route path="/elderly-care-panchkula" element={<ElderlyCarePanchkula />} />
+              <Route path="/best-elderly-healthcare-services-panchkula" element={<ElderlyCarePanchkula />} />
+              <Route path="/elderly-care-zirakpur" element={<ElderlyCareZirakpur />} />
+              <Route path="/best-elderly-healthcare-services-zirakpur" element={<ElderlyCareZirakpur />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/about" element={<About />} />
               <Route path="/professionals" element={<Professionals />} />

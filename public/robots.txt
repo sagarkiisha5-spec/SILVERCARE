@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+
+# Priority Location Webpages
 Allow: /best-elderly-healthcare-services-chandigarh
 Allow: /best-elderly-healthcare-services-mohali
 Allow: /best-elderly-healthcare-services-panchkula
@@ -9,9 +11,19 @@ Allow: /elderly-care-mohali
 Allow: /elderly-care-panchkula
 Allow: /elderly-care-zirakpur
 
-# Disallow admin/private paths
+# Core Services & Booking
+Allow: /services
+Allow: /plans
+Allow: /nri-care
+Allow: /book
+Allow: /about
+Allow: /contact
+
+# Private / Admin routes
 Disallow: /admin
+Disallow: /admin/*
 Disallow: /api/
 
-# Sitemap declaration
+# Host & Sitemap Specification
+Host: https://silvercareindia.com
 Sitemap: https://silvercareindia.com/sitemap.xml

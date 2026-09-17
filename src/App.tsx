@@ -26,6 +26,10 @@ import ElderlyCareChandigarh from './pages/public/ElderlyCareChandigarh';
 import ElderlyCareMohali from './pages/public/ElderlyCareMohali';
 import ElderlyCarePanchkula from './pages/public/ElderlyCarePanchkula';
 import ElderlyCareZirakpur from './pages/public/ElderlyCareZirakpur';
+import ElderlyCareKharar from './pages/public/ElderlyCareKharar';
+import ElderlyCareDerabassi from './pages/public/ElderlyCareDerabassi';
+import ElderlyCareGurgaon from './pages/public/ElderlyCareGurgaon';
+import ElderlyCarePinjore from './pages/public/ElderlyCarePinjore';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -102,6 +106,14 @@ export default function App() {
               <Route path="/best-elderly-healthcare-services-panchkula" element={<ElderlyCarePanchkula />} />
               <Route path="/elderly-care-zirakpur" element={<ElderlyCareZirakpur />} />
               <Route path="/best-elderly-healthcare-services-zirakpur" element={<ElderlyCareZirakpur />} />
+              <Route path="/elderly-care-kharar" element={<ElderlyCareKharar />} />
+              <Route path="/best-elderly-healthcare-services-kharar" element={<ElderlyCareKharar />} />
+              <Route path="/elderly-care-derabassi" element={<ElderlyCareDerabassi />} />
+              <Route path="/best-elderly-healthcare-services-derabassi" element={<ElderlyCareDerabassi />} />
+              <Route path="/elderly-care-gurgaon" element={<ElderlyCareGurgaon />} />
+              <Route path="/best-elderly-healthcare-services-gurgaon" element={<ElderlyCareGurgaon />} />
+              <Route path="/elderly-care-pinjore" element={<ElderlyCarePinjore />} />
+              <Route path="/best-elderly-healthcare-services-pinjore" element={<ElderlyCarePinjore />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/about" element={<About />} />
               <Route path="/professionals" element={<Professionals />} />

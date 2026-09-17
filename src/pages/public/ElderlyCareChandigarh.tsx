@@ -335,7 +335,7 @@ const CHANDIGARH_FAQS = [
   },
   {
     q: "What are the charges for hiring a 24-hour home nurse in Chandigarh?",
-    a: "General trained attendant care starts from ₹1,200 per day (12-hour shift) to ₹2,200 per day for 24-hour registered GNM/B.Sc nurses. Monthly customized packages with doctor visits, physio, and care management offer significant cost savings."
+    a: "SilverCare offers transparent and personalized care plans based on patient dependency, clinical needs, and duration. Our care managers provide a complete custom plan following a clinical assessment."
   },
   {
     q: "How does SilverCare support NRI children living in Canada, USA, UK, or Australia?",
@@ -923,17 +923,16 @@ export default function ElderlyCareChandigarh() {
 
                         </div>
 
-                        {/* Service Right Pricing & Action Box */}
+                        {/* Service Right Action Box */}
                         <div className="lg:col-span-4 bg-[#FFF8FA] rounded-2xl p-5 border border-pink-100 flex flex-col justify-between h-full space-y-4">
                           <div>
-                            <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1">Estimated Pricing:</span>
-                            <div className="text-base sm:text-lg font-black text-[#2B0E1E] leading-snug">
-                              {service.startingPrice}
+                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-100 text-[#E91E63] text-[11px] font-extrabold mb-3">
+                              <ShieldCheck size={13} /> Verified Senior Care
                             </div>
 
-                            <div className="mt-4 pt-3 border-t border-pink-100 text-xs space-y-2">
-                              <div className="text-slate-600">
-                                <strong className="text-slate-900">Recommended for:</strong> {service.recommendedFor}
+                            <div className="text-xs space-y-2">
+                              <div className="text-slate-600 leading-relaxed">
+                                <strong className="text-slate-900 font-bold">Recommended for:</strong> {service.recommendedFor}
                               </div>
                             </div>
                           </div>

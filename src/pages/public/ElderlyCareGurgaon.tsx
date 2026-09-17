@@ -316,9 +316,10 @@ export default function ElderlyCareGurgaon() {
 
                     <div className="w-full lg:w-72 bg-slate-50 p-6 rounded-2xl border border-slate-200/80 shrink-0 flex flex-col justify-between">
                       <div>
-                        <span className="text-xs text-slate-500 font-bold uppercase tracking-wider block mb-1">Pricing Model</span>
-                        <div className="text-base font-extrabold text-[#17345E] mb-4">{service.startingPrice}</div>
-                        <span className="text-xs text-slate-500 font-medium block mb-4">Doctor-Supervised • 100% Background Verified</span>
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-100 text-[#E91E63] text-xs font-bold mb-3">
+                          <ShieldCheck size={14} /> Verified Senior Care
+                        </span>
+                        <span className="text-xs text-slate-600 font-medium block mb-4 leading-relaxed">Doctor-Supervised • 100% Background Verified • Tailored Care Plans</span>
                       </div>
                       <Button 
                         onClick={() => {

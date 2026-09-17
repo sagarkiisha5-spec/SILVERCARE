@@ -5,15 +5,15 @@ echo ========================================================
 echo   SILVERCARE INDIA - AUTOMATED GITHUB PUSH TOOL
 echo ========================================================
 echo.
-echo Pushing 89 updated project files to GitHub (yourhousingpartners-create/silvercare)...
+echo Pushing updated project files to GitHub (sagarkiisha5-spec/SILVERCARE)...
 echo.
 
-"C:\Users\pc\.gemini\git\cmd\git.exe" push origin main --force
+git push origin main
 
 echo.
 echo ========================================================
 echo   SUCCESS! ALL FILES HAVE BEEN PUSHED TO GITHUB!
-echo   Netlify is now automatically building your live site.
+echo   Deployment provider is now building your live site.
 echo ========================================================
 echo.
 pause

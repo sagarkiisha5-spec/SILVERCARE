@@ -35,6 +35,7 @@ import ElderlyCareNoida from './pages/public/ElderlyCareNoida';
 import ElderlyCareFaridabad from './pages/public/ElderlyCareFaridabad';
 import ElderlyCareMeerut from './pages/public/ElderlyCareMeerut';
 import ElderlyCareAmbalaCantt from './pages/public/ElderlyCareAmbalaCantt';
+import ElderlyCareAgra from './pages/public/ElderlyCareAgra';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -129,6 +130,8 @@ export default function App() {
               <Route path="/best-elderly-healthcare-services-meerut" element={<ElderlyCareMeerut />} />
               <Route path="/elderly-care-ambala-cantt" element={<ElderlyCareAmbalaCantt />} />
               <Route path="/best-elderly-healthcare-services-ambala-cantt" element={<ElderlyCareAmbalaCantt />} />
+              <Route path="/elderly-care-agra" element={<ElderlyCareAgra />} />
+              <Route path="/best-elderly-healthcare-services-agra" element={<ElderlyCareAgra />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/about" element={<About />} />
               <Route path="/professionals" element={<Professionals />} />

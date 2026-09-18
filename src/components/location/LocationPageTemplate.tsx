@@ -130,6 +130,7 @@ const ALL_SISTER_LOCATIONS = [
   { name: "Pinjore & Kalka", path: "/best-elderly-healthcare-services-pinjore", desc: "HMT Township & Surajpur" },
   { name: "Ambala Cantt", path: "/best-elderly-healthcare-services-ambala-cantt", desc: "Defence Colony & Sadar Bazaar" },
   { name: "Meerut", path: "/best-elderly-healthcare-services-meerut", desc: "Shastri Nagar & Saket Belt" },
+  { name: "Agra", path: "/best-elderly-healthcare-services-agra", desc: "Sanjay Place, Dayalbagh & Kamla Nagar" },
 ];
 
 export default function LocationPageTemplate(props: LocationPageTemplateProps) {

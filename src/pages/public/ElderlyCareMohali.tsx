@@ -1,80 +1,27 @@
-import React, { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import React from "react";
 import { 
   Stethoscope, 
   UserCheck, 
   Activity, 
   ShieldCheck, 
   Star, 
-  MapPin, 
   Clock, 
-  PhoneCall, 
-  Award, 
   CheckCircle2, 
   Heart, 
   Sparkles, 
-  Search, 
   Building2, 
-  HelpCircle, 
-  Users, 
-  Check, 
-  Calendar,
-  Globe,
-  Flame,
-  ThumbsUp,
-  SlidersHorizontal,
-  ChevronRight,
-  ChevronDown,
-  Hospital,
-  Zap,
-  Timer
+  Globe, 
+  PhoneCall 
 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
-import { Button } from "@/src/components/ui/button";
-import CareCalculator from "@/src/components/tools/CareCalculator";
-import AutoBookingModal from "@/src/components/shared/AutoBookingModal";
-
-// Motion Tokens
-const easeCustom = [0.22, 1, 0.36, 1];
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeCustom } }
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08
-    }
-  }
-};
-
-// Interface for Ranked Eldercare Services in Mohali
-interface RankedService {
-  rank: number;
-  id: string;
-  title: string;
-  badgeTag: string;
-  category: "nursing" | "clinical" | "rehab" | "specialized" | "support";
-  rating: number;
-  reviewCount: number;
-  shortDesc: string;
-  fullDesc: string;
-  keyFeatures: string[];
-  startingPrice: string;
-  responseTime: string;
-  coveredPhases: string[];
-  recommendedFor: string;
-  doctorSupervised: boolean;
-  icon: React.ElementType;
-}
+import LocationPageTemplate, { 
+  LocationRankedService, 
+  LocationHub, 
+  LocationFAQ, 
+  LocationStatItem 
+} from "@/src/components/location/LocationPageTemplate";
 
 // Top 10 Best Elderly Healthcare Services in Mohali Dataset
-const TOP_MOHALI_SERVICES: RankedService[] = [
+const TOP_MOHALI_SERVICES: LocationRankedService[] = [
   {
     rank: 1,
     id: "nursing-attendant-care-mohali",
@@ -93,7 +40,7 @@ const TOP_MOHALI_SERVICES: RankedService[] = [
     ],
     startingPrice: "₹1,200 / day (Attendant) • ₹2,200 / day (Skilled Nurse)",
     responseTime: "Prompt Same-Day Deployment",
-    coveredPhases: ["Mohali Phase 1-11", "Sector 68, 69, 70, 71", "Aerocity & IT City", "Sector 79, 80, 82"],
+    coveredSectors: ["Mohali Phase 1-11", "Sector 68, 69, 70, 71", "Aerocity & IT City", "Sector 79, 80, 82"],
     recommendedFor: "Bedridden elders, stroke rehabilitation, post-cardiac surgery care, and chronic illness management.",
     doctorSupervised: true,
     icon: Stethoscope,
@@ -116,7 +63,7 @@ const TOP_MOHALI_SERVICES: RankedService[] = [
     ],
     startingPrice: "₹1,500 - ₹2,000 per visit",
     responseTime: "Same-Day Appointment Available",
-    coveredPhases: ["Phase 1 to 11", "Sector 70, 71, 78, 79", "Aerocity & Wave Estate"],
+    coveredSectors: ["Phase 1 to 11", "Sector 70, 71, 78, 79", "Aerocity & Wave Estate"],
     recommendedFor: "Elderly parents needing routine medical attention, multi-morbidity reviews, or post-hospital follow-ups.",
     doctorSupervised: true,
     icon: UserCheck,
@@ -139,7 +86,7 @@ const TOP_MOHALI_SERVICES: RankedService[] = [
     ],
     startingPrice: "₹2,500 / day (Full Clinical Care Package)",
     responseTime: "Pre-Discharge Bedside Setup",
-    coveredPhases: ["All Mohali Phases", "Kharar Road", "Aerocity", "Sector 82"],
+    coveredSectors: ["All Mohali Phases", "Kharar Road", "Aerocity", "Sector 82"],
     recommendedFor: "Patients discharged after orthopedic, cardiac, oncology, or general surgeries.",
     doctorSupervised: true,
     icon: ShieldCheck,
@@ -162,7 +109,7 @@ const TOP_MOHALI_SERVICES: RankedService[] = [
     ],
     startingPrice: "₹800 - ₹1,200 per session • ₹18,000 / 15 sessions",
     responseTime: "Same-Day Session Available",
-    coveredPhases: ["Phase 1 to 11", "Sector 68 to 82", "Aerocity & IT City"],
+    coveredSectors: ["Phase 1 to 11", "Sector 68 to 82", "Aerocity & IT City"],
     recommendedFor: "Stroke survivors, post-knee replacement seniors, and elderly with mobility impairment.",
     doctorSupervised: true,
     icon: Activity,
@@ -185,7 +132,7 @@ const TOP_MOHALI_SERVICES: RankedService[] = [
     ],
     startingPrice: "₹1,400 / day or Customized Monthly Plan",
     responseTime: "Fast Caregiver Placement",
-    coveredPhases: ["Mohali Phase 1-11", "Sector 70, 71", "Aerocity", "Wave Estate"],
+    coveredSectors: ["Mohali Phase 1-11", "Sector 70, 71", "Aerocity", "Wave Estate"],
     recommendedFor: "Seniors with Alzheimer's, Parkinson's disease, or age-related cognitive decline.",
     doctorSupervised: true,
     icon: Heart,
@@ -208,7 +155,7 @@ const TOP_MOHALI_SERVICES: RankedService[] = [
     ],
     startingPrice: "Custom Monthly & Annual Plans",
     responseTime: "Instant Global Onboarding",
-    coveredPhases: ["All Mohali Phases", "Sector 68-82", "Aerocity", "IT City"],
+    coveredSectors: ["All Mohali Phases", "Sector 68-82", "Aerocity", "IT City"],
     recommendedFor: "NRI families living in Canada, USA, UK, or Australia with aging parents in Mohali.",
     doctorSupervised: true,
     icon: Globe,
@@ -231,7 +178,7 @@ const TOP_MOHALI_SERVICES: RankedService[] = [
     ],
     startingPrice: "Equipment rental from ₹300/day • Complete ICU setup custom",
     responseTime: "Fast Delivery & Setup in Mohali",
-    coveredPhases: ["Mohali Phase 1-11", "Sector 70, 71, 79, 80", "Aerocity", "Kharar"],
+    coveredSectors: ["Mohali Phase 1-11", "Sector 70, 71, 79, 80", "Aerocity", "Kharar"],
     recommendedFor: "Critically ill patients requiring life support or post-ICU step-down care at home.",
     doctorSupervised: true,
     icon: Building2,
@@ -254,7 +201,7 @@ const TOP_MOHALI_SERVICES: RankedService[] = [
     ],
     startingPrice: "Packages from ₹499",
     responseTime: "Morning Slots Available",
-    coveredPhases: ["All Mohali Phases", "Sector 68-82", "Aerocity", "Kharar"],
+    coveredSectors: ["All Mohali Phases", "Sector 68-82", "Aerocity", "Kharar"],
     recommendedFor: "Diabetic monitoring, routine health checkups, and seniors with mobility challenges.",
     doctorSupervised: true,
     icon: Sparkles,
@@ -277,7 +224,7 @@ const TOP_MOHALI_SERVICES: RankedService[] = [
     ],
     startingPrice: "₹800 / session (4-6 Hours)",
     responseTime: "Same-Day Deployment",
-    coveredPhases: ["Phase 1 to 11", "Sector 70, 71", "Aerocity", "Wave Estate"],
+    coveredSectors: ["Phase 1 to 11", "Sector 70, 71", "Aerocity", "Wave Estate"],
     recommendedFor: "Independent seniors seeking emotional companionship, errand support, or social wellness.",
     doctorSupervised: false,
     icon: Heart,
@@ -300,33 +247,24 @@ const TOP_MOHALI_SERVICES: RankedService[] = [
     ],
     startingPrice: "Standard Distance Tariff",
     responseTime: "Immediate Emergency Dispatch",
-    coveredPhases: ["All Mohali Phases", "Sector 68-82", "Aerocity", "Kharar Road"],
+    coveredSectors: ["All Mohali Phases", "Sector 68-82", "Aerocity", "Kharar Road"],
     recommendedFor: "Acute medical emergencies, sudden cardiac symptoms, breathing difficulty, or severe falls.",
     doctorSupervised: true,
     icon: PhoneCall,
   }
 ];
 
-// Mohali Hospital Bridge Data
-const MOHALI_HOSPITALS = [
-  { name: "Fortis Hospital Mohali (Sector 62)", status: "Active Coordination", desc: "Direct discharge transfer & post-cardiac CABG / stent recovery." },
-  { name: "Max Super Speciality (Phase 6)", status: "Active Coordination", desc: "Specialized neuro, orthopedic, and oncology home step-down care." },
-  { name: "Ivy Hospital (Sector 71)", status: "Active Coordination", desc: "Post-surgical care, catheterization, and ICU step-down nursing." },
-  { name: "Sohana Multi-Speciality Hospital", status: "Active Coordination", desc: "Geriatric post-op care and daily nurse attendant placement." }
-];
-
-// Mohali Daily Schedule Protocol
-const MOHALI_CARE_PROTOCOL = [
-  { time: "07:30 AM", title: "Morning Vitals & Blood Glucose Check", desc: "NIBP, Pulse, SpO2 logging and pre-breakfast medication administration." },
-  { time: "09:30 AM", title: "Aseptic Hygiene & Bed Bath / Dressing", desc: "Surgical wound dressing, stoma/catheter flush, and comfortable oral hygiene." },
-  { time: "11:30 AM", title: "Geriatric Physiotherapy & Mobilization", desc: "Passive/active range-of-motion exercises, gait training, and electrotherapy." },
-  { time: "02:00 PM", title: "Nutritional Support & Midday Rest", desc: "Ryle's tube feeding / oral meal assistance and vitals re-check." },
-  { time: "05:00 PM", title: "Cognitive Therapy & Mind Games", desc: "Memory stimulation, park walks, and emotional interaction." },
-  { time: "08:30 PM", title: "Night Vitals & Daily WhatsApp Family Log", desc: "Evening medications, digital chart upload to family, and night monitoring." }
+// Mohali Hospital Bridge & Sector Data
+const MOHALI_SECTOR_HUBS: LocationHub[] = [
+  { name: "Fortis Hospital Mohali (Sec 62)", status: "Active Hospital Desk", coverage: "Direct discharge transfer & post-cardiac CABG recovery." },
+  { name: "Max Super Speciality (Phase 6)", status: "Active Hospital Desk", coverage: "Specialized neuro, orthopedic & oncology home step-down care." },
+  { name: "Phases 1-5 & Phase 3B2 Hub", status: "Active Sector Hub", coverage: "Daily Nurse, Attendant & Doctor Home Visits." },
+  { name: "Phases 7-11 & Sector 70 Hub", status: "Priority Care Hub", coverage: "24/7 Live-In Attendants & Geriatric Physio." },
+  { name: "Aerocity, IT City & Wave Estate", status: "Active Sector Hub", coverage: "Rapid Dispatch & ICU Medical Equipment Setup." }
 ];
 
 // FAQs for Mohali Eldercare
-const MOHALI_FAQS = [
+const MOHALI_FAQS: LocationFAQ[] = [
   {
     q: "Why is SilverCare rated as the best elderly healthcare service in Mohali (SAS Nagar)?",
     a: "SilverCare is Mohali's #1 eldercare choice due to our 100% police-verified nursing staff, close proximity to Fortis and Max Hospitals for immediate hospital step-down care, comprehensive coverage across Phases 1-11 & Aerocity, and dedicated care managers for Punjabi NRI families living abroad."
@@ -337,7 +275,7 @@ const MOHALI_FAQS = [
   },
   {
     q: "What is the daily cost of a 24-hour home nurse in Mohali?",
-    a: "Attendant daily rates start from ₹1,200 for a 12-hour shift and ₹2,200 for 24-hour registered GNM/B.Sc nurse care. Affordable monthly packages with inclusive doctor consultations and physio sessions are also available."
+    a: "SilverCare offers transparent and personalized eldercare plans based on patient dependency, clinical needs, and shift duration following a comprehensive assessment."
   },
   {
     q: "Can SilverCare handle post-surgery recovery after heart or knee surgery in Mohali?",
@@ -348,42 +286,23 @@ const MOHALI_FAQS = [
     a: "Yes! A large percentage of our Mohali families are NRIs. We assign a dedicated Clinical Care Manager who coordinates doctor visits, medicine deliveries, emergency hospital runs, and sends daily WhatsApp vitals reports to children living abroad."
   },
   {
-    q: "Can I get ICU medical equipment like a ventilator or motorized bed on rent in Mohali?",
-    a: "Yes. SilverCare provides same-day delivery of ICU beds, ventilators, BiPAP/CPAP, oxygen concentrators, and cardiac monitors across all Mohali phases and sectors, supported by 24/7 biomedical technicians."
+    q: "Can I rent ICU equipment like an oxygen concentrator or hospital bed in Mohali?",
+    a: "Yes. We provide same-day home delivery, installation, and demonstration of hospital beds, oxygen concentrators, BiPAP/CPAP, and multipara monitors across Mohali and surrounding areas."
   }
 ];
 
+const MOHALI_STATS: LocationStatItem[] = [
+  { value: "1,340+", label: "Mohali Seniors Cared", icon: CheckCircle2 },
+  { value: "4.9", label: "Google Rating", icon: Star },
+  { value: "100%", label: "Verified Staff", icon: ShieldCheck },
+  { value: "24/7", label: "Clinical Support", icon: Clock },
+];
+
 export default function ElderlyCareMohali() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalService, setModalService] = useState("In-Home Nursing Care Mohali");
-  const [selectedHospital, setSelectedHospital] = useState(MOHALI_HOSPITALS[0]);
-
-  // Filtered Services List
-  const filteredServices = useMemo(() => {
-    return TOP_MOHALI_SERVICES.filter((srv) => {
-      const matchesSearch = 
-        srv.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        srv.shortDesc.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        srv.keyFeatures.some(f => f.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        srv.coveredPhases.some(ph => ph.toLowerCase().includes(searchTerm.toLowerCase()));
-      
-      const matchesCategory = selectedCategory === "all" || srv.category === selectedCategory;
-      return matchesSearch && matchesCategory;
-    });
-  }, [searchTerm, selectedCategory]);
-
-  const handleOpenBooking = (serviceName: string) => {
-    setModalService(serviceName);
-    setIsModalOpen(true);
-  };
-
-  // Structured Data Schema for Google Rich Snippets & SEO
   const canonicalUrl = "https://silvercareindia.com/best-elderly-healthcare-services-mohali";
   const pageTitle = "Best Elderly Healthcare Services in Mohali (2026) | SilverCare™";
-  const pageDesc = "Rated #1 Best Elderly Healthcare Services in Mohali (SAS Nagar). 24/7 verified in-home nursing, doctor home visits, Fortis/Max Hospital post-discharge care, ICU setup & NRI elder support across Phases 1-11 & Sectors 68-82.";
+  const pageDesc = "Rated #1 Best Elderly Healthcare Services in Mohali (SAS Nagar). 24/7 verified in-home nursing, Fortis/Max hospital transition care, doctor home visits, stroke rehab & NRI parent concierge across Phases 1-11, Aerocity & Sec 70.";
+  const keywords = "Best elderly healthcare services in Mohali, home nursing Mohali, 24/7 caregiver SAS Nagar Mohali, doctor visit at home Mohali, Fortis hospital discharge care Mohali, Max hospital elder care Mohali, stroke rehabilitation Mohali, NRI parent care Mohali, SilverCare";
 
   const schemaData = {
     "@context": "https://schema.org",
@@ -412,10 +331,10 @@ export default function ElderlyCareMohali() {
         ],
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "Phase 7 & Sector 70 Hub, SAS Nagar",
+          "streetAddress": "Phase 7 & Sector 70 Care Desk, SAS Nagar",
           "addressLocality": "Mohali",
           "addressRegion": "Punjab",
-          "postalCode": "160055",
+          "postalCode": "160062",
           "addressCountry": "IN"
         },
         "geo": {
@@ -424,11 +343,11 @@ export default function ElderlyCareMohali() {
           "longitude": "76.7179"
         },
         "areaServed": [
-          { "@type": "AdministrativeArea", "name": "Mohali Phase 1-11" },
+          { "@type": "AdministrativeArea", "name": "Mohali Phases 1-11" },
           { "@type": "AdministrativeArea", "name": "Sector 68-82 Mohali" },
-          { "@type": "AdministrativeArea", "name": "Aerocity Mohali" },
-          { "@type": "AdministrativeArea", "name": "IT City Mohali" },
-          { "@type": "AdministrativeArea", "name": "Kharar & Landran" }
+          { "@type": "AdministrativeArea", "name": "Aerocity & IT City Mohali" },
+          { "@type": "AdministrativeArea", "name": "Chandigarh" },
+          { "@type": "AdministrativeArea", "name": "Kharar" }
         ],
         "aggregateRating": {
           "@type": "AggregateRating",
@@ -449,16 +368,12 @@ export default function ElderlyCareMohali() {
           "@id": "https://silvercareindia.com/#website",
           "name": "SilverCare India",
           "url": "https://silvercareindia.com/"
-        },
-        "speakable": {
-          "@type": "SpeakableSpecification",
-          "cssSelector": ["h1", ".hero-subtext", ".ranked-service-title"]
         }
       },
       {
         "@type": "ItemList",
         "name": "Top 10 Best Elderly Healthcare Services in Mohali",
-        "description": "Ranked list of top-rated senior care and home health services in Mohali SAS Nagar.",
+        "description": "Ranked list of top-rated senior care and home health services in Mohali (SAS Nagar).",
         "itemListElement": TOP_MOHALI_SERVICES.map((srv, index) => ({
           "@type": "ListItem",
           "position": index + 1,
@@ -469,12 +384,6 @@ export default function ElderlyCareMohali() {
             "provider": {
               "@type": "MedicalBusiness",
               "name": "SilverCare India"
-            },
-            "areaServed": "Mohali, Punjab, India",
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": srv.rating.toString(),
-              "reviewCount": srv.reviewCount.toString()
             }
           }
         }))
@@ -489,670 +398,32 @@ export default function ElderlyCareMohali() {
             "text": faq.a
           }
         }))
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://silvercareindia.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Services",
-            "item": "https://silvercareindia.com/services"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Best Elderly Healthcare Services in Mohali",
-            "item": canonicalUrl
-          }
-        ]
       }
     ]
   };
 
   return (
-    <div className="min-h-screen bg-[#FFF7FA] font-sans text-slate-800 selection:bg-[#FF4F81] selection:text-white">
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDesc} />
-        <meta name="keywords" content="Best elderly healthcare services in Mohali, home nursing Mohali, doctor visit at home Mohali, Fortis hospital discharge care Mohali, Max hospital home nursing Mohali, NRI parent care Mohali, 24/7 caregiver SAS Nagar, physiotherapy Mohali, SilverCare" />
-        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-        <meta name="geo.region" content="IN-PB" />
-        <meta name="geo.placename" content="Mohali, SAS Nagar, Punjab" />
-        <meta name="geo.position" content="30.7046;76.7179" />
-        <meta name="ICBM" content="30.7046, 76.7179" />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDesc} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:image" content="https://silvercareindia.com/hero-doctor.png" />
-        <meta property="og:locale" content="en_IN" />
-        <meta property="og:site_name" content="SilverCare India" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={pageDesc} />
-        <meta name="twitter:image" content="https://silvercareindia.com/hero-doctor.png" />
-        <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
-      </Helmet>
-
-      {/* Auto Booking Popup Modal */}
-      {isModalOpen && (
-        <AutoBookingModal 
-          forceOpen={isModalOpen} 
-          initialService={modalService} 
-          onClose={() => setIsModalOpen(false)} 
-        />
-      )}
-
-      {/* ============================================================ */}
-      {/* SECTION 1: HERO BANNER FOR MOHALI */}
-      {/* ============================================================ */}
-      <section className="relative pt-10 pb-20 lg:pt-14 lg:pb-24 bg-gradient-to-b from-[#2B0E1E] via-[#380A22] to-[#1E0915] text-white overflow-hidden">
-        
-        {/* Soft Ambient Rose Lighting */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#FF4F81]/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-10 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,79,129,0.15),transparent_50%)] pointer-events-none"></div>
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
-          {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 text-xs font-semibold text-pink-200/80 mb-6">
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <ChevronRight size={12} className="text-[#FF4F81]" />
-            <Link to="/services" className="hover:text-white transition-colors">Services</Link>
-            <ChevronRight size={12} className="text-[#FF4F81]" />
-            <span className="text-pink-300 font-bold">Mohali Senior Care</span>
-          </nav>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            
-            {/* Hero Left Content */}
-            <motion.div 
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
-              className="lg:col-span-7 space-y-6 text-left"
-            >
-              {/* Trust Badge */}
-              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-500/20 border border-pink-400/40 text-pink-200 text-xs sm:text-sm font-extrabold shadow-sm backdrop-blur-md">
-                <Award size={16} className="text-[#FF4F81]" />
-                <span>🏆 Top-Ranked Senior Healthcare Provider in Mohali (SAS Nagar)</span>
-              </motion.div>
-
-              {/* Main SEO H1 Headline */}
-              <motion.h1 variants={fadeInUp} className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.14] tracking-tight">
-                Best Elderly Healthcare Services in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF4F81] via-pink-300 to-amber-200">Mohali</span>
-              </motion.h1>
-
-              {/* Sub-headline */}
-              <motion.p variants={fadeInUp} className="text-sm sm:text-base lg:text-lg text-slate-200 leading-relaxed max-w-2xl font-normal">
-                SilverCare provides hospital-standard 24/7 home nursing, senior MD doctor visits, post-discharge recovery from Fortis/Max Mohali & NRI parent management across Phases 1-11, Aerocity & Sector 68-82.
-              </motion.p>
-
-              {/* Verified Stats Bar */}
-              <motion.div variants={fadeInUp} className="grid grid-cols-3 gap-3 pt-2 pb-2 max-w-lg">
-                <div className="bg-white/10 backdrop-blur-md p-3.5 rounded-2xl border border-white/15 text-center">
-                  <div className="text-xl sm:text-2xl font-black text-[#FF4F81]">1,340+</div>
-                  <div className="text-[11px] font-bold text-slate-200 mt-0.5">Mohali Seniors Cared</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur-md p-3.5 rounded-2xl border border-white/15 text-center">
-                  <div className="text-xl sm:text-2xl font-black text-amber-300 flex items-center justify-center gap-1">
-                    <span>4.9</span> <Star size={16} className="fill-amber-300 text-amber-300" />
-                  </div>
-                  <div className="text-[11px] font-bold text-slate-200 mt-0.5">Google Rating</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur-md p-3.5 rounded-2xl border border-white/15 text-center">
-                  <div className="text-xl sm:text-2xl font-black text-emerald-400">24/7</div>
-                  <div className="text-[11px] font-bold text-slate-200 mt-0.5">Clinical Support</div>
-                </div>
-              </motion.div>
-
-              {/* CTAs */}
-              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
-                <Button 
-                  onClick={() => handleOpenBooking("Best Eldercare Consultation Mohali")}
-                  className="bg-gradient-to-r from-[#FF4F81] to-[#E91E63] hover:opacity-95 text-white font-extrabold text-sm sm:text-base h-13 px-8 rounded-2xl shadow-xl shadow-[#FF4F81]/30 border-0 transition-all hover:scale-[1.02] active:scale-95"
-                >
-                  <Calendar size={18} className="mr-2" /> Book Home Consultation
-                </Button>
-
-                <button 
-                  type="button"
-                  onClick={() => handleOpenBooking("Senior Care Consultation Mohali")}
-                  className="w-full sm:w-auto border-2 border-white/40 bg-white/10 hover:bg-white/20 text-white font-extrabold text-sm sm:text-base h-13 px-6 rounded-2xl backdrop-blur-sm transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-                >
-                  <PhoneCall size={18} className="text-[#FF4F81]" /> Speak with Care Specialist
-                </button>
-              </motion.div>
-
-              {/* Trust Badges */}
-              <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-4 text-xs font-bold text-pink-200/90 pt-1">
-                <span className="flex items-center gap-1.5"><ShieldCheck size={16} className="text-emerald-400" /> 100% Police Verified Staff</span>
-                <span className="flex items-center gap-1.5"><Hospital size={16} className="text-emerald-400" /> Fortis & Max Transition Desk</span>
-                <span className="flex items-center gap-1.5"><Clock size={16} className="text-emerald-400" /> 24/7 Emergency Support</span>
-              </motion.div>
-
-            </motion.div>
-
-            {/* Hero Right Visual Card */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: easeCustom }}
-              className="lg:col-span-5"
-            >
-              <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-                <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="h-11 w-11 rounded-2xl bg-pink-500/20 text-[#FF4F81] flex items-center justify-center border border-pink-400/30">
-                      <MapPin size={22} />
-                    </div>
-                    <div>
-                      <h3 className="font-extrabold text-white text-base">Mohali Coverage Hub</h3>
-                      <p className="text-xs text-pink-200/80">Phases 1-11 & Aerocity</p>
-                    </div>
-                  </div>
-                  <span className="bg-emerald-500/20 text-emerald-300 text-[11px] font-extrabold px-3 py-1 rounded-full border border-emerald-400/30 flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Active Hub
-                  </span>
-                </div>
-
-                <div className="space-y-2.5 text-xs">
-                  <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
-                    <span className="text-slate-200 font-semibold">📍 Core Phases</span>
-                    <span className="text-pink-300 font-bold">Phase 1, 2, 3B2, 5, 7, 9, 10, 11</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
-                    <span className="text-slate-200 font-semibold">📍 Sectors & Commercial Hub</span>
-                    <span className="text-pink-300 font-bold">Sector 68, 69, 70, 71, 79, 80</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
-                    <span className="text-slate-200 font-semibold">📍 Aerocity & IT Corridor</span>
-                    <span className="text-pink-300 font-bold">Aerocity, IT City, Wave Estate</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
-                    <span className="text-slate-200 font-semibold">📍 Hospital Proximity</span>
-                    <span className="text-pink-300 font-bold">Fortis, Max, Ivy & Sohana</span>
-                  </div>
-                </div>
-
-                <div className="mt-5 pt-4 border-t border-white/15 text-center">
-                  <p className="text-xs text-slate-300 mb-3 font-medium">Need medical nurse deployment in Mohali?</p>
-                  <Button 
-                    onClick={() => handleOpenBooking("Fast Care Deployment Mohali")}
-                    className="w-full bg-white text-slate-900 hover:bg-slate-100 font-extrabold text-xs sm:text-sm h-11 rounded-xl shadow-md border-0"
-                  >
-                    Request Fast Mohali Deployment →
-                  </Button>
-                </div>
-              </div>
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* FEATURE 1: HOSPITAL DISCHARGE FAST-TRACK DESK */}
-      {/* ============================================================ */}
-      <section className="py-12 bg-white border-b border-pink-100">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-          
-          <div className="text-center mb-8">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-pink-100 text-[#E91E63] font-extrabold text-xs uppercase tracking-wider mb-2">
-              <Hospital size={14} /> Mohali Hospital Discharge Transition Desk
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-              Seamless Hospital-to-Home Step-Down Care
-            </h2>
-            <p className="text-slate-600 text-xs sm:text-sm mt-1 max-w-2xl mx-auto">
-              Our clinical care coordinators align directly with discharge teams at top Mohali tertiary hospitals.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            {MOHALI_HOSPITALS.map((hosp, idx) => (
-              <button
-                key={idx}
-                onClick={() => setSelectedHospital(hosp)}
-                className={`p-4 rounded-2xl text-left transition-all border ${
-                  selectedHospital.name === hosp.name 
-                    ? "bg-[#FFF0F5] border-[#FF4F81] text-[#2B0E1E] shadow-sm ring-1 ring-[#FF4F81]/40" 
-                    : "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100"
-                }`}
-              >
-                <div className="flex items-center justify-between text-xs font-extrabold mb-1">
-                  <span className="truncate">{hosp.name.split(' ')[0]} {hosp.name.split(' ')[1]}</span>
-                  <span className="text-[10px] text-[#E91E63] font-bold">Active</span>
-                </div>
-                <div className="text-[11px] text-slate-500 truncate">{hosp.name}</div>
-              </button>
-            ))}
-          </div>
-
-          <div className="p-6 rounded-3xl bg-gradient-to-r from-[#FFF5F8] via-[#FFF0F5] to-[#FFF5F8] border border-pink-200 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
-            <div className="space-y-1.5 text-center md:text-left">
-              <div className="inline-flex items-center gap-2 text-xs font-extrabold text-[#E91E63] bg-white px-3 py-1 rounded-full border border-pink-200 shadow-xs">
-                <Zap size={14} className="text-[#FF4F81]" /> Direct Coordination: <strong>{selectedHospital.name}</strong>
-              </div>
-              <h3 className="text-lg sm:text-xl font-black text-slate-900">{selectedHospital.name} Step-Down Desk</h3>
-              <p className="text-xs sm:text-sm text-slate-600">
-                {selectedHospital.desc} We deliver sterile setup and nurse arrival before patient discharge.
-              </p>
-            </div>
-
-            <Button
-              onClick={() => handleOpenBooking(`Hospital Discharge Transition from ${selectedHospital.name}`)}
-              className="bg-gradient-to-r from-[#FF4F81] to-[#E91E63] text-white font-extrabold text-xs sm:text-sm h-12 px-6 rounded-xl border-0 shadow-md shadow-[#FF4F81]/25 shrink-0"
-            >
-              Book Discharge Coordination →
-            </Button>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* SECTION 2: SEARCH & FILTER RANKED SERVICES */}
-      {/* ============================================================ */}
-      <section className="py-6 bg-white border-b border-pink-100 sticky top-[72px] z-30 shadow-xs">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            
-            {/* Search Input */}
-            <div className="relative w-full md:w-96">
-              <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search services, phases, or clinical needs..."
-                className="w-full h-11 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#FF4F81] focus:bg-white transition-all"
-              />
-              {searchTerm && (
-                <button onClick={() => setSearchTerm("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 hover:text-slate-700">
-                  Clear
-                </button>
-              )}
-            </div>
-
-            {/* Category Filter Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 scrollbar-none">
-              {[
-                { id: "all", label: "All Top 10 Services" },
-                { id: "nursing", label: "Nursing & Attendants" },
-                { id: "clinical", label: "Doctor & Post-Op" },
-                { id: "rehab", label: "Physio & Rehab" },
-                { id: "specialized", label: "Dementia & ICU" },
-                { id: "support", label: "NRI Care & Support" },
-              ].map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all border ${
-                    selectedCategory === cat.id
-                      ? "bg-[#2B0E1E] text-white border-[#2B0E1E] shadow-xs"
-                      : "bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200"
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* SECTION 3: TOP RANKED SERVICES SHOWCASE */}
-      {/* ============================================================ */}
-      <section className="py-14 sm:py-20 bg-[#FFF7FA]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-pink-100 text-[#E91E63] font-extrabold text-xs uppercase tracking-wider mb-3">
-              <Flame size={14} /> Official 2026 Rankings
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
-              Top 10 Rated Elderly Healthcare Services in Mohali
-            </h2>
-            <p className="text-slate-600 text-sm sm:text-base mt-2">
-              Showing verified, clinical-grade home healthcare solutions ranked by Mohali family ratings, hospital transition standards, and speed of care.
-            </p>
-          </div>
-
-          {filteredServices.length === 0 ? (
-            <div className="bg-white rounded-3xl p-12 text-center max-w-md mx-auto border border-pink-100 shadow-sm">
-              <Search size={48} className="mx-auto text-slate-300 mb-4" />
-              <h3 className="text-lg font-bold text-slate-800">No matching services found</h3>
-              <p className="text-xs text-slate-500 mt-1">Try adjusting your search criteria or category filter.</p>
-              <Button onClick={() => { setSearchTerm(""); setSelectedCategory("all"); }} className="mt-4 bg-[#FF4F81] text-white font-bold text-xs">
-                Reset Filters
-              </Button>
-            </div>
-          ) : (
-            <div className="space-y-8 max-w-5xl mx-auto">
-              {filteredServices.map((service) => {
-                const IconComp = service.icon;
-                return (
-                  <motion.div
-                    key={service.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.4 }}
-                    className="bg-white rounded-3xl border border-pink-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden relative"
-                  >
-                    {/* Top Rank Banner Accent */}
-                    <div className="bg-gradient-to-r from-[#2B0E1E] via-purple-900 to-[#E91E63] px-6 py-3.5 text-white flex flex-wrap items-center justify-between gap-3">
-                      <div className="flex items-center gap-3">
-                        <span className="h-8 w-8 rounded-full bg-amber-400 text-slate-950 font-black text-sm flex items-center justify-center shadow-sm">
-                          #{service.rank}
-                        </span>
-                        <span className="font-extrabold text-sm tracking-wide text-amber-200 uppercase flex items-center gap-1.5">
-                          <Award size={16} /> {service.badgeTag}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-3 text-xs font-bold text-pink-100">
-                        <span className="flex items-center gap-1 bg-white/10 px-2.5 py-1 rounded-full border border-white/10">
-                          <Star size={14} className="fill-amber-300 text-amber-300" />
-                          <strong className="text-white">{service.rating}</strong> / 5 ({service.reviewCount}+ Reviews)
-                        </span>
-                        <span className="hidden sm:inline-flex items-center gap-1 bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full border border-emerald-400/30">
-                          <ShieldCheck size={14} /> Doctor Supervised
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="p-6 sm:p-8">
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                        
-                        {/* Service Left Details */}
-                        <div className="lg:col-span-8 space-y-4">
-                          <div className="flex items-start gap-4">
-                            <div className="h-12 w-12 rounded-2xl bg-pink-50 text-[#E91E63] flex items-center justify-center shrink-0 border border-pink-100 shadow-xs">
-                              <IconComp size={24} />
-                            </div>
-                            <div>
-                              <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight">
-                                {service.title}
-                              </h3>
-                              <p className="text-xs font-bold text-[#E91E63] mt-0.5">
-                                Response in Mohali: {service.responseTime}
-                              </p>
-                            </div>
-                          </div>
-
-                          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                            {service.fullDesc}
-                          </p>
-
-                          {/* Key Features Bullet List */}
-                          <div>
-                            <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider mb-2">Key Clinical Highlights:</h4>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-medium text-slate-700">
-                              {service.keyFeatures.map((feat, idx) => (
-                                <div key={idx} className="flex items-start gap-2 bg-[#FFF7FA] p-2.5 rounded-xl border border-pink-100">
-                                  <CheckCircle2 size={15} className="text-emerald-500 shrink-0 mt-0.5" />
-                                  <span>{feat}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-
-                          {/* Phases Coverage Tags */}
-                          <div className="pt-2">
-                            <span className="text-[11px] font-bold text-slate-500 uppercase mr-2">Covered Zones:</span>
-                            <div className="inline-flex flex-wrap gap-1.5 mt-1">
-                              {service.coveredPhases.map((sec, sIdx) => (
-                                <span key={sIdx} className="bg-slate-100 text-slate-700 text-[11px] font-semibold px-2.5 py-0.5 rounded-md border border-slate-200">
-                                  📍 {sec}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-
-                        </div>
-
-                        {/* Service Right Action Box */}
-                        <div className="lg:col-span-4 bg-[#FFF8FA] rounded-2xl p-5 border border-pink-100 flex flex-col justify-between h-full space-y-4">
-                          <div>
-                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-100 text-[#E91E63] text-[11px] font-extrabold mb-3">
-                              <ShieldCheck size={13} /> Verified Senior Care
-                            </div>
-
-                            <div className="text-xs space-y-2">
-                              <div className="text-slate-600 leading-relaxed">
-                                <strong className="text-slate-900 font-bold">Recommended for:</strong> {service.recommendedFor}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="space-y-2.5 pt-2">
-                            <Button
-                              onClick={() => handleOpenBooking(service.title)}
-                              className="w-full bg-gradient-to-r from-[#FF4F81] to-[#E91E63] hover:opacity-95 text-white font-extrabold text-xs sm:text-sm h-11 rounded-xl shadow-md shadow-[#FF4F81]/25 border-0 transition-all hover:scale-[1.01]"
-                            >
-                              Book {service.title.split(' ')[0]} Care →
-                            </Button>
-
-                            <a href="tel:+918001480075" className="block">
-                              <button 
-                                type="button"
-                                className="w-full border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-xs h-10 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
-                              >
-                                <PhoneCall size={14} className="text-[#E91E63]" /> Speak to Care Manager
-                              </button>
-                            </a>
-                          </div>
-
-                        </div>
-
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          )}
-
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* FEATURE 2: 24-HOUR CAREGIVER PROTOCOL TIMELINE */}
-      {/* ============================================================ */}
-      <section className="py-16 bg-white border-y border-pink-100">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
-          
-          <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-pink-100 text-[#E91E63] font-extrabold text-xs uppercase tracking-wider mb-2">
-              <Timer size={14} /> 24-Hour Clinical Day Protocol
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-              A Typical Day of SilverCare In-Home Nursing
-            </h2>
-            <p className="text-slate-600 text-xs sm:text-sm mt-1 max-w-2xl mx-auto">
-              Our structured 6-point clinical milestone schedule guarantees your parents receive compassionate, disciplined medical care throughout the day and night.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {MOHALI_CARE_PROTOCOL.map((step, idx) => (
-              <div key={idx} className="p-5 rounded-2xl bg-[#FFF7FA] border border-pink-100 flex items-start gap-4 shadow-xs">
-                <span className="px-2.5 py-1 rounded-lg bg-[#FF4F81] text-white font-black text-xs shrink-0 mt-0.5">
-                  {step.time}
-                </span>
-                <div>
-                  <h3 className="font-extrabold text-slate-900 text-sm">{step.title}</h3>
-                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* SECTION 4: INTERACTIVE CARE CALCULATOR WIDGET */}
-      {/* ============================================================ */}
-      <section className="py-16 bg-[#FFF7FA] border-b border-pink-100">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
-          <div className="text-center mb-8">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-pink-100 text-[#E91E63] font-extrabold text-xs uppercase tracking-wider mb-2">
-              <SlidersHorizontal size={14} /> Mohali Plan Cost Estimator
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-              Calculate Your Senior Care Budget in Mohali
-            </h2>
-            <p className="text-slate-600 text-xs sm:text-sm mt-1">
-              Select your required care shift duration and service type to generate an instant estimate.
-            </p>
-          </div>
-
-          <CareCalculator />
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* SECTION 5: TRICITY SISTER CITIES INTER-LINKING GRID */}
-      {/* ============================================================ */}
-      <section className="py-14 bg-white border-b border-pink-100">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-          <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-pink-100 text-[#E91E63] font-extrabold text-xs uppercase tracking-wider mb-2">
-              <Building2 size={14} /> Tricity Eldercare Sister Hubs
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-              Explore Our Eldercare Services Across Tricity
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link to="/best-elderly-healthcare-services-chandigarh" className="p-5 rounded-2xl bg-white hover:bg-pink-50/50 border border-pink-100 text-left block transition-all hover:border-pink-300">
-              <div className="text-xs font-bold text-slate-400 mb-1">📍 SISTER HUB</div>
-              <h3 className="font-extrabold text-slate-900 text-base">Chandigarh</h3>
-              <p className="text-xs text-slate-500 mt-1">Sectors 1-60, Capitol & VIP Belts</p>
-            </Link>
-
-            <Link to="/best-elderly-healthcare-services-mohali" className="p-5 rounded-2xl bg-white border-2 border-[#FF4F81] shadow-sm text-left block">
-              <div className="text-xs font-black text-[#E91E63] mb-1">📍 CURRENT HUB</div>
-              <h3 className="font-extrabold text-slate-900 text-base">Mohali (SAS Nagar)</h3>
-              <p className="text-xs text-slate-600 mt-1">Phases 1-11, Aerocity & Sec 70</p>
-            </Link>
-
-            <Link to="/best-elderly-healthcare-services-panchkula" className="p-5 rounded-2xl bg-white hover:bg-pink-50/50 border border-pink-100 text-left block transition-all hover:border-pink-300">
-              <div className="text-xs font-bold text-slate-400 mb-1">📍 SISTER HUB</div>
-              <h3 className="font-extrabold text-slate-900 text-base">Panchkula</h3>
-              <p className="text-xs text-slate-500 mt-1">Sectors 1-21, MDC & Pinjore</p>
-            </Link>
-
-            <Link to="/best-elderly-healthcare-services-zirakpur" className="p-5 rounded-2xl bg-white hover:bg-pink-50/50 border border-pink-100 text-left block transition-all hover:border-pink-300">
-              <div className="text-xs font-bold text-slate-400 mb-1">📍 HEADQUARTERS HUB</div>
-              <h3 className="font-extrabold text-slate-900 text-base">Zirakpur</h3>
-              <p className="text-xs text-slate-500 mt-1">VIP Road, Dhakoli & High-Rises</p>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* SECTION 6: FAQ ACCORDION FOR MOHALI ELDERCARE */}
-      {/* ============================================================ */}
-      <section className="py-16 sm:py-24 bg-[#FFF7FA]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-          <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-pink-100 text-[#E91E63] font-extrabold text-xs uppercase tracking-wider mb-2">
-              <HelpCircle size={14} /> Frequently Asked Questions
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-              Questions About Elderly Healthcare in Mohali
-            </h2>
-          </div>
-
-          <div className="space-y-4">
-            {MOHALI_FAQS.map((faq, index) => (
-              <div 
-                key={index}
-                className="bg-white rounded-2xl border border-pink-100 overflow-hidden shadow-xs transition-all"
-              >
-                <button
-                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                  className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 focus:outline-none"
-                >
-                  <span className="font-extrabold text-slate-900 text-sm sm:text-base leading-snug">
-                    {faq.q}
-                  </span>
-                  <div className={`h-8 w-8 rounded-full bg-[#FFF7FA] flex items-center justify-center shrink-0 transition-transform ${openFaq === index ? 'rotate-180 bg-pink-100 text-[#E91E63]' : 'text-slate-500'}`}>
-                    <ChevronDown size={18} />
-                  </div>
-                </button>
-
-                <AnimatePresence>
-                  {openFaq === index && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="border-t border-pink-100 bg-[#FFF7FA]/50 px-5 sm:px-6 py-4 text-xs sm:text-sm text-slate-600 leading-relaxed"
-                    >
-                      {faq.a}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* SECTION 7: FINAL CTA BOTTOM BANNER */}
-      {/* ============================================================ */}
-      <section className="py-16 bg-gradient-to-r from-[#2B0E1E] via-[#380A22] to-[#E91E63] text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl space-y-6">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 text-pink-200 font-extrabold text-xs uppercase tracking-wider">
-            <Sparkles size={14} className="text-pink-300" /> Immediate Care Readiness
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-black text-white leading-tight">
-            Give Your Loved Ones the Dignified Healthcare They Deserve in Mohali
-          </h2>
-          <p className="text-sm sm:text-base text-pink-100/90 leading-relaxed max-w-2xl mx-auto">
-            Contact SilverCare today to speak directly with our Senior Clinical Care Manager and arrange a free home assessment anywhere in Mohali SAS Nagar.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <button 
-              type="button"
-              onClick={() => handleOpenBooking("Mohali Final CTA")}
-              className="w-full sm:w-auto bg-white text-slate-900 hover:bg-slate-100 font-extrabold text-sm sm:text-base h-13 px-8 rounded-2xl shadow-xl transition-all hover:scale-105 cursor-pointer flex items-center justify-center"
-            >
-              Request Free Consultation Call →
-            </button>
-            <button 
-              type="button"
-              onClick={() => handleOpenBooking("Mohali Quick Callback")}
-              className="w-full sm:w-auto border-2 border-pink-200/50 bg-white/10 hover:bg-white/20 text-white font-extrabold text-sm sm:text-base h-13 px-8 rounded-2xl backdrop-blur-md transition-all cursor-pointer flex items-center justify-center gap-2 shadow-xs"
-            >
-              <PhoneCall size={18} className="text-pink-300" /> Speak with Care Specialist
-            </button>
-          </div>
-        </div>
-      </section>
-
-    </div>
+    <LocationPageTemplate
+      cityName="Mohali (SAS Nagar)"
+      canonicalUrl={canonicalUrl}
+      pageTitle={pageTitle}
+      pageDesc={pageDesc}
+      keywords={keywords}
+      schemaData={schemaData}
+      eyebrowBadgeText="🏆 Top-Ranked Senior Healthcare Provider in Mohali (SAS Nagar)"
+      h1TitleStart="Best Elderly Healthcare Services in "
+      h1CityHighlighted="Mohali"
+      heroSubtitle="SilverCare provides hospital-standard 24/7 home nursing, senior MD doctor visits, post-discharge recovery from Fortis/Max Mohali & NRI parent management across Phases 1-11, Aerocity & Sector 68-82."
+      stats={MOHALI_STATS}
+      services={TOP_MOHALI_SERVICES}
+      servicesSectionTitle="Top 10 Rated Elderly Healthcare Services in Mohali"
+      servicesSectionSubtitle="Showing verified, clinical-grade home healthcare solutions ranked by Mohali family ratings, clinical quality, and rapid response standards."
+      faqs={MOHALI_FAQS}
+      sectorHubs={MOHALI_SECTOR_HUBS}
+      sectorHubsTitle="Mohali Coverage & Hospital Care Desks"
+      sectorHubsSubtitle="Select your phase or hospital coordination desk below to check standby nursing support."
+      ctaHeading="Give Your Loved Ones the Dignified Healthcare They Deserve in Mohali"
+      ctaDescription="Contact SilverCare today to speak directly with our Senior Clinical Care Manager and arrange a free home assessment anywhere in Mohali."
+    />
   );
 }

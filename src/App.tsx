@@ -30,6 +30,11 @@ import ElderlyCareKharar from './pages/public/ElderlyCareKharar';
 import ElderlyCareDerabassi from './pages/public/ElderlyCareDerabassi';
 import ElderlyCareGurgaon from './pages/public/ElderlyCareGurgaon';
 import ElderlyCarePinjore from './pages/public/ElderlyCarePinjore';
+import ElderlyCareDelhi from './pages/public/ElderlyCareDelhi';
+import ElderlyCareNoida from './pages/public/ElderlyCareNoida';
+import ElderlyCareFaridabad from './pages/public/ElderlyCareFaridabad';
+import ElderlyCareMeerut from './pages/public/ElderlyCareMeerut';
+import ElderlyCareAmbalaCantt from './pages/public/ElderlyCareAmbalaCantt';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -114,6 +119,16 @@ export default function App() {
               <Route path="/best-elderly-healthcare-services-gurgaon" element={<ElderlyCareGurgaon />} />
               <Route path="/elderly-care-pinjore" element={<ElderlyCarePinjore />} />
               <Route path="/best-elderly-healthcare-services-pinjore" element={<ElderlyCarePinjore />} />
+              <Route path="/elderly-care-delhi" element={<ElderlyCareDelhi />} />
+              <Route path="/best-elderly-healthcare-services-delhi" element={<ElderlyCareDelhi />} />
+              <Route path="/elderly-care-noida" element={<ElderlyCareNoida />} />
+              <Route path="/best-elderly-healthcare-services-noida" element={<ElderlyCareNoida />} />
+              <Route path="/elderly-care-faridabad" element={<ElderlyCareFaridabad />} />
+              <Route path="/best-elderly-healthcare-services-faridabad" element={<ElderlyCareFaridabad />} />
+              <Route path="/elderly-care-meerut" element={<ElderlyCareMeerut />} />
+              <Route path="/best-elderly-healthcare-services-meerut" element={<ElderlyCareMeerut />} />
+              <Route path="/elderly-care-ambala-cantt" element={<ElderlyCareAmbalaCantt />} />
+              <Route path="/best-elderly-healthcare-services-ambala-cantt" element={<ElderlyCareAmbalaCantt />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/about" element={<About />} />
               <Route path="/professionals" element={<Professionals />} />

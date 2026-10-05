@@ -175,7 +175,7 @@ export default function AdminLogin() {
                   <Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                   <Input
                     type="text"
-                    placeholder="SilverCare India"
+                    placeholder="Enter Username"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="pl-10 h-11"

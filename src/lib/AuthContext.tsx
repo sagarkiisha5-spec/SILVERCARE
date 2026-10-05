@@ -46,11 +46,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const mockAdminUser = {
         uid: 'admin-local-uid',
         email: 'admin@silvercareindia.com',
-        displayName: 'SilverCare India',
+        displayName: 'SilverCareIndia',
       };
       const mockAdminData: UserData = {
         email: 'admin@silvercareindia.com',
-        name: 'SilverCare India',
+        name: 'SilverCareIndia',
         role: 'admin',
       };
       setUser(mockAdminUser);
@@ -104,11 +104,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser({
         uid: 'admin-local-uid',
         email: 'admin@silvercareindia.com',
-        displayName: 'SilverCare India',
+        displayName: 'SilverCareIndia',
       });
       setUserData({
         email: 'admin@silvercareindia.com',
-        name: 'SilverCare India',
+        name: 'SilverCareIndia',
         role: 'admin',
       });
       setLoading(false);
@@ -128,9 +128,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const cleanPass = pass.trim();
 
     const validUsernames = [
-      'silvercare india',
       'silvercareindia',
-      'silvercare india@silvercareindia.com',
       'silvercareindia@silvercareindia.com',
       'admin@silvercareindia.com'
     ];
@@ -141,11 +139,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser({
         uid: 'admin-local-uid',
         email: 'admin@silvercareindia.com',
-        displayName: 'SilverCare India',
+        displayName: 'SilverCareIndia',
       });
       setUserData({
         email: 'admin@silvercareindia.com',
-        name: 'SilverCare India',
+        name: 'SilverCareIndia',
         role: 'admin',
       });
       setLoading(false);

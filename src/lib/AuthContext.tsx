@@ -38,7 +38,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [localAdminActive, setLocalAdminActive] = useState<boolean>(() => {
-    return localStorage.getItem('silvercare_admin_auth') !== 'false';
+    return localStorage.getItem('silvercare_admin_auth') === 'true';
   });
 
   const fetchAndEnsureUser = async (firebaseUser: FirebaseUser | null) => {
@@ -46,11 +46,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const mockAdminUser = {
         uid: 'admin-local-uid',
         email: 'admin@silvercareindia.com',
-        displayName: 'System Administrator',
+        displayName: 'SilverCare India',
       };
       const mockAdminData: UserData = {
         email: 'admin@silvercareindia.com',
-        name: 'System Administrator',
+        name: 'SilverCare India',
         role: 'admin',
       };
       setUser(mockAdminUser);
@@ -104,11 +104,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser({
         uid: 'admin-local-uid',
         email: 'admin@silvercareindia.com',
-        displayName: 'System Administrator',
+        displayName: 'SilverCare India',
       });
       setUserData({
         email: 'admin@silvercareindia.com',
-        name: 'System Administrator',
+        name: 'SilverCare India',
         role: 'admin',
       });
       setLoading(false);
@@ -127,24 +127,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const cleanId = id.trim().toLowerCase();
     const cleanPass = pass.trim();
 
-    if (
-      cleanId === 'admin' || 
-      cleanId === 'admin@silvercare.com' || 
-      cleanId === 'admin@silvercareindia.com' ||
-      cleanId === 'admin123' ||
-      cleanPass === 'admin123' ||
-      cleanId.length > 0
-    ) {
+    const validUsernames = [
+      'silvercare india',
+      'silvercareindia',
+      'silvercare india@silvercareindia.com',
+      'silvercareindia@silvercareindia.com',
+      'admin@silvercareindia.com'
+    ];
+
+    if (validUsernames.includes(cleanId) && cleanPass === 'SilverCare$123') {
       localStorage.setItem('silvercare_admin_auth', 'true');
       setLocalAdminActive(true);
       setUser({
         uid: 'admin-local-uid',
         email: 'admin@silvercareindia.com',
-        displayName: 'System Administrator',
+        displayName: 'SilverCare India',
       });
       setUserData({
         email: 'admin@silvercareindia.com',
-        name: 'System Administrator',
+        name: 'SilverCare India',
         role: 'admin',
       });
       setLoading(false);
@@ -173,9 +174,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const isAdmin = 
     localAdminActive ||
-    Boolean(user) ||
-    userData?.role === 'super_admin' || 
-    userData?.role === 'admin';
+    (Boolean(user) && (userData?.role === 'super_admin' || userData?.role === 'admin'));
 
   return (
     <AuthContext.Provider value={{ user, userData, loading, isAdmin, loginAsLocalAdmin, logout, refreshUserData }}>

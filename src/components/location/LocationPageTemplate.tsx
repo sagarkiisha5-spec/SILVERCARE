@@ -57,6 +57,7 @@ export interface LocationRankedService {
   fullDesc: string;
   keyFeatures: string[];
   responseTime?: string;
+  startingPrice?: string;
   coveredSectors: string[];
   recommendedFor: string;
   doctorSupervised: boolean;

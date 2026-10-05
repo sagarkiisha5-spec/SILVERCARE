@@ -42,7 +42,7 @@ export default function AdminLogin() {
     const cleanInput = email.trim().toLowerCase();
     const cleanPassword = password.trim();
 
-    // 1. Try local Admin ID & Password first (admin / admin123)
+    // 1. Try local Admin credentials first
     if (loginAsLocalAdmin(cleanInput, cleanPassword)) {
       setLoading(false);
       return;
@@ -50,20 +50,11 @@ export default function AdminLogin() {
 
     // 2. Fallback to Firebase Auth
     try {
-      // If user typed 'admin' without domain, append @silvercareindia.com for Firebase
       const authEmail = cleanInput.includes('@') ? cleanInput : `${cleanInput}@silvercareindia.com`;
       await signInWithEmailAndPassword(auth, authEmail, cleanPassword);
     } catch (err: any) {
       console.error("Login error code:", err?.code, err?.message);
-      if (err?.code === "auth/invalid-credential" || err?.code === "auth/wrong-password") {
-        setError("Incorrect password or Admin ID. Use ID: admin | Password: admin123");
-      } else if (err?.code === "auth/user-not-found") {
-        setError("No account found with this Admin ID.");
-      } else if (err?.code === "auth/too-many-requests") {
-        setError("Too many failed attempts. Please wait a moment.");
-      } else {
-        setError(err?.message || "Failed to sign in. Please check credentials.");
-      }
+      setError("Invalid Admin Username or Password. Access denied.");
     } finally {
       setLoading(false);
     }
@@ -121,7 +112,7 @@ export default function AdminLogin() {
               SILVERCARE Admin
             </CardTitle>
             <CardDescription className="text-slate-500 mt-1">
-              Sign in to manage healthcare requests, website content, and services.
+              Protected Admin Portal. Authenticate to manage care requests & services.
             </CardDescription>
           </div>
         </CardHeader>
@@ -176,29 +167,15 @@ export default function AdminLogin() {
           ) : (
             <form onSubmit={handleLogin} className="space-y-4">
               
-              <div className="space-y-3">
-                <Button
-                  type="button"
-                  onClick={() => loginAsLocalAdmin('admin', 'admin123')}
-                  className="w-full bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] hover:opacity-95 text-white font-black h-12 rounded-xl shadow-md flex items-center justify-center gap-2 text-sm border-0"
-                >
-                  ⚡ Quick 1-Click Admin Access
-                </Button>
-
-                <div className="p-3 bg-purple-50 rounded-xl border border-purple-100 text-xs text-[#7B2CBF] font-bold text-center">
-                  🔑 Admin Credentials: <strong>ID: admin</strong> | <strong>Password: admin123</strong>
-                </div>
-              </div>
-
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
-                  Admin ID or Email
+                  Admin Username
                 </label>
                 <div className="relative">
                   <Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                   <Input
                     type="text"
-                    placeholder="e.g. admin or admin@silvercare.com"
+                    placeholder="SilverCare India"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="pl-10 h-11"

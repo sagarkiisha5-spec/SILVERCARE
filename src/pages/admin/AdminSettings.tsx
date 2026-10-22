@@ -5,8 +5,8 @@ import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 
 export default function AdminSettings() {
-  const [adminId, setAdminId] = useState("admin");
-  const [adminPassword, setAdminPassword] = useState("admin123");
+  const [adminId, setAdminId] = useState("SilverCareIndia");
+  const [adminPassword, setAdminPassword] = useState("SilverCare$123");
   const [emailAlerts, setEmailAlerts] = useState(true);
   const [smsAlerts, setSmsAlerts] = useState(true);
   const [saveMsg, setSaveMsg] = useState("");
@@ -70,39 +70,28 @@ export default function AdminSettings() {
             <span className="flex items-center gap-2">
               <Server className="text-[#7B2CBF]" size={20} /> Firebase Backend & Cloud Sync Configuration
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
-              <span className="h-2 w-2 rounded-full bg-amber-500 animate-pulse"></span>
-              Cloud Database Setup Required
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
+              <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
+              Cloud Database Connected
             </span>
           </CardTitle>
           <CardDescription className="text-xs text-slate-500">
-            Realtime Firestore cloud sync across all laptops and devices.
+            Realtime Firestore cloud sync active across all platforms.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 space-y-2">
-            <p className="font-bold flex items-center gap-1.5">
-              <span>⚠️</span> How to enable multi-computer Cloud Sync:
-            </p>
-            <ol className="list-decimal pl-5 space-y-1 text-slate-700">
-              <li>Open <a href="https://console.firebase.google.com/" target="_blank" rel="noreferrer" className="text-[#7B2CBF] font-bold underline">Firebase Console</a> and create or select your project.</li>
-              <li>Go to <strong>Build &rarr; Firestore Database &rarr; Create database</strong> (Select <em>Native Mode</em> & <em>Start in test mode</em>).</li>
-              <li>Under <strong>Project Settings &rarr; Your apps &rarr; Web app</strong>, copy your Firebase config values and paste them below or in the <code>.env</code> file.</li>
-            </ol>
-          </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             <div className="p-3 rounded-xl bg-white border border-purple-100">
               <p className="text-[10px] uppercase font-bold text-slate-400">Firebase Project ID</p>
-              <p className="text-xs font-semibold text-slate-800 truncate mt-0.5">gen-lang-client-0746984388</p>
+              <p className="text-xs font-semibold text-slate-800 truncate mt-0.5">silvercare-10760</p>
             </div>
             <div className="p-3 rounded-xl bg-white border border-purple-100">
               <p className="text-[10px] uppercase font-bold text-slate-400">Auth Domain</p>
-              <p className="text-xs font-semibold text-slate-800 truncate mt-0.5">gen-lang-client-0746984388.firebaseapp.com</p>
+              <p className="text-xs font-semibold text-slate-800 truncate mt-0.5">silvercare-10760.firebaseapp.com</p>
             </div>
             <div className="p-3 rounded-xl bg-white border border-purple-100">
               <p className="text-[10px] uppercase font-bold text-slate-400">Storage Bucket</p>
-              <p className="text-xs font-semibold text-slate-800 truncate mt-0.5">gen-lang-client-0746984388.firebasestorage.app</p>
+              <p className="text-xs font-semibold text-slate-800 truncate mt-0.5">silvercare-10760.firebasestorage.app</p>
             </div>
           </div>
         </CardContent>

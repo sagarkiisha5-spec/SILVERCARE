@@ -7,18 +7,21 @@ import { Button } from '@/src/components/ui/button';
 import { Card, CardContent } from '@/src/components/ui/card';
 import SEO from '@/src/components/seo/SEO';
 import ServiceSearch from '@/src/components/shared/ServiceSearch';
+import { RECOVERY_PACKAGES, RecoveryPackage, formatINR } from '@/src/data/recoveryPackagesData';
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
   const { services, loading } = useAppContent();
   const [results, setResults] = useState<Service[]>([]);
+  const [matchedPackages, setMatchedPackages] = useState<RecoveryPackage[]>([]);
 
   const searchableServices = services.length > 0 ? services : fallbackServices;
 
   useEffect(() => {
     if (!query) {
       setResults([]);
+      setMatchedPackages([]);
       return;
     }
     const lowerQuery = query.toLowerCase();
@@ -30,6 +33,15 @@ export default function SearchResults() {
       return false;
     });
     setResults(matches);
+
+    const recoveryMatches = RECOVERY_PACKAGES.filter(pkg => {
+      if (pkg.title.toLowerCase().includes(lowerQuery)) return true;
+      if (pkg.subtitle.toLowerCase().includes(lowerQuery)) return true;
+      if (lowerQuery.includes('surgery') || lowerQuery.includes('post') || lowerQuery.includes('recover') || lowerQuery.includes('rehab')) return true;
+      if (pkg.services.some(s => s.name.toLowerCase().includes(lowerQuery) || s.description.toLowerCase().includes(lowerQuery))) return true;
+      return false;
+    });
+    setMatchedPackages(recoveryMatches);
   }, [query, services]);
 
   return (
@@ -67,28 +79,76 @@ export default function SearchResults() {
 
               {loading ? (
                 <div className="py-12 text-center text-slate-500">Searching services...</div>
-              ) : results.length > 0 ? (
-                <div className="space-y-4">
-                  {results.map(srv => (
-                    <Card key={srv.id} className="overflow-hidden border-slate-200 hover:border-[#9D4EDD] hover:shadow-md transition-all bg-white group">
-                      <Link to={`/services/${srv.slug}`} className="block">
-                        <CardContent className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                          <div>
-                            <div className="flex items-center gap-3 mb-2">
-                              <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#6A24A6] transition-colors">{srv.title}</h3>
-                              {srv.category && (
-                                <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">{srv.category}</span>
-                              )}
-                            </div>
-                            <p className="text-slate-600 text-sm">{srv.shortDescription}</p>
-                          </div>
-                          <div className="shrink-0 flex items-center text-[#7B2CBF] font-bold text-sm">
-                            View Details <ArrowRight size={16} className="ml-1.5 transform group-hover:translate-x-1 transition-transform" />
-                          </div>
-                        </CardContent>
-                      </Link>
-                    </Card>
-                  ))}
+              ) : (results.length > 0 || matchedPackages.length > 0) ? (
+                <div className="space-y-6">
+                  {/* Featured Post Surgery Recovery Packages Results */}
+                  {matchedPackages.length > 0 && (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black uppercase tracking-wider text-[#8138B5] bg-purple-50 px-3 py-1 rounded-full border border-purple-200">
+                          Post Surgery Recovery Packages ({matchedPackages.length} matched)
+                        </span>
+                        <Link to="/post-surgery-recovery-package" className="text-xs font-bold text-[#8138B5] hover:underline">
+                          View All 6 Recovery Plans →
+                        </Link>
+                      </div>
+
+                      {matchedPackages.map(pkg => (
+                        <Card key={pkg.id} className="overflow-hidden border-[#8138B5]/30 hover:border-[#8138B5] hover:shadow-lg transition-all bg-white group">
+                          <Link to={`/post-surgery-recovery-package#${pkg.id}`} className="block">
+                            <CardContent className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                              <div>
+                                <div className="flex items-center gap-3 mb-1.5">
+                                  <span className="text-[11px] font-black uppercase text-[#8138B5] bg-[#F7EEFC] px-2 py-0.5 rounded">
+                                    PACKAGE {pkg.package_number}
+                                  </span>
+                                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#8138B5] transition-colors">
+                                    {pkg.title}
+                                  </h3>
+                                </div>
+                                <p className="text-slate-600 text-sm font-medium">{pkg.subtitle}</p>
+                                <div className="text-xs font-semibold text-[#8138B5] mt-2">
+                                  Starting from {formatINR(pkg.plans[0].price_inr)} (7 Days) • Most Popular: {formatINR(pkg.plans[1].price_inr)} (14 Days)
+                                </div>
+                              </div>
+                              <div className="shrink-0 flex items-center text-[#8138B5] font-bold text-sm bg-purple-50 px-3 py-2 rounded-xl">
+                                Explore Plan <ArrowRight size={16} className="ml-1.5 transform group-hover:translate-x-1 transition-transform" />
+                              </div>
+                            </CardContent>
+                          </Link>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* General Services Results */}
+                  {results.length > 0 && (
+                    <div className="space-y-4 pt-2">
+                      {matchedPackages.length > 0 && (
+                        <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">Related Healthcare Services</h3>
+                      )}
+                      {results.map(srv => (
+                        <Card key={srv.id} className="overflow-hidden border-slate-200 hover:border-[#9D4EDD] hover:shadow-md transition-all bg-white group">
+                          <Link to={`/services/${srv.slug}`} className="block">
+                            <CardContent className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                              <div>
+                                <div className="flex items-center gap-3 mb-2">
+                                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#6A24A6] transition-colors">{srv.title}</h3>
+                                  {srv.category && (
+                                    <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">{srv.category}</span>
+                                  )}
+                                </div>
+                                <p className="text-slate-600 text-sm">{srv.shortDescription}</p>
+                              </div>
+                              <div className="shrink-0 flex items-center text-[#7B2CBF] font-bold text-sm">
+                                View Details <ArrowRight size={16} className="ml-1.5 transform group-hover:translate-x-1 transition-transform" />
+                              </div>
+                            </CardContent>
+                          </Link>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ) : query ? (
                 <Card className="bg-white border-slate-200 text-center py-16">

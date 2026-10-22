@@ -34,21 +34,21 @@ export default function Navbar() {
   };
 
   return (
-    <motion.header initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.5 }} className="sticky top-0 z-[100] w-full bg-white shadow-sm transition-all">
+    <motion.header initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.5 }} className="sticky top-0 z-[100] w-full bg-white shadow-sm transition-all overflow-x-clip">
       {/* Top Accent Strip */}
       <div className="h-1.5 w-full bg-gradient-to-r from-[#FF4F81] via-[#EC407A] to-[#E91E63]"></div>
 
       <nav className="relative z-[100] w-full border-b border-slate-100 bg-white">
-        <div className="mx-auto max-w-[1536px] px-3 sm:px-6 lg:px-6 xl:px-8">
-          <div className="flex h-20 lg:h-[86px] xl:h-[90px] items-center justify-between">
+        <div className="mx-auto max-w-[1680px] px-3 sm:px-6 xl:px-8 2xl:px-10">
+          <div className="flex h-18 lg:h-[76px] xl:h-[80px] items-center justify-between">
 
             {/* SilverCare Live Logo Container */}
-            <div className="flex items-center shrink-0 py-1 w-auto max-w-[170px] sm:max-w-[190px] xl:max-w-[220px] 2xl:max-w-[240px] mr-3 xl:mr-6">
-              <Link to="/" className="flex items-center group">
+            <div className="flex items-center shrink-0 py-1 mr-2 sm:mr-4 xl:mr-5 2xl:mr-8">
+              <Link to="/" className="flex items-center group focus:outline-none" aria-label="SilverCare Home">
                 <img
                   src="/silvercare-logo.png"
-                  alt="SilverCare India - Rakhe Aapke Apne Ka Khayal"
-                  className="h-10 sm:h-11 xl:h-12 2xl:h-14 w-auto max-w-[150px] sm:max-w-[180px] xl:max-w-[210px] 2xl:max-w-[230px] object-contain transition-transform group-hover:scale-[1.02]"
+                  alt="SilverCare India - Rakhe Aapke Apno Ka Khayal"
+                  className="h-8.5 sm:h-9.5 xl:h-11 2xl:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]"
                   onError={(e) => {
                     (e.target as any).src = "https://silvercareindia.com/wp-content/uploads/2025/12/logo.png";
                   }}
@@ -56,11 +56,11 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Desktop Navigation Group (Central Column) - 6 items with optimal spacing */}
-            <div className="hidden lg:flex items-center justify-center flex-1 h-full px-1 xl:px-3 min-w-0">
-              <div className="flex items-stretch gap-1 lg:gap-1.5 xl:gap-3.5 2xl:gap-5 h-full">
+            {/* Desktop Navigation Group (Central Column) - 7 items with responsive spacing (>= xl: 1280px) */}
+            <div className="hidden xl:flex items-center justify-center flex-1 h-full px-1 xl:px-2 min-w-0">
+              <div className="flex items-center gap-0.5 xl:gap-1.5 2xl:gap-3.5 h-full">
 
-                {/* Services Mega Menu */}
+                {/* 1. Services Mega Menu */}
                 <div
                   className="relative flex items-center h-full group shrink-0"
                   onMouseEnter={() => setIsServicesOpen(true)}
@@ -68,13 +68,23 @@ export default function Navbar() {
                 >
                   <Link
                     to="/services"
-                    className={`flex items-center gap-1 px-2 lg:px-2 xl:px-3 text-[13px] lg:text-[13.5px] xl:text-[14.5px] 2xl:text-[15px] font-bold whitespace-nowrap transition-colors border-b-2 ${isActive('/services') || location.pathname.startsWith('/services/') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
+                    className={`relative flex items-center h-full px-1.5 xl:px-2 2xl:px-3 text-[12.5px] xl:text-[13px] 2xl:text-[14.5px] font-bold whitespace-nowrap transition-colors group/btn ${
+                      isActive('/services') || location.pathname.startsWith('/services/')
+                        ? 'text-[#E91E63]'
+                        : 'text-slate-700 hover:text-[#E91E63]'
+                    }`}
                   >
-                    Services <ChevronDown size={13} className={`transition-transform duration-200 opacity-70 ${isServicesOpen ? 'rotate-180' : ''}`} />
+                    <span className="relative py-2 flex items-center gap-1">
+                      Services
+                      <ChevronDown size={13} className={`transition-transform duration-200 opacity-70 ${isServicesOpen ? 'rotate-180' : ''}`} />
+                      {(isActive('/services') || location.pathname.startsWith('/services/')) && (
+                        <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-[#E91E63] rounded-full shadow-xs" />
+                      )}
+                    </span>
                   </Link>
 
                   {isServicesOpen && (
-                    <div className="absolute top-[calc(100%-4px)] -left-36 w-[680px] bg-white shadow-2xl rounded-3xl border border-slate-100 p-6 animate-in fade-in slide-in-from-top-2 duration-200 z-50 text-left">
+                    <div className="absolute top-[calc(100%-4px)] -left-20 xl:-left-28 w-[680px] bg-white shadow-2xl rounded-3xl border border-slate-100 p-6 animate-in fade-in slide-in-from-top-2 duration-200 z-50 text-left">
                       <div className="grid grid-cols-12 gap-6">
 
                         {/* Left 8 Cols: Services 2-Column Grid */}
@@ -113,17 +123,11 @@ export default function Navbar() {
                             <Link to="/plans" onClick={() => setIsServicesOpen(false)} className="text-[11px] xl:text-xs font-bold text-slate-700 hover:text-[#E91E63] flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-lg border border-slate-100">
                               <ShieldCheck size={13} className="text-[#E91E63]" /> Freedom Plans
                             </Link>
+                            <Link to="/post-surgery-recovery-package" onClick={() => setIsServicesOpen(false)} className="text-[11px] xl:text-xs font-bold text-[#8138B5] hover:text-[#6A24A6] flex items-center gap-1 bg-[#F7EEFC] px-2 py-1 rounded-lg border border-[#E9D4F7]">
+                              <Activity size={13} className="text-[#8138B5]" /> Post Surgery Recovery
+                            </Link>
                             <Link to="/best-elderly-healthcare-services-chandigarh" onClick={() => setIsServicesOpen(false)} className="text-[11px] xl:text-xs font-bold text-slate-700 hover:text-[#E91E63] flex items-center gap-1 bg-pink-50 px-2 py-1 rounded-lg border border-pink-100">
                               <MapPin size={13} className="text-[#E91E63]" /> Chandigarh
-                            </Link>
-                            <Link to="/best-elderly-healthcare-services-mohali" onClick={() => setIsServicesOpen(false)} className="text-[11px] xl:text-xs font-bold text-slate-700 hover:text-[#E91E63] flex items-center gap-1 bg-pink-50 px-2 py-1 rounded-lg border border-pink-100">
-                              <MapPin size={13} className="text-[#E91E63]" /> Mohali
-                            </Link>
-                            <Link to="/best-elderly-healthcare-services-panchkula" onClick={() => setIsServicesOpen(false)} className="text-[11px] xl:text-xs font-bold text-slate-700 hover:text-[#E91E63] flex items-center gap-1 bg-pink-50 px-2 py-1 rounded-lg border border-pink-100">
-                              <MapPin size={13} className="text-[#E91E63]" /> Panchkula
-                            </Link>
-                            <Link to="/best-elderly-healthcare-services-zirakpur" onClick={() => setIsServicesOpen(false)} className="text-[11px] xl:text-xs font-bold text-slate-700 hover:text-[#E91E63] flex items-center gap-1 bg-pink-50 px-2 py-1 rounded-lg border border-pink-100">
-                              <MapPin size={13} className="text-[#E91E63]" /> Zirakpur (HQ)
                             </Link>
                             <Link to="/nri-care" onClick={() => setIsServicesOpen(false)} className="text-[11px] xl:text-xs font-bold text-slate-700 hover:text-sky-600 flex items-center gap-1 bg-sky-50 px-2 py-1 rounded-lg border border-sky-100">
                               <Globe size={13} className="text-sky-600" /> NRI Care
@@ -158,33 +162,78 @@ export default function Navbar() {
                   )}
                 </div>
 
-                {/* Freedom Plans */}
+                {/* 2. Freedom Plans */}
                 <Link
                   to="/plans"
-                  className={`flex items-center px-2 xl:px-2.5 2xl:px-3 text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap shrink-0 transition-colors border-b-2 ${isActive('/plans') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
+                  className={`relative flex items-center h-full px-1.5 xl:px-2 2xl:px-3 text-[12.5px] xl:text-[13px] 2xl:text-[14.5px] font-bold whitespace-nowrap shrink-0 transition-colors group ${
+                    isActive('/plans') ? 'text-[#E91E63]' : 'text-slate-700 hover:text-[#E91E63]'
+                  }`}
                 >
-                  Freedom Plans
+                  <span className="relative py-2 flex items-center">
+                    Freedom Plans
+                    {isActive('/plans') ? (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-[#E91E63] rounded-full shadow-xs" />
+                    ) : (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#E91E63] rounded-full opacity-0 group-hover:opacity-40 transition-opacity" />
+                    )}
+                  </span>
                 </Link>
 
-                {/* NRI Care Plan */}
+                {/* 3. Post Surgery Recovery Package */}
+                <Link
+                  to="/post-surgery-recovery-package"
+                  className={`relative flex items-center h-full px-1.5 xl:px-2 2xl:px-3 text-[12.5px] xl:text-[13px] 2xl:text-[14.5px] font-bold whitespace-nowrap shrink-0 transition-colors group ${
+                    isActive('/post-surgery-recovery-package') ? 'text-[#8138B5]' : 'text-slate-700 hover:text-[#8138B5]'
+                  }`}
+                >
+                  <span className="relative py-2 flex items-center">
+                    Post Surgery Recovery
+                    <span className="hidden 2xl:inline">&nbsp;Package</span>
+                    {isActive('/post-surgery-recovery-package') ? (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-[#8138B5] rounded-full shadow-xs" />
+                    ) : (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#8138B5] rounded-full opacity-0 group-hover:opacity-40 transition-opacity" />
+                    )}
+                  </span>
+                </Link>
+
+                {/* 4. NRI Care Plan */}
                 <Link
                   to="/nri-care"
-                  className={`flex items-center gap-1 xl:gap-1.5 px-2 xl:px-2.5 2xl:px-3 text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap shrink-0 transition-colors border-b-2 ${isActive('/nri-care') ? 'border-[#C9A45C] text-[#C9A45C]' : 'border-transparent text-slate-700 hover:text-[#C9A45C]'}`}
+                  className={`relative flex items-center h-full px-1.5 xl:px-2 2xl:px-3 text-[12.5px] xl:text-[13px] 2xl:text-[14.5px] font-bold whitespace-nowrap shrink-0 transition-colors group ${
+                    isActive('/nri-care') ? 'text-[#C9A45C]' : 'text-slate-700 hover:text-[#C9A45C]'
+                  }`}
                 >
-                  <Globe size={13} className={isActive('/nri-care') ? "text-[#C9A45C] shrink-0" : "text-slate-500 shrink-0"} />
-                  NRI Care Plan
+                  <span className="relative py-2 flex items-center gap-1 xl:gap-1.5">
+                    <Globe size={13} className={isActive('/nri-care') ? "text-[#C9A45C] shrink-0" : "text-slate-400 group-hover:text-[#C9A45C] shrink-0 transition-colors"} />
+                    NRI Care Plan
+                    {isActive('/nri-care') ? (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-[#C9A45C] rounded-full shadow-xs" />
+                    ) : (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#C9A45C] rounded-full opacity-0 group-hover:opacity-40 transition-opacity" />
+                    )}
+                  </span>
                 </Link>
 
-                {/* Partner With Us / Franchise */}
+                {/* 5. Partner With Us */}
                 <Link
                   to="/partner-with-us"
-                  className={`flex items-center gap-1 xl:gap-1.5 px-2 xl:px-2.5 2xl:px-3 text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap shrink-0 transition-colors border-b-2 ${isActive('/partner-with-us') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-800 hover:text-[#E91E63]'}`}
+                  className={`relative flex items-center h-full px-1.5 xl:px-2 2xl:px-3 text-[12.5px] xl:text-[13px] 2xl:text-[14.5px] font-bold whitespace-nowrap shrink-0 transition-colors group ${
+                    isActive('/partner-with-us') ? 'text-[#E91E63]' : 'text-slate-700 hover:text-[#E91E63]'
+                  }`}
                 >
-                  <Handshake size={14} className="text-[#E91E63] shrink-0" />
-                  Partner With Us
+                  <span className="relative py-2 flex items-center gap-1 xl:gap-1.5">
+                    <Handshake size={14} className={isActive('/partner-with-us') ? "text-[#E91E63] shrink-0" : "text-[#E91E63] opacity-80 group-hover:opacity-100 shrink-0 transition-opacity"} />
+                    Partner With Us
+                    {isActive('/partner-with-us') ? (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-[#E91E63] rounded-full shadow-xs" />
+                    ) : (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#E91E63] rounded-full opacity-0 group-hover:opacity-40 transition-opacity" />
+                    )}
+                  </span>
                 </Link>
 
-                {/* About Us Dropdown */}
+                {/* 6. About Us Dropdown */}
                 <div
                   className="relative flex items-center h-full group shrink-0"
                   onMouseEnter={() => setIsAboutOpen(true)}
@@ -192,9 +241,19 @@ export default function Navbar() {
                 >
                   <Link
                     to="/about"
-                    className={`flex items-center gap-1 px-2 xl:px-2.5 2xl:px-3 text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap transition-colors border-b-2 ${isActive('/about') || isActive('/professionals') || location.pathname.startsWith('/blog') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
+                    className={`relative flex items-center h-full px-1.5 xl:px-2 2xl:px-3 text-[12.5px] xl:text-[13px] 2xl:text-[14.5px] font-bold whitespace-nowrap transition-colors group/btn ${
+                      isActive('/about') || isActive('/professionals') || location.pathname.startsWith('/blog')
+                        ? 'text-[#E91E63]'
+                        : 'text-slate-700 hover:text-[#E91E63]'
+                    }`}
                   >
-                    About Us <ChevronDown size={13} className={`transition-transform duration-200 opacity-70 ${isAboutOpen ? 'rotate-180' : ''}`} />
+                    <span className="relative py-2 flex items-center gap-1">
+                      About Us
+                      <ChevronDown size={13} className={`transition-transform duration-200 opacity-70 ${isAboutOpen ? 'rotate-180' : ''}`} />
+                      {(isActive('/about') || isActive('/professionals') || location.pathname.startsWith('/blog')) && (
+                        <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-[#E91E63] rounded-full shadow-xs" />
+                      )}
+                    </span>
                   </Link>
 
                   {isAboutOpen && (
@@ -219,31 +278,40 @@ export default function Navbar() {
                   )}
                 </div>
 
-                {/* Contact Us */}
+                {/* 7. Contact Us */}
                 <Link
                   to="/contact"
-                  className={`flex items-center px-2 xl:px-2.5 2xl:px-3 text-[13px] xl:text-[14px] 2xl:text-[15px] font-bold whitespace-nowrap shrink-0 transition-colors border-b-2 ${isActive('/contact') && !location.hash.includes('join') ? 'border-[#E91E63] text-[#E91E63]' : 'border-transparent text-slate-700 hover:text-[#E91E63]'}`}
+                  className={`relative flex items-center h-full px-1.5 xl:px-2 2xl:px-3 text-[12.5px] xl:text-[13px] 2xl:text-[14.5px] font-bold whitespace-nowrap shrink-0 transition-colors group ${
+                    isActive('/contact') && !location.hash.includes('join') ? 'text-[#E91E63]' : 'text-slate-700 hover:text-[#E91E63]'
+                  }`}
                 >
-                  Contact us
+                  <span className="relative py-2 flex items-center">
+                    Contact us
+                    {isActive('/contact') && !location.hash.includes('join') ? (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-[#E91E63] rounded-full shadow-xs" />
+                    ) : (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#E91E63] rounded-full opacity-0 group-hover:opacity-40 transition-opacity" />
+                    )}
+                  </span>
                 </Link>
 
               </div>
             </div>
 
-            {/* Right Side Pill CTA Button Container on Desktop (>= lg) */}
-            <div className="hidden lg:flex items-center justify-end shrink-0 ml-3 lg:ml-4 xl:ml-6">
-              <Link to="/book">
-                <Button className="bg-[linear-gradient(90deg,#FF3E72,#FF5C8D)] hover:opacity-95 text-white font-extrabold h-9 lg:h-10 px-3.5 lg:px-4 rounded-full text-xs xl:text-sm shadow-md shadow-[#FF3E72]/20 border-0 flex items-center gap-1.5 lg:gap-2 transition-all hover:scale-105 active:scale-95 whitespace-nowrap shrink-0">
+            {/* Right Side Pill CTA Button Container on Desktop (>= xl: 1280px) */}
+            <div className="hidden xl:flex items-center justify-end shrink-0 ml-2 xl:ml-4 2xl:ml-6">
+              <Link to="/book" className="focus:outline-none">
+                <Button className="bg-[linear-gradient(90deg,#FF3E72,#FF5C8D)] hover:opacity-95 text-white font-extrabold h-9.5 xl:h-10 px-3.5 xl:px-4 2xl:px-5 rounded-full text-xs xl:text-sm shadow-md shadow-[#FF3E72]/20 border-0 flex items-center gap-1.5 xl:gap-2 transition-all hover:scale-105 active:scale-95 whitespace-nowrap shrink-0 cursor-pointer">
                   <span>Book Appointment</span>
                   <ArrowRightCircle size={15} className="text-white shrink-0" />
                 </Button>
               </Link>
             </div>
 
-            {/* Tablet & Mobile Right Controls (< lg) */}
-            <div className="flex lg:hidden items-center gap-2 sm:gap-3">
-              <Link to="/book" className="hidden sm:inline-flex">
-                <Button className="bg-[linear-gradient(90deg,#FF3E72,#FF5C8D)] hover:opacity-95 text-white font-bold h-9 px-3.5 rounded-full text-xs shadow-sm border-0 flex items-center gap-1.5 whitespace-nowrap">
+            {/* Tablet & Mobile Right Controls (< xl: 1280px) */}
+            <div className="flex xl:hidden items-center gap-2 sm:gap-3 shrink-0">
+              <Link to="/book" className="hidden sm:inline-flex focus:outline-none">
+                <Button className="bg-[linear-gradient(90deg,#FF3E72,#FF5C8D)] hover:opacity-95 text-white font-bold h-9 px-3.5 rounded-full text-xs shadow-sm border-0 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
                   <span>Book Appointment</span>
                   <ArrowRightCircle size={13} className="text-white shrink-0" />
                 </Button>
@@ -251,26 +319,29 @@ export default function Navbar() {
 
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="inline-flex items-center justify-center rounded-xl p-2 text-slate-700 hover:bg-pink-50 hover:text-[#E91E63] transition-colors focus:outline-none"
+                className="inline-flex items-center justify-center rounded-xl p-2 text-slate-700 hover:bg-pink-50 hover:text-[#E91E63] transition-colors focus:outline-none border border-slate-200 cursor-pointer"
                 aria-label="Toggle Navigation Menu"
               >
-                {isOpen ? <X className="block h-7 w-7" /> : <Menu className="block h-7 w-7" />}
+                {isOpen ? <X className="block h-6 w-6" /> : <Menu className="block h-6 w-6" />}
               </button>
             </div>
 
           </div>
         </div>
 
-        {/* Mobile & Tablet Navigation Drawer (< lg) */}
+        {/* Mobile & Tablet Navigation Drawer (< xl: 1280px) */}
         {isOpen && (
-          <div className="lg:hidden border-t border-slate-100 bg-white absolute w-full shadow-xl z-50">
-            <div className="space-y-1 px-4 pb-6 pt-4 max-h-[80vh] overflow-y-auto">
-              <Link to="/services" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold ${isActive('/services') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Services</Link>
-              <Link to="/plans" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold ${isActive('/plans') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Freedom Plans</Link>
-              <Link to="/nri-care" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold flex items-center gap-2 ${isActive('/nri-care') ? 'bg-[#C9A45C]/10 text-[#C9A45C]' : 'text-slate-700 hover:bg-slate-50'}`}>
+          <div className="xl:hidden border-t border-slate-100 bg-white absolute w-full shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="space-y-1.5 px-4 pb-6 pt-4 max-h-[82vh] overflow-y-auto">
+              <Link to="/services" onClick={() => setIsOpen(false)} className={`block rounded-xl px-4 py-3 text-base font-bold ${isActive('/services') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Services</Link>
+              <Link to="/plans" onClick={() => setIsOpen(false)} className={`block rounded-xl px-4 py-3 text-base font-bold ${isActive('/plans') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Freedom Plans</Link>
+              <Link to="/post-surgery-recovery-package" onClick={() => setIsOpen(false)} className={`block rounded-xl px-4 py-3 text-base font-bold flex items-center gap-2.5 ${isActive('/post-surgery-recovery-package') ? 'bg-[#F7EEFC] text-[#8138B5]' : 'text-slate-700 hover:bg-slate-50'}`}>
+                <Activity size={18} className="text-[#8138B5]" /> Post Surgery Recovery Package
+              </Link>
+              <Link to="/nri-care" onClick={() => setIsOpen(false)} className={`block rounded-xl px-4 py-3 text-base font-bold flex items-center gap-2.5 ${isActive('/nri-care') ? 'bg-[#C9A45C]/10 text-[#C9A45C]' : 'text-slate-700 hover:bg-slate-50'}`}>
                 <Globe size={18} className={isActive('/nri-care') ? "text-[#C9A45C]" : "text-slate-500"} /> NRI Care Plan
               </Link>
-              <Link to="/partner-with-us" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold text-[#E91E63] hover:bg-pink-50 flex items-center gap-2`}>
+              <Link to="/partner-with-us" onClick={() => setIsOpen(false)} className={`block rounded-xl px-4 py-3 text-base font-bold text-[#E91E63] hover:bg-pink-50 flex items-center gap-2.5`}>
                 <Handshake size={18} className="text-[#E91E63]" /> Partner With Us (Franchise)
               </Link>
 
@@ -291,10 +362,10 @@ export default function Navbar() {
                 </div>
               </div>
 
-              <Link to="/contact" onClick={() => setIsOpen(false)} className={`block rounded-lg px-4 py-3 text-base font-bold ${isActive('/contact') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Contact us</Link>
+              <Link to="/contact" onClick={() => setIsOpen(false)} className={`block rounded-xl px-4 py-3 text-base font-bold ${isActive('/contact') ? 'bg-pink-50 text-[#E91E63]' : 'text-slate-700 hover:bg-slate-50'}`}>Contact us</Link>
               <div className="mt-6 pt-6 border-t border-slate-100">
                 <Link to="/book" onClick={() => setIsOpen(false)}>
-                  <Button className="w-full bg-[linear-gradient(90deg,#FF3E72,#FF5C8D)] text-white font-bold text-base h-12 rounded-full shadow-md border-0 flex items-center justify-center gap-2">
+                  <Button className="w-full bg-[linear-gradient(90deg,#FF3E72,#FF5C8D)] text-white font-bold text-base h-12 rounded-full shadow-md border-0 flex items-center justify-center gap-2 cursor-pointer">
                     <span>Book Appointment</span>
                     <ArrowRightCircle size={18} />
                   </Button>
@@ -309,9 +380,9 @@ export default function Navbar() {
       </nav>
 
       {/* Sub-header Suggestive Search Bar Strip - Completely Responsive Across All Screen Widths */}
-      <div className="relative z-10 block w-full bg-slate-50 border-b border-slate-200 py-1.5 sm:py-2 shadow-2xs">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="w-full max-w-2xl lg:max-w-3xl mx-auto">
+      <div className="relative z-10 block w-full bg-slate-50/90 backdrop-blur-xs border-b border-slate-200/80 py-2 shadow-2xs">
+        <div className="mx-auto max-w-[1680px] px-3 sm:px-6 xl:px-8 2xl:px-10">
+          <div className="w-full max-w-2xl xl:max-w-3xl 2xl:max-w-4xl mx-auto">
             <ServiceSearch className="w-full" placeholder="Search for healthcare services (e.g. Home Nursing, Physiotherapy...)" />
           </div>
         </div>

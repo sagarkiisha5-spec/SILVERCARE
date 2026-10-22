@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronDown, ChevronUp, Check, Shield, Stethoscope, Baby, Handshake, HelpCircle } from 'lucide-react';
+import { ChevronDown, ChevronUp, Check, Shield, Stethoscope, Baby, Handshake, HelpCircle, Activity } from 'lucide-react';
 
 export interface CareCategory {
   id: string;
@@ -12,6 +12,22 @@ export interface CareCategory {
 }
 
 const CARE_CATEGORIES: CareCategory[] = [
+  {
+    id: "post_surgery",
+    title: "Post Surgery Recovery Packages",
+    badge: "6 Packages",
+    icon: <Activity size={18} className="text-[#8138B5]" />,
+    color: "bg-purple-50 text-purple-700 border-purple-200",
+    activeColor: "border-purple-300 bg-purple-50/50",
+    items: [
+      { value: "Joint Replacement Recovery", label: "Joint Replacement Recovery", tag: "Pkg #1" },
+      { value: "Cardiac Surgery Recovery", label: "Cardiac Surgery Recovery", tag: "Pkg #2" },
+      { value: "Cancer / Chemotherapy Recovery", label: "Cancer / Chemotherapy Recovery", tag: "Pkg #3" },
+      { value: "General Surgery Recovery", label: "General Surgery Recovery", tag: "Pkg #4" },
+      { value: "CKD / Dialysis Recovery", label: "CKD / Dialysis Recovery", tag: "Pkg #5" },
+      { value: "Dementia Management", label: "Dementia Management", tag: "Pkg #6" },
+    ]
+  },
   {
     id: "freedom",
     title: "Freedom Care Plans",

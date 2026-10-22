@@ -262,7 +262,7 @@ export default function Home() {
                 <div className="relative w-full max-w-[340px] sm:max-w-[480px] lg:max-w-[640px]">
                   <img 
                     src={siteSettings.heroImageUrl && siteSettings.heroImageUrl.startsWith('http') ? siteSettings.heroImageUrl : heroDoctorImg}
-                    alt={siteSettings.doctorName || "Rakesh Bedi - SilverCare Brand Ambassador"} 
+                    alt="Rakesh Bedi - SilverCare Brand Ambassador" 
                     className="w-full h-auto object-contain object-bottom max-h-[340px] sm:max-h-[480px] lg:max-h-[640px] transition-transform duration-500 hover:scale-[1.01]"
                     loading="eager"
                     referrerPolicy="no-referrer"
@@ -446,9 +446,9 @@ export default function Home() {
                   <div className="flex items-center gap-4 group shrink-0">
                     <div className="relative shrink-0">
                       <img 
-                        src={siteSettings.ceoPhotoUrl && siteSettings.ceoPhotoUrl.startsWith('http') ? siteSettings.ceoPhotoUrl : "/navin-chauhan.png"} 
+                        src="/navin-chauhan.png" 
                         onError={(e) => {
-                          (e.currentTarget as HTMLImageElement).src = "/hero-doctor.png";
+                          (e.currentTarget as HTMLImageElement).src = "/navin-chauhan.jpg";
                         }}
                         alt="Navin Chauhan, Founder and CEO of SilverCare" 
                         className="h-[76px] w-[76px] rounded-full border-2 border-pink-200 shadow-md object-cover object-center transition-transform duration-300 group-hover:scale-105"

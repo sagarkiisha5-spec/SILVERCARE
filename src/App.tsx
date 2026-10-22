@@ -20,6 +20,7 @@ import Contact from './pages/public/Contact';
 import Blog from './pages/public/Blog';
 import BlogPost from './pages/public/BlogPost';
 import Plans from './pages/public/Plans';
+import PostSurgeryRecovery from './pages/public/PostSurgeryRecovery';
 import NRICare from './pages/public/NRICare';
 import PartnerWithUs from './pages/public/PartnerWithUs';
 import ElderlyCareChandigarh from './pages/public/ElderlyCareChandigarh';
@@ -102,6 +103,7 @@ export default function App() {
               <Route path="/services" element={<Services />} />
               <Route path="/services/:slug" element={<ServiceDetail />} />
               <Route path="/plans" element={<Plans />} />
+              <Route path="/post-surgery-recovery-package" element={<PostSurgeryRecovery />} />
               <Route path="/nri-care" element={<NRICare />} />
               <Route path="/partner-with-us" element={<PartnerWithUs />} />
               <Route path="/elderly-care-chandigarh" element={<ElderlyCareChandigarh />} />

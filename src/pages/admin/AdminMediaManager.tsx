@@ -16,7 +16,7 @@ export default function AdminMediaManager() {
     heroDoctorImageUrl: "/hero-doctor.png",
     ceoName: "Navin Chauhan",
     ceoTitle: "CEO & Founder, SilverCare India",
-    ceoPhotoUrl: "https://silvercareindia.com/wp-content/uploads/2025/12/Navin.png",
+    ceoPhotoUrl: "/navin-chauhan.png",
     helplinePhone: "+91 800-14-800-75",
     whatsappNumber: "+918001480075",
     supportEmail: "care@silvercareindia.com",
@@ -27,7 +27,7 @@ export default function AdminMediaManager() {
   const [saveMessage, setSaveMessage] = useState("");
 
   useEffect(() => {
-    getDoc(doc(db, "settings", "site_settings")).then((snap) => {
+    getDoc(doc(db, "siteSettings", "homepage")).then((snap) => {
       if (snap.exists()) {
         setSettings((prev) => ({ ...prev, ...(snap.data() as any) }));
       }
@@ -40,10 +40,10 @@ export default function AdminMediaManager() {
     setSaveMessage("");
 
     try {
-      await setDoc(doc(db, "settings", "site_settings"), {
+      await setDoc(doc(db, "siteSettings", "homepage"), {
         ...settings,
         updatedAt: Date.now(),
-      });
+      }, { merge: true });
       setSaveMessage("Website Media, Logo & Branding Settings saved successfully!");
     } catch (err) {
       console.warn("Saved settings to local memory fallback:", err);

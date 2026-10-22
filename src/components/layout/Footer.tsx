@@ -43,10 +43,13 @@ export default function Footer() {
               <li><Link to="/" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Home</Link></li>
               <li><Link to="/about" className="text-slate-400 hover:text-[#FF4F81] transition-colors">About Us</Link></li>
               <li><Link to="/plans" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Freedom Care Plans</Link></li>
+              <li><Link to="/post-surgery-recovery-package" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Post Surgery Recovery Package</Link></li>
               <li><Link to="/best-elderly-healthcare-services-chandigarh" className="text-pink-300 font-bold hover:text-[#FF4F81] transition-colors flex items-center gap-1">📍 Chandigarh Eldercare</Link></li>
               <li><Link to="/best-elderly-healthcare-services-mohali" className="text-pink-300 font-bold hover:text-[#FF4F81] transition-colors flex items-center gap-1">📍 Mohali Eldercare</Link></li>
               <li><Link to="/best-elderly-healthcare-services-panchkula" className="text-pink-300 font-bold hover:text-[#FF4F81] transition-colors flex items-center gap-1">📍 Panchkula Eldercare</Link></li>
               <li><Link to="/best-elderly-healthcare-services-zirakpur" className="text-pink-300 font-bold hover:text-[#FF4F81] transition-colors flex items-center gap-1">📍 Zirakpur Eldercare (HQ)</Link></li>
+              <li><Link to="/elderly-care-gurgaon" className="text-pink-300 font-bold hover:text-[#FF4F81] transition-colors flex items-center gap-1">📍 Gurgaon Eldercare</Link></li>
+              <li><Link to="/elderly-care-delhi" className="text-pink-300 font-bold hover:text-[#FF4F81] transition-colors flex items-center gap-1">📍 Delhi NCR Eldercare</Link></li>
               <li><Link to="/partner-with-us" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Franchise (Partner With Us)</Link></li>
               <li><Link to="/professionals" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Our Team</Link></li>
               <li><Link to="/contact" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Contact Us</Link></li>
@@ -62,9 +65,9 @@ export default function Footer() {
               <li><Link to="/services/doctor-visit-at-home" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Doctor Visit at Home</Link></li>
               <li><Link to="/services/physiotherapy-at-home" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Physiotherapy at Home</Link></li>
               <li><Link to="/services/pathology-diagnostics" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Pathology & Diagnostics</Link></li>
-              <li><Link to="/services/telemedicine" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Telemedicine</Link></li>
-              <li><Link to="/services/medical-equipment" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Medical Equipment</Link></li>
-              <li><Link to="/services/icu-setup" className="text-slate-400 hover:text-[#FF4F81] transition-colors">ICU Set-up</Link></li>
+              <li><Link to="/services/telemedicine-consultation" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Telemedicine Consultation</Link></li>
+              <li><Link to="/services/medical-equipment-rental" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Medical Equipment Rental</Link></li>
+              <li><Link to="/services/icu-setup-at-home" className="text-slate-400 hover:text-[#FF4F81] transition-colors">ICU Set-up at Home</Link></li>
               <li><Link to="/services/mother-baby-care" className="text-slate-400 hover:text-[#FF4F81] transition-colors">Mother & Baby Care</Link></li>
             </ul>
           </div>

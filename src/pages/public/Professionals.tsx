@@ -23,15 +23,12 @@ export default function Professionals() {
   const { professionals, loading } = useAppContent();
   const [activeFilter, setActiveFilter] = useState<string>("All");
 
-  const navinPro = professionals.find(p => p.id === 'p1' || p.name.toLowerCase().includes('navin'));
-  const komalPro = professionals.find(p => p.id === 'p3' || p.name.toLowerCase().includes('komal'));
-
   const leadershipTeam = [
     {
       id: "navin-chauhan",
-      name: navinPro?.name || "Navin Chauhan",
-      designation: navinPro?.designation || "Founder & CEO",
-      image: navinPro?.imageUrl || "/navin-chauhan.png",
+      name: "Navin Chauhan",
+      designation: "Founder & CEO",
+      image: "/navin-chauhan.png",
       quote: "Eldercare is not only about medical support. It is about presence, patience, and respect. Every senior deserves to feel safe, heard, and valued in their own home.",
       bio: [
         "Navin Chauhan is the founder of SilverCare India. He brings over 15 years of experience in healthcare administration and operations. His career includes leadership roles at Healthians and Atulaya Healthcare, where he worked closely with clinical teams, caregivers, and families.",
@@ -41,19 +38,20 @@ export default function Professionals() {
     },
     {
       id: "komal-gupta",
-      name: komalPro?.name || "Komal Gupta",
-      designation: komalPro?.designation || "Co-founder & Chief Product Officer",
-      image: komalPro?.imageUrl || "/team/komal-gupta.jpg",
+      name: "Komal Gupta",
+      designation: "Co-founder & Chief Product Officer",
+      image: "/team/komal-gupta.jpg",
       bio: [
-        komalPro?.qualification
-          ? `Komal Gupta (${komalPro.qualification}). She leads product strategy, caregiver training frameworks, and quality oversight systems at SilverCare.`
-          : "Komal Gupta holds a Master’s degree from NIT Karnataka and brings 13+ years of experience in biopharma and eldercare. She leads product strategy, caregiver training frameworks, and quality oversight systems at SilverCare."
+        "Komal Gupta holds a Master’s degree from NIT Karnataka and brings 13+ years of experience in biopharma and eldercare. She leads product strategy, caregiver training frameworks, and quality oversight systems at SilverCare India."
       ]
     }
   ];
 
   const clinicalStaff = professionals.filter(
-    p => !['Founder & CEO', 'Co-founder & Chief Operating Officer', 'Co-founder & Chief Product Officer'].includes(p.designation)
+    p => p.id !== 'p1' && p.id !== 'p3' && 
+         !p.name.toLowerCase().includes('navin') && 
+         !p.name.toLowerCase().includes('komal') && 
+         !['Founder & CEO', 'Co-founder & Chief Operating Officer', 'Co-founder & Chief Product Officer'].includes(p.designation)
   );
 
   const filteredStaff = clinicalStaff.filter(pro => {

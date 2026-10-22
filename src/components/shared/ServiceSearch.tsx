@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useAppContent, Service, fallbackServices } from '@/src/hooks/useAppContent';
 
 const POPULAR_SEARCHES = [
+  { term: "Post Surgery Recovery Package", slug: "/post-surgery-recovery-package", category: "Recovery Care" },
   { term: "24/7 Nursing & Attendant Care", slug: "nursing-attendant-care", category: "Medical Care" },
   { term: "Doctor Visit at Home", slug: "doctor-visit-at-home", category: "Physician" },
   { term: "Physiotherapy at Home", slug: "physiotherapy-at-home", category: "Rehab" },
@@ -78,7 +79,11 @@ export default function ServiceSearch({
   const handleSelect = (slug: string) => {
     setIsOpen(false);
     setQuery('');
-    navigate(`/services/${slug}`);
+    if (slug.startsWith('/')) {
+      navigate(slug);
+    } else {
+      navigate(`/services/${slug}`);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

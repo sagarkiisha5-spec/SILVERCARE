@@ -67,42 +67,42 @@ const initialProfessionals: Professional[] = [
   },
   {
     id: "p5",
-    name: "Ms. Jasbir Kour",
-    designation: "Nursing Trainer",
-    qualification: "Experienced Nursing Trainer & Clinical Care Supervisor",
-    experience: "10+ Years",
-    imageUrl: "/team/nurse-jasbir.jpg",
-    bio: "Leads clinical nursing supervision, ICU-level attendant training, and patient safety monitoring across homes.",
+    name: "Sakshi Makkar",
+    designation: "Manager Operations",
+    qualification: "Healthcare Operations & Senior Patient Care Coordination",
+    experience: "7+ Years",
+    imageUrl: "/team/sakshi-makkar.jpg",
+    bio: "Oversees seamless healthcare operations, caregiver dispatch, and patient satisfaction across North India.",
     isActive: true
   },
   {
     id: "p6",
-    name: "Ms. Tejinder Sharma",
-    designation: "Nursing Supervisor",
-    qualification: "Expert in Patient Care Management & Bedside Excellence",
-    experience: "12+ Years",
-    imageUrl: "/team/nurse-tejinder.jpg",
-    bio: "Oversees round-the-clock eldercare routines, bedside palliative support, and emergency medical response protocols.",
+    name: "Dr Ramandeep Reetwal",
+    designation: "Clinical Care Supervisor",
+    qualification: "MBBS - AIIMS Bathinda Clinical Experience",
+    experience: "5+ Years",
+    imageUrl: "/team/dr-ramandeep.jpg",
+    bio: "Dedicated to clinical supervision, evidence-based eldercare, and home healthcare quality management.",
     isActive: true
   },
   {
     id: "p7",
-    name: "Dr. Pashdeep Sharma",
+    name: "Dr. Pardeep Sharma",
     designation: "General Physician",
     qualification: "MBBS Qualified General Physician & Home Health Specialist",
     experience: "6+ Years",
-    imageUrl: "/team/dr-pashdeep.jpg",
-    bio: "Focused on comprehensive doorstep clinical diagnostics, post-hospitalization recovery, and personalized senior treatment plans.",
+    imageUrl: "/team/dr-pardeep.jpg",
+    bio: "Specialises in general medicine and home-based healthcare, helping patients receive timely, personalised medical support.",
     isActive: true
   },
   {
-    id: "p8",
-    name: "Dr. Ramandeep Reetwal",
-    designation: "General Physician",
-    qualification: "MBBS - AIIMS Bathinda Clinical Experience",
-    experience: "5+ Years",
-    imageUrl: "/team/dr-ramandeep.jpg",
-    bio: "AIIMS-trained physician committed to evidence-based eldercare, acute symptom management, and continuity of care.",
+    id: "p_preeti",
+    name: "Preeti Kaur",
+    designation: "Nursing Supervisor",
+    qualification: "Experienced Nursing Trainer & Senior Care Specialist",
+    experience: "8+ Years",
+    imageUrl: "/team/preeti-kaur.jpg",
+    bio: "Oversees daily attendant protocols, vitals monitoring, and patient safety for seniors at home.",
     isActive: true
   }
 ];
@@ -257,6 +257,11 @@ export default function AdminProfessionals() {
   };
 
   const handleDeleteClick = (id: string, name: string) => {
+    if (id === 'p1' || id === 'p3' || name.toLowerCase().includes('navin chauhan') || name.toLowerCase().includes('komal gupta')) {
+      setSaveMessage("Executive leadership profiles (Founder & Co-founder) are protected core assets and cannot be removed.");
+      setTimeout(() => setSaveMessage(""), 5000);
+      return;
+    }
     setDeleteTarget({ id, name });
   };
 

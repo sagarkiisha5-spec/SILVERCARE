@@ -4,7 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { submitServiceRequest } from "@/src/lib/requestManager";
 import { motion, AnimatePresence } from "motion/react";
-import { X, CheckCircle2, AlertCircle, ShieldCheck, ChevronDown, PhoneCall } from "lucide-react";
+import { X, CheckCircle2, AlertCircle, ShieldCheck, ChevronDown, PhoneCall, Activity } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { CareTypeSelect } from "@/src/components/shared/CareTypeSelect";
@@ -22,6 +22,7 @@ type SimpleBookingFormValues = z.infer<typeof simpleBookingSchema>;
 
 const CARE_TYPES = [
   "Freedom Care Plans",
+  "Post Surgery Recovery Package",
   "Nursing & Attendant Care",
   "Doctor Visit at Home",
   "Physiotherapy at Home",
@@ -42,6 +43,15 @@ const FREEDOM_PLANS = [
   "Mobility & Bone Health Package (Plan #6)",
 ];
 
+export const POST_SURGERY_PLANS = [
+  "Joint Replacement Recovery (Package #1)",
+  "Cardiac Surgery Recovery (Package #2)",
+  "Cancer / Chemotherapy Recovery (Package #3)",
+  "General Surgery Recovery (Package #4)",
+  "CKD / Dialysis Recovery (Package #5)",
+  "Dementia Management (Package #6)",
+];
+
 interface AutoBookingModalProps {
   forceOpen?: boolean;
   initialService?: string;
@@ -55,6 +65,7 @@ export default function AutoBookingModal({ forceOpen = false, initialService, on
   const [submittedPhone, setSubmittedPhone] = useState("");
   const [error, setError] = useState("");
   const [freedomSubPlan, setFreedomSubPlan] = useState("Healthy Age Package (Plan #1)");
+  const [postSurgerySubPlan, setPostSurgerySubPlan] = useState("Joint Replacement Recovery (Package #1)");
 
   const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm<SimpleBookingFormValues>({
     resolver: zodResolver(simpleBookingSchema),
@@ -69,11 +80,37 @@ export default function AutoBookingModal({ forceOpen = false, initialService, on
 
   const selectedCareType = watch("careType");
   const isFreedomSelected = selectedCareType === "Freedom Care Plans" || FREEDOM_PLANS.includes(selectedCareType);
+  const isPostSurgerySelected = 
+    selectedCareType === "Post Surgery Recovery Package" || 
+    POST_SURGERY_PLANS.includes(selectedCareType) ||
+    (Boolean(selectedCareType) && (
+      selectedCareType.toLowerCase().includes("joint replacement") ||
+      selectedCareType.toLowerCase().includes("cardiac surgery") ||
+      selectedCareType.toLowerCase().includes("chemotherapy") ||
+      selectedCareType.toLowerCase().includes("general surgery") ||
+      selectedCareType.toLowerCase().includes("dialysis") ||
+      selectedCareType.toLowerCase().includes("dementia management") ||
+      selectedCareType.toLowerCase().includes("post surgery")
+    ));
+
+  const getMatchedPostSurgeryPlan = (careType: string) => {
+    if (POST_SURGERY_PLANS.includes(careType)) return careType;
+    const lower = (careType || "").toLowerCase();
+    if (lower.includes("joint")) return POST_SURGERY_PLANS[0];
+    if (lower.includes("cardiac")) return POST_SURGERY_PLANS[1];
+    if (lower.includes("cancer") || lower.includes("chemo")) return POST_SURGERY_PLANS[2];
+    if (lower.includes("general surgery")) return POST_SURGERY_PLANS[3];
+    if (lower.includes("ckd") || lower.includes("dialysis")) return POST_SURGERY_PLANS[4];
+    if (lower.includes("dementia")) return POST_SURGERY_PLANS[5];
+    return postSurgerySubPlan;
+  };
 
   const handlePrimaryCareChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const val = e.target.value;
     if (val === "Freedom Care Plans") {
       setValue("careType", freedomSubPlan, { shouldValidate: true });
+    } else if (val === "Post Surgery Recovery Package") {
+      setValue("careType", postSurgerySubPlan, { shouldValidate: true });
     } else {
       setValue("careType", val, { shouldValidate: true });
     }
@@ -277,7 +314,7 @@ export default function AutoBookingModal({ forceOpen = false, initialService, on
                       </label>
                       <div className="relative">
                         <select
-                          value={isFreedomSelected ? "Freedom Care Plans" : selectedCareType}
+                          value={isFreedomSelected ? "Freedom Care Plans" : isPostSurgerySelected ? "Post Surgery Recovery Package" : selectedCareType}
                           onChange={handlePrimaryCareChange}
                           className="flex h-12 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-800 appearance-none focus:outline-none focus:ring-2 focus:ring-[#FF4F81] focus:border-[#FF4F81]"
                         >
@@ -308,6 +345,33 @@ export default function AutoBookingModal({ forceOpen = false, initialService, on
                             className="flex h-10 w-full rounded-lg border border-purple-300 bg-white px-2.5 py-1 text-xs sm:text-sm font-bold text-slate-800 appearance-none focus:outline-none focus:ring-2 focus:ring-[#7B2CBF] focus:border-[#7B2CBF]"
                           >
                             {FREEDOM_PLANS.map((plan, i) => (
+                              <option key={i} value={plan}>{plan}</option>
+                            ))}
+                          </select>
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-purple-600">
+                            <ChevronDown size={14} />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Secondary Post Surgery Recovery Sub-Plan Dropdown */}
+                    {isPostSurgerySelected && (
+                      <div className="space-y-1 p-3 bg-purple-50/80 border border-purple-200 rounded-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                        <label className="block text-xs font-extrabold text-[#8138B5] flex items-center gap-1">
+                          <Activity size={14} className="text-[#8138B5]" />
+                          <span>Select Post Surgery Recovery Plan<span className="text-red-500 ml-0.5">*</span></span>
+                        </label>
+                        <div className="relative">
+                          <select
+                            value={getMatchedPostSurgeryPlan(selectedCareType)}
+                            onChange={(e) => {
+                              setPostSurgerySubPlan(e.target.value);
+                              setValue("careType", e.target.value, { shouldValidate: true });
+                            }}
+                            className="flex h-10 w-full rounded-lg border border-purple-300 bg-white px-2.5 py-1 text-xs sm:text-sm font-bold text-slate-800 appearance-none focus:outline-none focus:ring-2 focus:ring-[#8138B5] focus:border-[#8138B5]"
+                          >
+                            {POST_SURGERY_PLANS.map((plan, i) => (
                               <option key={i} value={plan}>{plan}</option>
                             ))}
                           </select>

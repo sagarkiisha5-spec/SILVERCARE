@@ -3,10 +3,11 @@ import { Card, CardContent } from "@/src/components/ui/card";
 import { Input } from "@/src/components/ui/input";
 import { Button } from "@/src/components/ui/button";
 import { format } from "date-fns";
-import { Trash2, Phone, MapPin, Search, Filter, RefreshCw, Send, Download, Stethoscope, AlertTriangle } from "lucide-react";
+import { Trash2, Phone, MapPin, Search, RefreshCw, Send, Download, AlertTriangle, CloudUpload, CheckCheck } from "lucide-react";
 import { 
   subscribeToServiceRequests, 
   updateServiceRequestStatus, 
+  syncAllStatusesToFirestore,
   deleteServiceRequest,
   clearAllServiceRequests 
 } from "@/src/lib/requestManager";
@@ -19,6 +20,8 @@ export default function AdminRequests() {
   const [showClearModal, setShowClearModal] = useState(false);
   const [isClearing, setIsClearing] = useState(false);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [categoryFilter, setCategoryFilter] = useState("All");
@@ -132,14 +135,30 @@ export default function AdminRequests() {
   }, []);
 
   const handleStatusChange = async (id: string, newStatus: string) => {
+    // Find the full request so we can upsert it to localStorage (fixes Firestore-only entries)
+    const fullReq = requests.find(r => r.id === id);
     setRequests(prev => prev.map(r => r.id === id ? { ...r, status: newStatus, updatedAt: Date.now() } : r));
     setUpdatingId(id);
     try {
-      await updateServiceRequestStatus(id, newStatus);
+      await updateServiceRequestStatus(id, newStatus, fullReq);
     } catch (err) {
       console.error("Status update error:", err);
     } finally {
       setUpdatingId(null);
+    }
+  };
+
+  const handleSaveAll = async () => {
+    setIsSaving(true);
+    setSaveSuccess(false);
+    try {
+      await syncAllStatusesToFirestore(requests);
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 3000);
+    } catch (err) {
+      console.error("Save all error:", err);
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -232,6 +251,26 @@ export default function AdminRequests() {
             className="text-xs font-bold border-slate-200 hover:bg-purple-50 hover:text-[#7B2CBF] shadow-2xs h-9 px-3 rounded-xl flex items-center gap-1.5"
           >
             <Download size={14} /> Export CSV
+          </Button>
+
+          <Button
+            onClick={handleSaveAll}
+            disabled={isSaving}
+            variant="outline"
+            className={`text-xs font-bold h-9 px-3 rounded-xl flex items-center gap-1.5 shadow-2xs transition-all ${
+              saveSuccess
+                ? "border-emerald-400 bg-emerald-50 text-emerald-700"
+                : "border-[#7B2CBF] text-[#7B2CBF] hover:bg-purple-50"
+            }`}
+            title="Save all status changes to cloud"
+          >
+            {isSaving ? (
+              <><RefreshCw size={14} className="animate-spin" /> Saving...</>
+            ) : saveSuccess ? (
+              <><CheckCheck size={14} /> Saved! </>
+            ) : (
+              <><CloudUpload size={14} /> Save Changes</>
+            )}
           </Button>
           <span className="text-xs font-bold px-3 py-1.5 bg-purple-100 text-[#7B2CBF] rounded-full border border-purple-200">
             Total Requests: {requests.length}

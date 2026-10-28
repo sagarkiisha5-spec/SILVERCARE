@@ -351,19 +351,51 @@ export function subscribeToServiceRequests(onUpdate: (requests: ServiceRequestIt
 }
 
 /**
- * Universal status update helper
+ * Universal status update helper.
+ * Pass the full `item` so that Firestore-only entries are also upserted to
+ * localStorage, preventing emitMerged from reverting the status on next sync.
  */
-export async function updateServiceRequestStatus(id: string, newStatus: string) {
-  updateLocalRequestStatus(id, newStatus);
+export async function updateServiceRequestStatus(
+  id: string,
+  newStatus: string,
+  fullItem?: ServiceRequestItem
+) {
+  const now = Date.now();
+  if (fullItem) {
+    // Upsert the whole item with new status so localStorage always has it
+    saveLocalRequest({ ...fullItem, id, status: newStatus, updatedAt: now });
+  } else {
+    updateLocalRequestStatus(id, newStatus);
+  }
   try {
     await ensureAuth();
     await updateDoc(doc(db, "serviceRequests", id), {
       status: newStatus,
-      updatedAt: Date.now(),
+      updatedAt: now,
     });
   } catch (e) {
     console.warn("Firestore status update warning (updated locally):", e);
   }
+}
+
+/**
+ * Bulk-sync: push current status of every item to Firestore.
+ * Used by the "Save All Changes" button in admin panel.
+ */
+export async function syncAllStatusesToFirestore(items: ServiceRequestItem[]) {
+  await ensureAuth();
+  const results = await Promise.allSettled(
+    items.map((item) =>
+      item.id
+        ? updateDoc(doc(db, "serviceRequests", item.id), {
+            status: item.status,
+            updatedAt: Date.now(),
+          })
+        : Promise.resolve()
+    )
+  );
+  const failed = results.filter((r) => r.status === "rejected").length;
+  return { total: items.length, failed };
 }
 
 /**

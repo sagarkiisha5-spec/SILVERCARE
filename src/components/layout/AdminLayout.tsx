@@ -56,8 +56,8 @@ export default function AdminLayout() {
       )}
 
       {/* Main Admin Area */}
-      <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-        <div className="mx-auto max-w-6xl">
+      <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 min-w-0">
+        <div className="w-full">
           <Outlet />
         </div>
       </main>

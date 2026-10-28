@@ -351,7 +351,7 @@ export default function AdminRequests() {
       <Card className="border border-slate-200/80 shadow-2xs overflow-hidden">
         <CardContent className="p-0">
           <div className="overflow-x-auto w-full">
-            <table className="w-full min-w-[950px] text-xs text-left">
+            <table className="w-full min-w-[980px] text-xs text-left">
               <thead className="bg-slate-50 text-slate-600 font-bold uppercase tracking-wider border-b border-slate-200">
                 <tr>
                   <th className="px-5 py-3.5 min-w-[150px]">Date & Time</th>
@@ -359,7 +359,7 @@ export default function AdminRequests() {
                   <th className="px-5 py-3.5 min-w-[200px]">Requested Service / Franchise</th>
                   <th className="px-5 py-3.5 min-w-[140px]">City / Location</th>
                   <th className="px-5 py-3.5 min-w-[120px]">Status</th>
-                  <th className="px-5 py-3.5 text-right min-w-[170px]">Actions</th>
+                  <th className="px-5 py-3.5 text-right min-w-[210px]">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -415,7 +415,7 @@ export default function AdminRequests() {
                           <div className="font-bold text-slate-900">{serviceName}</div>
                           {req.message && (
                             <div className="text-slate-600 text-[11px] mt-0.5 italic max-w-xs truncate bg-slate-50 p-1.5 rounded-md border border-slate-100">
-                              "{req.message}"
+                              &ldquo;{req.message}&rdquo;
                             </div>
                           )}
                         </td>
@@ -445,7 +445,7 @@ export default function AdminRequests() {
                             <Button
                               size="sm"
                               onClick={() => handlePatientWhatsApp(req)}
-                              className="h-8 px-2.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs shadow-2xs rounded-xl shrink-0"
+                              className="h-8 px-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs shadow-2xs rounded-xl shrink-0 whitespace-nowrap"
                               title="Send WhatsApp message"
                             >
                               <Send size={13} className="mr-1" /> WhatsApp

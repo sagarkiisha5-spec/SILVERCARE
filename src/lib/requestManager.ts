@@ -44,56 +44,32 @@ function addDeletedId(id: string) {
   }
 }
 
-const INITIAL_DEMO_REQUESTS: ServiceRequestItem[] = [
-  {
-    id: "req_demo_1",
-    patientName: "Rajesh Malhotra",
-    firstName: "Rajesh Malhotra",
-    phone: "+91 9810234567",
-    email: "rajesh.malhotra@gmail.com",
-    city: "Gurgaon Sector 54",
-    location: "Gurgaon Sector 54",
-    serviceName: "Nursing & Attendant Care",
-    careType: "Nursing & Attendant Care",
-    service: "Nursing & Attendant Care",
-    message: "Need 24/7 ICU trained home nurse for elderly father post-surgery.",
-    status: "New",
-    createdAt: Date.now() - 3600000 * 2,
-    updatedAt: Date.now() - 3600000 * 2,
-  },
-  {
-    id: "req_demo_2",
-    patientName: "Sunita Verma",
-    firstName: "Sunita Verma",
-    phone: "+91 9871122334",
-    email: "sunita.v@yahoo.com",
-    city: "South Delhi",
-    location: "South Delhi",
-    serviceName: "Doctor Visit at Home",
-    careType: "Doctor Visit at Home",
-    service: "Doctor Visit at Home",
-    message: "Home physician consultation required for senior citizen routine checkup.",
-    status: "Contacted",
-    createdAt: Date.now() - 3600000 * 5,
-    updatedAt: Date.now() - 3600000 * 1,
-  },
-  {
-    id: "req_demo_3",
-    patientName: "Captain R.K. Sharma",
-    firstName: "Captain R.K. Sharma",
-    phone: "+91 9958004321",
-    email: "rk.sharma@defence.gov.in",
-    city: "Noida Sector 62",
-    location: "Noida Sector 62",
-    serviceName: "Physiotherapy at Home",
-    careType: "Physiotherapy at Home",
-    service: "Physiotherapy at Home",
-    message: "Stroke recovery mobility therapy 5 days a week.",
-    status: "In Progress",
-    createdAt: Date.now() - 3600000 * 24,
-    updatedAt: Date.now() - 3600000 * 12,
+// No demo/seed data — the admin panel shows only real enquiries submitted by website visitors.
+
+/**
+ * One-time migration: purge any demo/seed entries that were injected by earlier
+ * versions of this file.  Runs automatically the moment this module is imported.
+ */
+(function purgeLegacyDemoEntries() {
+  try {
+    if (typeof localStorage === "undefined") return;
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return;
+    const cleaned = parsed.filter(
+      (r: any) => r && r.id && !String(r.id).startsWith("req_demo_")
+    );
+    if (cleaned.length !== parsed.length) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cleaned));
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("silvercare_requests_updated"));
+      }
+    }
+  } catch {
+    // silently ignore — non-critical cleanup
   }
-];
+})();
 
 export function getLocalRequests(): ServiceRequestItem[] {
   try {
@@ -101,13 +77,14 @@ export function getLocalRequests(): ServiceRequestItem[] {
     const deleted = getDeletedIds();
     const data = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (data === null) {
-      const initial = INITIAL_DEMO_REQUESTS.filter(r => !deleted.has(r.id || ""));
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(initial));
-      return initial;
+      // First time ever — start with an empty list, no demo seeding
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([]));
+      return [];
     }
     const parsed = JSON.parse(data);
     if (!Array.isArray(parsed)) return [];
-    return parsed.filter(r => !deleted.has(r.id || ""));
+    // Also strip out any lingering demo entries that may have been seeded in a past session
+    return parsed.filter(r => !deleted.has(r.id || "") && !String(r.id || "").startsWith("req_demo_"));
   } catch (e) {
     console.warn("Error reading local requests:", e);
     return [];
@@ -161,6 +138,23 @@ export function deleteLocalRequest(id: string) {
 }
 
 /**
+ * Remove a local entry by ID WITHOUT adding it to the deleted-IDs blacklist.
+ * Used internally when swapping a temp ID entry for the canonical Firestore ID.
+ */
+function removeLocalEntryById(id: string) {
+  try {
+    if (typeof localStorage === "undefined") return;
+    const data = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (!data) return;
+    const parsed: ServiceRequestItem[] = JSON.parse(data);
+    const updated = parsed.filter((r) => r.id !== id);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+  } catch (e) {
+    console.warn("Error removing local entry by id:", e);
+  }
+}
+
+/**
  * Ensures anonymous firebase auth if not logged in
  */
 async function ensureAuth() {
@@ -174,7 +168,8 @@ async function ensureAuth() {
 }
 
 /**
- * Universal function to save a service request both locally and to Firestore
+ * Universal function to save a service request both locally and to Firestore.
+ * Guards against duplicate submissions (same phone within 30 seconds).
  */
 export async function submitServiceRequest(data: {
   patientName: string;
@@ -187,10 +182,26 @@ export async function submitServiceRequest(data: {
 }): Promise<ServiceRequestItem> {
   const formattedPhone = data.phone.startsWith("+91") ? data.phone : `+91 ${data.phone}`;
   const timestamp = Date.now();
-  const reqId = `req_${timestamp}_${Math.random().toString(36).substring(2, 7)}`;
+
+  // ── Duplicate-submission guard ──────────────────────────────────────────────
+  // Prevent accidental double-submits: if the same phone submitted within the
+  // last 30 seconds, return the existing entry without creating a new one.
+  const existing = getLocalRequests();
+  const recent = existing.find(
+    (r) =>
+      r.phone === formattedPhone &&
+      Math.abs((typeof r.createdAt === "number" ? r.createdAt : 0) - timestamp) < 30_000
+  );
+  if (recent) {
+    console.info("Duplicate submission blocked for phone:", formattedPhone);
+    return recent;
+  }
+  // ────────────────────────────────────────────────────────────────────────────
+
+  const tempId = `req_${timestamp}_${Math.random().toString(36).substring(2, 7)}`;
 
   const newItem: ServiceRequestItem = {
-    id: reqId,
+    id: tempId,
     patientName: data.patientName,
     firstName: data.patientName,
     phone: formattedPhone,
@@ -207,7 +218,7 @@ export async function submitServiceRequest(data: {
     updatedAt: timestamp,
   };
 
-  // 1. Save to localStorage immediately
+  // 1. Save to localStorage immediately so admin sees it instantly
   saveLocalRequest(newItem);
 
   // 2. Ensure auth & push to Firestore
@@ -215,9 +226,14 @@ export async function submitServiceRequest(data: {
     await ensureAuth();
     const docRef = await addDoc(collection(db, "serviceRequests"), {
       ...newItem,
+      id: undefined, // Firestore will assign its own ID; don't store the temp one
       createdAt: timestamp,
       updatedAt: timestamp,
     });
+
+    // Replace the temp-ID local entry with the canonical Firestore ID entry
+    // so admin panel never shows two rows for the same submission.
+    removeLocalEntryById(tempId);
     newItem.id = docRef.id;
     saveLocalRequest(newItem);
   } catch (err) {
@@ -239,14 +255,30 @@ export function subscribeToServiceRequests(onUpdate: (requests: ServiceRequestIt
     lastFirestoreItems = firestoreItems;
     const localItems = getLocalRequests();
     const deleted = getDeletedIds();
+
+    // Build a map seeded with Firestore data first, then let localStorage OVERWRITE.
+    // This ensures that admin status changes saved locally are never reverted by a
+    // stale Firestore snapshot arriving later.
     const map = new Map<string, ServiceRequestItem>();
 
-    localItems.forEach((item) => {
+    // 1. Seed from Firestore (lower priority)
+    firestoreItems.forEach((item) => {
       if (item.id && !deleted.has(item.id)) map.set(item.id, item);
     });
 
-    firestoreItems.forEach((item) => {
-      if (item.id && !deleted.has(item.id)) map.set(item.id, item);
+    // 2. Overwrite with localStorage (higher priority — reflects latest admin edits)
+    localItems.forEach((item) => {
+      if (item.id && !deleted.has(item.id)) {
+        const existing = map.get(item.id);
+        if (existing) {
+          // Merge: keep the most recently updatedAt version's status
+          const localUpdated = typeof item.updatedAt === "number" ? item.updatedAt : 0;
+          const fsUpdated = typeof existing.updatedAt === "number" ? existing.updatedAt : (existing.updatedAt?.seconds ? existing.updatedAt.seconds * 1000 : 0);
+          map.set(item.id, localUpdated >= fsUpdated ? item : existing);
+        } else {
+          map.set(item.id, item);
+        }
+      }
     });
 
     const merged = Array.from(map.values());

@@ -177,6 +177,101 @@ export default function About() {
           </div>
         </section>
 
+        {/* SENIOR LEADERSHIP TEAM */}
+        <section className="py-16 md:py-24 bg-white border-t border-slate-100" id="leadership-team">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+            <div className="text-center max-w-3xl mx-auto mb-14">
+              <span className="text-[#E91E63] font-bold uppercase tracking-wider text-xs block mb-2">The People Behind SilverCare</span>
+              <h2 className="text-3xl sm:text-4xl font-black text-[#17345E] leading-tight">
+                Senior Leadership Team
+              </h2>
+              <p className="mt-4 text-slate-600 text-base leading-relaxed">
+                Experienced leaders united by a shared commitment to making quality eldercare accessible, dependable, and deeply humane.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+              {/* Navin Chauhan */}
+              <div className="bg-gradient-to-br from-pink-50/60 via-white to-purple-50/40 rounded-3xl border border-pink-100 shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+                <div className="p-8">
+                  <div className="flex items-start gap-5">
+                    <div className="shrink-0">
+                      <img
+                        src="/navin-chauhan.png"
+                        alt="Navin Chauhan – Founder & CEO, SilverCare India"
+                        className="h-24 w-24 rounded-2xl object-cover border-2 border-[#E91E63] shadow-md"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = "https://ui-avatars.com/api/?name=Navin+Chauhan&background=E91E63&color=fff&size=96";
+                        }}
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="inline-block bg-pink-100 text-[#E91E63] text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-pink-200 mb-2">Founder</span>
+                      <h3 className="text-xl font-black text-[#17345E] leading-tight">Mr. Navin Chauhan</h3>
+                      <p className="text-sm font-bold text-[#E91E63] mt-0.5">Founder & CEO</p>
+                    </div>
+                  </div>
+                  <div className="mt-5 space-y-3 text-sm text-slate-600 leading-relaxed">
+                    <p>
+                      Navin Chauhan founded SilverCare India with a singular purpose — to bridge the gap between hospitals and home for India's ageing population. With deep roots in healthcare coordination and a personal understanding of eldercare challenges, he built SilverCare from the ground up.
+                    </p>
+                    <p>
+                      His philosophy: <span className="italic font-semibold text-[#17345E]">"Eldercare is not only about medical support. It is about presence, patience, and respect."</span>
+                    </p>
+                  </div>
+                  <div className="mt-5 pt-4 border-t border-pink-100">
+                    <div className="flex flex-wrap gap-2">
+                      {["Healthcare Strategy", "Business Development", "Eldercare Operations"].map(tag => (
+                        <span key={tag} className="text-[11px] font-semibold bg-white border border-slate-200 text-slate-600 px-2.5 py-0.5 rounded-full">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Rajeev Bahl */}
+              <div className="bg-gradient-to-br from-blue-50/60 via-white to-indigo-50/40 rounded-3xl border border-blue-100 shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+                <div className="p-8">
+                  <div className="flex items-start gap-5">
+                    <div className="shrink-0">
+                      <img
+                        src="/team/rajeev-bahl.jpg"
+                        alt="Mr. Rajeev Bahl – Chief Operating Officer, SilverCare India"
+                        className="h-24 w-24 rounded-2xl object-cover border-2 border-[#17345E] shadow-md"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = "https://ui-avatars.com/api/?name=Rajeev+Bahl&background=17345E&color=fff&size=96";
+                        }}
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="inline-block bg-blue-100 text-[#17345E] text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-blue-200 mb-2">Senior Leadership</span>
+                      <h3 className="text-xl font-black text-[#17345E] leading-tight">Mr. Rajeev Bahl</h3>
+                      <p className="text-sm font-bold text-[#17345E]/80 mt-0.5">Chief Operating Officer</p>
+                    </div>
+                  </div>
+                  <div className="mt-5 space-y-3 text-sm text-slate-600 leading-relaxed">
+                    <p>
+                      A seasoned business leader with nearly five decades of experience across healthcare, pharmaceuticals, business development and organisational leadership. Throughout his career, he has held senior leadership positions, driving business growth, building high-performance teams and leading strategic business initiatives.
+                    </p>
+                    <p>
+                      At SilverCare, Rajeev brings his extensive healthcare experience and business acumen to strengthen operational excellence and expand service capabilities. He believes: <span className="italic font-semibold text-[#17345E]">"Care is not merely a service delivered; it is a responsibility earned through trust, empathy, accountability and consistent execution."</span>
+                    </p>
+                  </div>
+                  <div className="mt-5 pt-4 border-t border-blue-100">
+                    <div className="flex flex-wrap gap-2">
+                      {["Healthcare Operations", "Pharmaceuticals", "Business Leadership"].map(tag => (
+                        <span key={tag} className="text-[11px] font-semibold bg-white border border-slate-200 text-slate-600 px-2.5 py-0.5 rounded-full">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
         {/* CTA BANNER */}
         <section className="py-16 bg-[linear-gradient(90deg,#7B2CBF,#9D4EDD)] text-center text-white">
           <div className="container mx-auto px-4 max-w-3xl">

@@ -44,6 +44,18 @@ export default function Professionals() {
       bio: [
         "Komal Gupta holds a Master’s degree from NIT Karnataka and brings 13+ years of experience in biopharma and eldercare. She leads product strategy, caregiver training frameworks, and quality oversight systems at SilverCare India."
       ]
+    },
+    {
+      id: "rajeev-bahl",
+      name: "Mr. Rajeev Bahl",
+      designation: "Chief Operating Officer",
+      image: "/team/rajeev-bahl.jpg",
+      quote: "Care is not merely a service delivered; it is a responsibility earned through trust, empathy, accountability and consistent execution.",
+      bio: [
+        "A seasoned business leader with nearly five decades of experience across healthcare, pharmaceuticals, business development and organisational leadership.",
+        "At SilverCare, Rajeev brings his extensive healthcare experience and business acumen to strengthen operational excellence, expand service capabilities and build a sustainable, customer-centric organisation.",
+        "His vision is to help SilverCare establish itself as a trusted name in home healthcare, making quality care accessible, dependable and reassuring for families."
+      ]
     }
   ];
 
@@ -321,6 +333,73 @@ export default function Professionals() {
                   <p className="text-slate-700 text-xs sm:text-sm leading-[1.7] font-normal">
                     Komal Gupta holds a Master's degree from NIT Karnataka and brings over 13 years of experience in biopharma and eldercare. She leads product strategy, caregiver training frameworks, and clinical quality oversight systems at SilverCare India.
                   </p>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* SENIOR LEADERSHIP – COO */}
+          <div className="mb-16 lg:mb-20">
+            <div className="text-center max-w-2xl mx-auto mb-8">
+              <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.18em] text-[#17345E] bg-blue-50 px-3 py-1 rounded-full border border-blue-100/90 inline-block mb-2">
+                Senior Leadership
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black text-[#17345E]">
+                Chief Operating Officer
+              </h3>
+            </div>
+
+            <div className="max-w-[900px] mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="bg-[linear-gradient(145deg,#FFFFFF_0%,#F5F8FF_100%)] rounded-[26px] p-6 sm:p-8 border border-blue-100/80 shadow-[0_8px_24px_rgba(23,52,94,0.04)] hover:shadow-[0_12px_32px_rgba(23,52,94,0.07)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8"
+              >
+                {/* Photo */}
+                <div className="w-28 h-28 sm:w-36 sm:h-36 shrink-0 rounded-[20px] overflow-hidden bg-blue-50 border-2 border-blue-100 shadow-xs relative">
+                  <img
+                    src={leadershipTeam[2].image}
+                    alt={leadershipTeam[2].name}
+                    className="w-full h-full object-cover object-top"
+                    loading="lazy"
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="text-center sm:text-left space-y-3 flex-1">
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-[#17345E] bg-blue-50/90 px-2.5 py-0.5 rounded-md border border-blue-100 mb-1.5 inline-block">
+                      Operations &amp; Business Leadership
+                    </span>
+                    <h4 className="text-2xl sm:text-[26px] font-black text-[#17345E]">{leadershipTeam[2].name}</h4>
+                    <p className="text-xs sm:text-[13px] font-extrabold uppercase tracking-wider text-[#17345E]/70 mt-0.5">
+                      {leadershipTeam[2].designation}
+                    </p>
+                  </div>
+
+                  {/* Quote */}
+                  <div className="relative rounded-xl bg-blue-50/60 border-l-[3px] border-[#17345E] px-4 py-3">
+                    <p className="text-xs sm:text-sm font-medium italic leading-relaxed text-[#17345E]">
+                      &ldquo;{leadershipTeam[2].quote}&rdquo;
+                    </p>
+                  </div>
+
+                  <div className="space-y-2 text-slate-700 text-xs sm:text-sm leading-[1.7] font-normal">
+                    {leadershipTeam[2].bio.map((para: string, i: number) => (
+                      <p key={i}>{para}</p>
+                    ))}
+                  </div>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {["~50 Years Experience", "Healthcare & Pharma", "Operations Excellence", "Business Development"].map(tag => (
+                      <span key={tag} className="text-[11px] font-semibold bg-white border border-blue-100 text-[#17345E] px-2.5 py-0.5 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             </div>
